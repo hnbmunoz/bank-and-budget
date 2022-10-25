@@ -1,0 +1,15 @@
+@import "./components/panels/panels";
+
+body {
+  overflow: hidden;
+}
+
+.flex-row {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
