@@ -1,0 +1,18 @@
+.inner-nav {
+  .inner-nav-list {
+    justify-content: flex-end;
+    // height: 100%;
+    padding: 0;
+    margin: 0;
+
+    .inner-nav-items {
+      list-style-type: none;
+
+      .inner-nav-links {
+        text-decoration: none;
+
+        color: #333;
+      }
+    }
+  }
+}

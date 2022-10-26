@@ -1,9 +1,10 @@
 @import "./components/panels/panels";
+@import "./components/panels/sidepanels";
+@import "./components/panels/innersidepanels";
 
 body {
   overflow: hidden;
 }
-
 .flex-row {
   display: flex;
 }
@@ -13,3 +14,7 @@ body {
   flex-direction: column;
 }
 
+//Robert
+.hide {
+  display: none;
+}

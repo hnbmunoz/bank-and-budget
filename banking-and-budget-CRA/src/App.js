@@ -1,8 +1,7 @@
-import "./App.css";
 import "./styles/base.scss";
 import React, { useState } from "react";
 import { PanelSections, PanelSectionHolder } from "./components/panels";
-import Counter from "./components/counter.js"
+import SidePanel from "./components/sidepanels";
 
 function App() {
   const [displayIndex, setDisplayIndex] = useState(0);
@@ -19,21 +18,25 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App flex-row">
+      <div>
+        <SidePanel></SidePanel>
+      </div>
+
       {/* <img src={logo} className="App-logo" alt="logo" />*/}
-      <PanelSectionHolder
-        panelIdx={displayIndex}
-        selectedIndex={handleSwitchPanel}
-      >
-        {[
-          <PanelSections color="green">
-            <Counter />
-          </PanelSections>,
-          <PanelSections  color="blue">
-            <label>Panel 2</label>
-          </PanelSections>,
-        ]}
-      </PanelSectionHolder>
+      <div>
+        <PanelSectionHolder
+          panelIdx={displayIndex}
+          selectedIndex={handleSwitchPanel}
+        >
+          {[
+            <PanelSections color="green"></PanelSections>,
+            <PanelSections color="blue">
+              <label>Panel 2</label>
+            </PanelSections>,
+          ]}
+        </PanelSectionHolder>
+      </div>
     </div>
   );
 }
