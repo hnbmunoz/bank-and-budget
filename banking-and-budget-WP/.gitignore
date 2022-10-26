@@ -1,2 +1,8 @@
 node_modules
 client/dist
+banking-and-budget-CRA/node_modules
+banking-and-budget-CRA/public
+banking-and-budget-CRA/node_modules/build
+
+banking-and-budget-WP/node_modules
+banking-and-budget-WP/dist
