@@ -1,0 +1,83 @@
+.input-container {
+  position:relative; 
+  width:100%;  
+  text-align:center;  
+  background-color: transparent;
+  margin: 0.5rem 0 1.5rem;
+  
+  &__textbox {   
+    width: 100%;
+    background-color: transparent;
+    border-color: #000;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 0.63rem;
+    color: inherit;
+    padding: 0.5rem;
+    font-size: 1.3rem;
+    box-sizing: border-box;
+
+    &:focus  {
+      outline: none;       
+      //  ~{        
+      //     .floating-placeholder {                 
+      //       color: orange;
+      //       font-size: 0.55rem;
+      //       transform: translateY(-1.5rem);
+      //     }
+      //  }
+    }
+    
+    &:not(:placeholder-shown) + .input-placeholder {
+      font-size: 0.55rem;
+      transform: translateY(-0.5rem);
+    }
+  }
+
+  .input-placeholder {
+    position: absolute;;    
+    font-size: 0.625rem;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem; 
+    left: 0;  
+    top: 0;
+    pointer-events: none;
+    transition: all 0.7s;
+    font-size: 1.25rem;
+  }
+
+  .placeholder-icons-container {    
+    margin-top: 0.5rem;
+    margin-right: 0.5rem; 
+    right: 0;  
+    top: 0;       
+    cursor: pointer;
+    font-size: 1.2rem;       
+    position: absolute;       
+    .placeholder-button {
+      background-color: inherit; 
+      border: none;
+      color: orange; 
+      transition: all 0.3s;
+      &:hover {
+        color: #fff ;
+        cursor: pointer;
+        transform: scale(1.5);        
+        color: #fff;       
+      }      
+      &:active {
+        cursor: pointer;
+        transform: scale(1);        
+        color: orange;       
+      }
+    }
+  }
+  .validation {
+    position: absolute;
+    font-size: 0.5rem;
+    top: 2.7rem;
+    // margin-left: 0.5rem; 
+    color:red; 
+    font-family: 'Helvetica', 'Arial'
+  }  
+}
