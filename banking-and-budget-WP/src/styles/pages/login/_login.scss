@@ -1,0 +1,38 @@
+.login { 
+  height: 100vh;
+  width: 100%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  font-size: 1.5rem;
+  height: 33.25rem;
+  height: fit-content;
+  width: fit-content;
+  min-width: 30rem;
+  border-radius: 0.63rem;
+  display:flex;  
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;  
+  border: 0.18rem solid #000;
+  padding: 1rem;
+  form {
+    width: 100%;
+  }
+}
+
+
+
+.forgotPW {
+  position: relative;
+  top: -1.25rem;
+   &:hover {
+      cursor: pointer;
+      color: #03e9f4;
+   }
+}
+
+

@@ -1,11 +1,10 @@
-// import logo from "./logo.svg";
 import "./App.css";
 import "./styles/base.scss";
 import React, { useState } from "react";
+import { MainPage } from "./pages/MainPage";
 import { PanelSections, PanelSectionHolder } from "./components/panels";
 import Counter from "./components/counter.js"
 
-// import TestLogo from "./TrialLogo.png"
 
 function App() {
   const [displayIndex, setDisplayIndex] = useState(0);
@@ -23,8 +22,10 @@ function App() {
 
   return (
     <div className="App">
-      {/* <img src={logo} className="App-logo" alt="logo" />*/}
-      <PanelSectionHolder
+
+
+     <MainPage />
+      {/* <PanelSectionHolder
         panelIdx={displayIndex}
         selectedIndex={handleSwitchPanel}
       >
@@ -36,7 +37,7 @@ function App() {
             <label>Panel 2</label>
           </PanelSections>,
         ]}
-      </PanelSectionHolder>
+      </PanelSectionHolder> */}
     </div>
   );
 }
