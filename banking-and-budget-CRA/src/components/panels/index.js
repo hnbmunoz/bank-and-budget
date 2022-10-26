@@ -21,7 +21,7 @@ const PanelSectionHolder = ({ children = [], panelIdx = 0, selectedIndex }) => {
             <div
               key={idx}
               className="rdo-container"
-              style={{ top: `${2 * idx}rem` }}              
+              style={{ top: `${2 * idx}rem` }}
             >
               <input
                 data-panelradio="main"
