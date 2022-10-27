@@ -49,6 +49,15 @@ export const UserInterface = () => {
           accountsButton={handleSwitchPanel}
           panelClick={handleSwitchPanel}
         />
+
+
+        {/* 
+          <SidePanel> 
+            <SidePanelButton />home
+            <SidePanelButton />transaction
+          
+          </SidePanel>
+        */}
       </div>
 
       <div>
