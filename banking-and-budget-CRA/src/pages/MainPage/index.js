@@ -3,37 +3,52 @@ import { LoginPage } from "../LoginPage";
 import SidePanel from "../../components/sidepanels";
 import { PanelSections, PanelSectionHolder } from "../../components/panels";
 
-
 export const MainPage = () => {
-  const [verifiedAccount, setVerifiedAccount] = useState(false)
+  const [verifiedAccount, setVerifiedAccount] = useState(false);
 
   const handleUserLogin = () => {
-    setVerifiedAccount(true)
-  }
+    setVerifiedAccount(true);
+  };
 
-  const handleChangePanel = () => {
-
-  }
+  const handleChangePanel = () => {};
 
   return (
     <div>
-      {verifiedAccount ? <UserInterface /> : <LoginPage verifyAccount={handleUserLogin}/>}
+      {verifiedAccount ? (
+        <UserInterface />
+      ) : (
+        <LoginPage verifyAccount={handleUserLogin} />
+      )}
     </div>
   );
 };
 
-
 export const UserInterface = () => {
   const [displayIndex, setDisplayIndex] = useState(0);
 
-  const handleSwitchPanel = (selectedIndex) => {   
-    setDisplayIndex(1);
+  const handleSwitchPanel = (e) => {
+    const btnClicked = e.target;
+    const panelIndex = btnClicked.dataset.id;
+    setDisplayIndex(panelIndex);
   };
-  
+
+  const handleCloseNav = () => {
+    const sidePanel = document.querySelector(".nav-bar");
+    const overLay = document.querySelector(".over-lay");
+
+    sidePanel.classList.toggle("hide");
+    overLay.classList.toggle("hide");
+  };
   return (
-    <div className="flex-row">
-     <div>
-        <SidePanel transactionButton={handleSwitchPanel}/>
+    <div className="flex-column">
+      <div>
+        <SidePanel
+          navButton={handleCloseNav}
+          homeButton={handleSwitchPanel}
+          transactionButton={handleSwitchPanel}
+          accountsButton={handleSwitchPanel}
+          panelClick={handleSwitchPanel}
+        />
       </div>
 
       <div>
@@ -42,13 +57,16 @@ export const UserInterface = () => {
           selectedIndex={handleSwitchPanel}
         >
           {[
-            <PanelSections color="green"></PanelSections>,            
+            <PanelSections color="green"></PanelSections>,
             <PanelSections color="blue">
-              <label>Panel 2</label>
+              <label>Transaction</label>
+            </PanelSections>,
+            <PanelSections color="white">
+              <label>Accounts</label>
             </PanelSections>,
           ]}
         </PanelSectionHolder>
       </div>
     </div>
   );
-}
+};
