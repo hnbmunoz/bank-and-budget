@@ -27,17 +27,27 @@ export const UserInterface = () => {
   const [displayIndex, setDisplayIndex] = useState(0);
 
   const handleSwitchPanel = (e) => {
-    const panelIndex = e.target.dataset.id;
+    const btnClicked = e.target;
+    const panelIndex = btnClicked.dataset.id;
     setDisplayIndex(panelIndex);
   };
 
+  const handleCloseNav = () => {
+    const sidePanel = document.querySelector(".nav-bar");
+    const overLay = document.querySelector(".over-lay");
+
+    sidePanel.classList.toggle("hide");
+    overLay.classList.toggle("hide");
+  };
   return (
-    <div className="flex-row">
+    <div className="flex-column">
       <div>
         <SidePanel
+          navButton={handleCloseNav}
           homeButton={handleSwitchPanel}
           transactionButton={handleSwitchPanel}
           accountsButton={handleSwitchPanel}
+          panelClick={handleSwitchPanel}
         />
       </div>
 

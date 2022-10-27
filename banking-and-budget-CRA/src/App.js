@@ -19,9 +19,9 @@ function App() {
   };
 
   return (
-    <div className="App flex-row">
+    <div className="App">
       <MainPage />
-{/* 
+      {/* 
       <div>
         <SidePanel />
       </div>
