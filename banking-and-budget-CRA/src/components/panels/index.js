@@ -33,10 +33,6 @@ const PanelSectionHolder = ({ children = [], panelIdx = 0, selectedIndex }) => {
                   selectedIndex(idx);
                 }}
               />
-              <label
-                for={`panelIndex${idx}`}
-                className="panel-selector-label"
-              ></label>
             </div>
           );
         })}
@@ -45,7 +41,7 @@ const PanelSectionHolder = ({ children = [], panelIdx = 0, selectedIndex }) => {
   );
 };
 
-const PanelSections = ({ children = null, color = "transparent" }) => {
+const PanelSections = ({ children = null, color = "white" }) => {
   return (
     <div className="section-item" style={{ backgroundColor: color }}>
       <div>{children}</div>

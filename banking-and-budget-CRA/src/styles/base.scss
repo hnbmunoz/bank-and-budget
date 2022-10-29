@@ -1,11 +1,7 @@
 @import "./components/panels/panels";
-
-@import "./components/panels/sidepanels";
-@import "./components/panels/innersidepanels";
-
 @import "./components/input/input";
-
 @import "./pages/login/login";
+@import "./components/navigation/navigation";
 
 
 body {
@@ -20,7 +16,6 @@ body {
   flex-direction: column;
 }
 
-//Robert
 .hide {
   display: none;
 }
