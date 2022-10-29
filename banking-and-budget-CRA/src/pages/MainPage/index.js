@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { LoginPage } from "../LoginPage";
-import SidePanel from "../../components/sidepanels";
 import { PanelSections, PanelSectionHolder } from "../../components/panels";
+import { NavigationContainer, NavigationItems } from "../../components/navigation";
 
 export const MainPage = () => {
   const [verifiedAccount, setVerifiedAccount] = useState(false);
@@ -10,12 +10,16 @@ export const MainPage = () => {
     setVerifiedAccount(true);
   };
 
+  const handleUserLogout = () => {
+    setVerifiedAccount(false);
+  };
+
   const handleChangePanel = () => {};
 
   return (
     <div>
       {verifiedAccount ? (
-        <UserInterface />
+        <UserInterface logout={handleUserLogout}/>
       ) : (
         <LoginPage verifyAccount={handleUserLogin} />
       )}
@@ -23,7 +27,7 @@ export const MainPage = () => {
   );
 };
 
-export const UserInterface = () => {
+export const UserInterface = ({logout}) => {
   const [displayIndex, setDisplayIndex] = useState(0);
 
   const handleSwitchPanel = (e) => {
@@ -41,41 +45,30 @@ export const UserInterface = () => {
   };
   return (
     <div className="flex-column">
-      <div>
-        <SidePanel
-          navButton={handleCloseNav}
-          homeButton={handleSwitchPanel}
-          transactionButton={handleSwitchPanel}
-          accountsButton={handleSwitchPanel}
-          panelClick={handleSwitchPanel}
-        />
-
-
-        {/* 
-          <SidePanel> 
-            <SidePanelButton />home
-            <SidePanelButton />transaction
-          
-          </SidePanel>
-        */}
-      </div>
-
-      <div>
+   
+        <NavigationContainer>
+          <NavigationItems itemName="Home" panelIdx={0} itemClick={handleSwitchPanel}/>
+          <NavigationItems itemName="Transaction" panelIdx={1} itemClick={handleSwitchPanel}/>
+          <NavigationItems itemName="Deposit" panelIdx={2} itemClick={handleSwitchPanel}/>
+          <NavigationItems itemName="Log Out" panelIdx={2} itemClick={logout}/>
+        </NavigationContainer> 
+   
         <PanelSectionHolder
           panelIdx={displayIndex}
           selectedIndex={handleSwitchPanel}
         >
           {[
-            <PanelSections color="green"></PanelSections>,
-            <PanelSections color="blue">
+            <PanelSections >
+              <label>DashBoard</label>
+            </PanelSections>,
+            <PanelSections >
               <label>Transaction</label>
             </PanelSections>,
-            <PanelSections color="white">
+            <PanelSections >
               <label>Accounts</label>
             </PanelSections>,
           ]}
         </PanelSectionHolder>
-      </div>
     </div>
   );
 };

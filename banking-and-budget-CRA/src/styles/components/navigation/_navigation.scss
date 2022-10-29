@@ -1,0 +1,42 @@
+.nav-container {
+  width: fit-content;
+  height: 100vh;
+  margin: 0;
+  padding: 1.5rem;
+  background-color: transparent;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+
+  .nav-widget {
+    padding: 1.5rem;
+    border-radius: 2.5rem;
+    min-height: 6.25rem;
+    height: fit-content;
+    width: fit-content;
+    max-width: 18rem;
+    z-index: 99999;
+    border-radius: 2.5rem;
+    background-color: #2B2223;
+    color: #ccc;
+    cursor: grab;
+    align-items: center;
+    justify-content: center;
+
+    &:active {
+      cursor: grabbing;
+    }
+
+    .nav-items {
+      padding: 0.5rem;
+      border-radius: 0.63rem;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        background-color: #fff;
+        color: #000;
+      }
+    }
+  }
+}
