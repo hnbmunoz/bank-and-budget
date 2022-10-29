@@ -1,8 +1,9 @@
-import React from 'react'
+import React,{ useRef } from 'react'
+import useDraggable from '../../utilities/hooks/useDraggable'
 
-const NavigationContainer = ({children}) => {
+const NavigationContainer = ({children, showNav = false}) => {
   return (
-    <div  className='nav-container flex-column'>     
+    <div  className='nav-container flex-column' style={{ display: !showNav && "none" }}>     
       <NavigationWidget>
         {children}
       </NavigationWidget>
@@ -11,8 +12,10 @@ const NavigationContainer = ({children}) => {
 }
 
 const NavigationWidget = ({children}) => {
+  const dragRef = useRef(null);
+  useDraggable(dragRef);
   return (
-    <div  className='nav-widget flex-column'> 
+    <div ref={dragRef} className='nav-widget flex-column'> 
       {children}
     </div>
   )
