@@ -58,6 +58,8 @@ const Input = ({
         message:
           "Must contain at least 1 lower and uppercase character, 1 numeric character, 1 special character, and at least 8 characters",
       }));
+
+    !email && !number && !password && setIsValid({show: true, message: null}) ;
     setUserInput(Input);
   };
 
@@ -97,7 +99,7 @@ const Input = ({
     setUserInput(Number(userInput) - 1);
   };
   return (
-    <div className="input-container">
+    <div name = {`div${name}`} className="input-container">
       <input
         name = {name}
         className="input-container__textbox"
