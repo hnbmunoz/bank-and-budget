@@ -34,6 +34,9 @@ export const NavigationWidget = ({children, isOpen}) => {
 }
 
 export const NavigationItems = ({itemName, panelIdx = 0, itemClick, navIcon, navOpen=true}) => {
+  function testClick(e) {
+    debugger
+  }
   return (
     <div className={`nav-items flex-row ${!navOpen && 'close-item'}`} onClick={itemClick} data-id={panelIdx} >
       {navIcon}

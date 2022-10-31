@@ -2,8 +2,11 @@
 @import "./components/panels/panels";
 @import "./components/input/input";
 @import "./components/button/button";
-@import "./pages/login/login";
 @import "./components/navigation/navigation";
+@import "./components/modal/modal";
+
+@import "./pages/login/login";
+
 
 
 body {

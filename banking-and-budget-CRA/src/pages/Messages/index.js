@@ -1,8 +1,11 @@
 import React from 'react'
+import Modal from '../../components/modal'
 
 const Messages = () => {
   return (
-    <div>Messages</div>
+    <Modal>
+      <div>Messages</div>
+    </Modal>
   )
 }
 

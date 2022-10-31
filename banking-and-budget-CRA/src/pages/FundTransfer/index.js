@@ -1,8 +1,11 @@
 import React from 'react'
+import Modal from '../../components/modal'
 
 const FundTransfer = () => {
   return (
-    <div>FundTransfer</div>
+    <Modal>
+      <div>FundTransfer</div>
+    </Modal>
   )
 }
 

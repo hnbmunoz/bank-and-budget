@@ -31,9 +31,9 @@ export const MainPage = () => {
     setVerifiedAccount(false);
   };
 
-  const handleSwitchPanel = (e) => {
-    const btnClicked = e.target;
-    const panelIndex = btnClicked.dataset.id;
+  const handleSwitchPanel = (e) => {    
+    const btnClicked = e.currentTarget;
+    const panelIndex = btnClicked.dataset.id;    
     setDisplayIndex(panelIndex);
   };
   
@@ -42,9 +42,6 @@ export const MainPage = () => {
     return () => {}
   }, [openNav])
   
-
-
-
   return (
     <div>
        <NavigationContainer showNav={verifiedAccount} navToggle={handleToggleNavbar}>

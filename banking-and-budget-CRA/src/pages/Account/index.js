@@ -1,8 +1,11 @@
 import React from 'react'
+import Modal from '../../components/modal'
 
 const Account = () => {
   return (
-    <div>Account</div>
+      <Modal backgroundColor="#1f1f1f">
+        <div>Account</div>
+      </Modal>    
   )
 }
 

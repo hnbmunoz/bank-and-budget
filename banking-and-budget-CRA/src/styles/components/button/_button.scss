@@ -10,7 +10,8 @@
     padding: 0.3rem;
     letter-spacing: 4px;
     transition: .5s;
-    width: 8rem;
+    width: 20rem;
+    margin: 0.5rem 0;
 
     &:hover {           
       cursor: pointer;
@@ -21,7 +22,6 @@
       box-shadow: 0 0 5px #dc143c,
                 0 0 25px #dc143c,
                 0 0 50px #dc143c,
-                // 0 0 100px #fff;     
     }
 
     &:active { 
@@ -125,9 +125,7 @@
     height: 3.5rem;
     border-style: none;
     font-family: 'Manrope', serif;
-    font-weight: bolder;
-    // top:-17px;
-    // right:-17px;
+    font-weight: bolder;   
     transition: all .3s;
     background-color: #dc143c;
     color: #fff;
@@ -165,17 +163,96 @@
     color: #ccc;
     z-index: 999;
     font-size: 1.5rem;
-    
 
     &:hover {
       background-color: #c20d2b;
-      // filter: brightness(0.5);
       color: #fff;
-      cursor: pointer;    
+      cursor: pointer;   
+      animation: pulse-red 1s forwards; 
+    }
+  }
+
+    
+  @keyframes pulse-red {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7);
+    }
+    
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(255, 82, 82, 0);
+    }
+    
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(255, 82, 82, 0);
+    }
+  }
+}
+
+.rounded-container {
+  .btn-rounded {
+    // position: absolute;
+    border-radius: 3rem;
+    background-color: #dc143c;
+    color: #dadada;
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 8rem;
+    height: 2.5rem;
+    margin-bottom: 0.5rem;
+    border: none;
+    filter: drop-shadow(2px 4px 6px black);
+    margin: 0.5rem 0;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #c20d2b;
+      color: #fff;
+      transform: scale(1.1);   
     }
 
     &:active{
-      // transform: scale(0.7); 
+      cursor: pointer;
+      background-color: #c20d2b;
+      color: #fff;
+      transform: scale(1.0);
     }
   }
+  
+}
+
+.glowing-container {
+  .btn-glow {
+    background-color: #000; //020403 
+    height:3rem;
+    width: 18rem;
+    border-radius: 0.625rem;
+    font-weight: bolder;    
+    border:none;
+    padding: 1em 2em;  
+    transition: all 0.3s;
+    color: rgb(174, 172, 172);
+
+    &:hover {
+      cursor: pointer;    
+      border: 0.125rem solid #dc143c;
+      transform: translateY(-0.25rem);
+      border-color:	#dc143c;
+      color: #fff;
+      box-shadow: 0 0.5rem 0.5rem -0.4rem #dc143c;  
+    }
+
+    &:active{
+      transform: translateY(0.15rem);
+      background-color:	#dc143c;
+      border: none;
+      color: #fff;
+      box-shadow: 0 0 0.9375rem #dc143c,
+      // 0 0 1.875rem #077c7c,
+      // 0 0 2.9rem #0bd3d3, ;    
+    }
+  }
+  
 }
