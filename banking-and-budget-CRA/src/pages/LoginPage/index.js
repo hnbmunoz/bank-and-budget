@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "../../components/input";
 import Wallpaper from "../../assets/wallpapers/Login_wallpaper.png";
 import { NeonButton, RoundedButton, GlowingButton } from "../../components/button";
@@ -67,6 +67,12 @@ export const SignUpForm = ({returnLogin}) => {
 export const LoginPage = ({verifyAccount}) => {
   const [signUp, setSignUp] = useState(false)
   const [userStore, setUserStore, getUserStore] = useLocaleStorage("registeredUsers", []);
+
+  useEffect(() => {
+    getUserStore();
+    return () => {}
+  }, [signUp])
+  
 
   const returnToLoginPage = (e) => {
     setSignUp(false)
