@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import { Input } from "../../components/input";
 import Wallpaper from "../../assets/wallpapers/Login_wallpaper.png"
-import { NeonButton } from "../../components/button";
+import { NeonButton, RoundedButton, GlowingButton } from "../../components/button";
 
 export const SignInForm = ({newUser, verifyUser}) => {
+  const handleLoginClick = () => {
+    setTimeout(() => {verifyUser()},500)
+  }
+
+  const handleRegisterClick = () => {
+    setTimeout(() => {newUser()},500)
+  }
+
   return (
     <>
-      <form>
-        <Input email placeholderText="Enter Email" />
-        <Input password placeholderText="Password" />
+      <form className="flex-column">
+        <Input name="signInMail" email placeholderText="Enter E-mail" />
+        <Input name="signInPW" password placeholderText="Password" />
         <NeonButton displayText="Login" buttonClick={verifyUser}/>
-        <button onClick={newUser}> New User ? Sign Up </button>
+        <RoundedButton displayText="Register" buttonClick={newUser}/>
       </form>
     </>
   );
@@ -19,12 +27,12 @@ export const SignInForm = ({newUser, verifyUser}) => {
 export const SignUpForm = ({returnLogin}) => {
   return (
     <>
-      <form>
-        <Input  placeholderText="First Name" />
-        <Input  placeholderText="Last Name" />
-        <Input email placeholderText="Enter Email" />
-        <Input password placeholderText="Password" />
-        <button onClick={returnLogin}> Register </button>
+      <form className="flex-column">
+        <Input name="signUpFname"  placeholderText="First Name" />
+        <Input name="signUpLname" placeholderText="Last Name" />
+        <Input name="signUpMail"email placeholderText="Enter E-mail" />
+        <Input name="signUpPW" password placeholderText="Password" />
+        <GlowingButton displayText="Sign Up" buttonClick={returnLogin}/>
       </form>
     </>
   );

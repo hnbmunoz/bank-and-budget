@@ -20,6 +20,7 @@ const InputPlaceholder = ({ display, deactivate = false }) => {
 };
 
 const Input = ({
+  name,
   email = false,
   password = false,
   number = false,
@@ -55,7 +56,7 @@ const Input = ({
     password &&
       (setIsValid({show: isValidPassword(Input),
         message:
-          "Password must contain at least 1 lowercase and 1 uppercase character, 1 numeric character, at least one special character, and must be eight characters or longer",
+          "Must contain at least 1 lower and uppercase character, 1 numeric character, 1 special character, and at least 8 characters",
       }));
     setUserInput(Input);
   };
@@ -98,6 +99,7 @@ const Input = ({
   return (
     <div className="input-container">
       <input
+        name = {name}
         className="input-container__textbox"
         type={!password ? "text" : showPassword ? "text" : "password"}
         placeholder=" "

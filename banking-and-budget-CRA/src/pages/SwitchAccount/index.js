@@ -1,8 +1,11 @@
 import React from 'react'
+import Modal from '../../components/modal'
 
 const SwitchAccount = () => {
   return (
-    <div>Switch Account</div>
+    <Modal>
+      <div>Switch Account</div>
+    </Modal>
   )
 }
 

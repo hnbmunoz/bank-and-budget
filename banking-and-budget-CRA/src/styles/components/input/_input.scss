@@ -8,12 +8,13 @@
   &__textbox {   
     width: 100%;
     background-color: transparent;
-    border-color: #000;
+    border-color: #808080;
     border-width: 1px;
     border-style: solid;
     border-radius: 0.63rem;
     color: inherit;
     padding: 0.5rem;
+    padding-top: 0.7rem;
     font-size: 1.3rem;
     box-sizing: border-box;
 
@@ -57,7 +58,7 @@
     .placeholder-button {
       background-color: inherit; 
       border: none;
-      color: orange; 
+      color: #dc143c; 
       transition: all 0.3s;
       &:hover {
         color: #fff ;
@@ -68,16 +69,17 @@
       &:active {
         cursor: pointer;
         transform: scale(1);        
-        color: orange;       
+        color: #dc143c;       
       }
     }
   }
   .validation {
     position: absolute;
-    font-size: 0.5rem;
-    top: 2.7rem;
+    font-size: 0.6rem;
+    top: 3rem;
     // margin-left: 0.5rem; 
     color:red; 
-    font-family: 'Helvetica', 'Arial'
+    font-family: 'Helvetica', 'Arial';
+    word-wrap: break-word;
   }  
 }

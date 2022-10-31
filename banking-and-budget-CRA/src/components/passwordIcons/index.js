@@ -8,9 +8,9 @@ export default function PasswordIcons({
     <div className="icon-container">
       <button className="placeholder-button" onClick={onClickDisplayPassword}>
         {!displayPassword ? (
-          <AiFillEyeInvisible color="1f1f1f" />
+          <AiFillEyeInvisible color="808080" />
         ) : (
-          <AiFillEye color="orange" />
+          <AiFillEye color="dc143c" />
         )}
       </button>
     </div>
