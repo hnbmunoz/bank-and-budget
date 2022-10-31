@@ -18,12 +18,14 @@
     max-width: 18rem;
     z-index: 99999;
     border-radius: 2.5rem;
-    background-color: #2B2223;
+    background-color: #1f1f1f;
     color: #ccc;
     cursor: grab;
     align-items: center;
     justify-content: center;
-
+    position: relative;
+    transition: all 0.4s;
+    
     &:active {
       cursor: grabbing;
     }
@@ -33,11 +35,34 @@
       border-radius: 0.63rem;
       cursor: pointer;
       user-select: none;
+      min-width: 10rem;
+      width: fit-content;
+      font-size: 1.2rem;
 
       &:hover {
-        background-color: #fff;
-        color: #000;
+        // background-color: #fff;
+        background-color: #0a0a0a;
+
+        color: #fff;
       }
     }
+  }
+
+  .close-widget {
+    width: 2rem !important;
+  }
+
+  .close-item {
+    width: fit-content !important;
+    min-width: auto !important;
+  }
+}
+
+.nav-icons {
+  margin-right: 0.5rem;
+  width: fit-content;
+
+  &:hover {
+    color: #dc143c !important; 
   }
 }
