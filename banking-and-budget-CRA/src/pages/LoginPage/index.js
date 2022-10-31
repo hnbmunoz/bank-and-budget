@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "../../components/input";
+import Wallpaper from "../../assets/wallpapers/Login_wallpaper.png"
+import { NeonButton } from "../../components/button";
 
 export const SignInForm = ({newUser, verifyUser}) => {
   return (
@@ -7,7 +9,7 @@ export const SignInForm = ({newUser, verifyUser}) => {
       <form>
         <Input email placeholderText="Enter Email" />
         <Input password placeholderText="Password" />
-        <button onClick={verifyUser}> Login </button>
+        <NeonButton displayText="Login" buttonClick={verifyUser}/>
         <button onClick={newUser}> New User ? Sign Up </button>
       </form>
     </>
@@ -37,7 +39,7 @@ export const LoginPage = ({verifyAccount}) => {
     setSignUp(false)
   }
   return (
-    <div className="login">
+    <div className="login" style={{backgroundImage: `url(${Wallpaper})`}}>
       <div className="login-container">
         {!signUp ? <SignInForm newUser={handleSignUp} verifyUser={verifyAccount}/> : <SignUpForm returnLogin={handleSignIn}/>}    
       </div>

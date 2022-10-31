@@ -1,12 +1,14 @@
 @import "./components/header/header";
 @import "./components/panels/panels";
 @import "./components/input/input";
+@import "./components/button/button";
 @import "./pages/login/login";
 @import "./components/navigation/navigation";
 
 
 body {
   overflow: hidden;
+  background-color: #0A0A0A;
 }
 .flex-row {
   display: flex;

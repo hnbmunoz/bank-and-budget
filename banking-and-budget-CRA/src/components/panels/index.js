@@ -17,7 +17,7 @@ const PanelSectionHolder = ({ children = [], panelIdx = 0 }) => {
   );
 };
 
-const PanelSections = ({ children, color = "white" }) => {
+const PanelSections = ({ children, color = "transparent" }) => {
   return (
     <div className="section-item" data-panel="panelsection" style={{ backgroundColor: color }}>
       {children}

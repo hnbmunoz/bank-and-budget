@@ -1,30 +1,44 @@
-import React,{ useRef } from 'react'
+import React,{ useRef, useState } from 'react'
 import useDraggable from '../../utilities/hooks/useDraggable'
+import { ToggleButton } from '../button';
+import { NavToggler } from './navIcons';
 
-const NavigationContainer = ({children, showNav = false}) => {
+export const NavigationContainer = ({children, showNav = false, navToggle}) => {
   return (
     <div  className='nav-container flex-column' style={{ display: !showNav && "none" }}>     
-      <NavigationWidget>
+      <NavigationWidget isOpen={navToggle}>
         {children}
       </NavigationWidget>
     </div>
   )
 }
 
-const NavigationWidget = ({children}) => {
-  const dragRef = useRef(null);
-  useDraggable(dragRef);
+export const NavigationWidget = ({children, isOpen}) => {
+  // const [openNav, setOpenNav] = useState(true);
+  // const handleToggleNavbar = (e) => {
+  //   // alert('test')
+  // }
+  // const dragRef = useRef(null);
+  // useDraggable(dragRef);
   return (
-    <div ref={dragRef} className='nav-widget flex-column'> 
+    <div 
+      // ref={dragRef}
+      className='nav-widget flex-column'
+    > 
+      <ToggleButton>
+        {<NavToggler toggleClick={isOpen}/> }
+      </ToggleButton> 
       {children}
     </div>
   )
 }
 
-const NavigationItems = ({itemName, panelIdx = 0, itemClick}) => {
+export const NavigationItems = ({itemName, panelIdx = 0, itemClick, navIcon, navOpen=true}) => {
   return (
-    <div className='nav-items' onClick={itemClick} data-id={panelIdx}>{itemName}</div>
+    <div className={`nav-items flex-row ${!navOpen && 'close-item'}`} onClick={itemClick} data-id={panelIdx} >
+      {navIcon}
+      {navOpen && itemName}
+    </div>
   )
 }
 
-export {NavigationContainer, NavigationWidget, NavigationItems}
