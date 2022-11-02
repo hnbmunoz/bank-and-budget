@@ -1,9 +1,18 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import Modal from "../../components/modal";
+import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 
 const Withdraw = ({ userBalance }) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDesc, setEnteredDesc] = useState("");
+  const [userTransactions, setUserTransaction, getUserTransactions] =
+    useLocalStorageStore("userTransaction", []);
+
+  useEffect(() => {
+    getUserTransactions();
+    return () => {};
+  }, [enteredAmount]);
 
   const amountChangeHandler = (event) => {
     setEnteredAmount(event.target.value);
@@ -13,14 +22,19 @@ const Withdraw = ({ userBalance }) => {
   };
   const submitHandler = (event) => {
     event.preventDefault();
-    const withdrawData = {
-      title: "Withdraw",
-      amount: enteredAmount,
-      description: enteredDesc,
-    };
-    setEnteredAmount("");
-    setEnteredDesc("");
-    userBalance(withdrawData);
+    if (!enteredAmount && !enteredDesc) {
+      alert("Please Fill Up Required Fields Properly");
+    } else {
+      const withdrawData = {
+        title: "Withdraw",
+        amount: enteredAmount,
+        description: enteredDesc,
+      };
+      setEnteredAmount("");
+      setEnteredDesc("");
+
+      setUserTransaction([...userTransactions, withdrawData]);
+    }
   };
   return (
     <Modal>

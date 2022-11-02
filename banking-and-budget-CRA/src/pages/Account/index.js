@@ -8,10 +8,18 @@ const Account = ({ depositBalance }) => {
     "registeredUsers",
     []
   );
+  const [userTransactions, setUserTransaction, getUserTransactions] =
+    useLocalStorageStore("userTransaction", []);
+
   const [userName, setUserName] = useState({});
+  const [userBalance, setUserBalance] = useState("");
 
   const getUserProfile = () => {
     setUserName(userStore.find((user) => user.userName === "rob"));
+  };
+
+  const getTransactions = () => {
+    setUserBalance(1000);
   };
 
   useEffect(() => {
@@ -35,7 +43,7 @@ const Account = ({ depositBalance }) => {
           </div>
           <div className="account__balance">
             <p>Available Balance</p>
-            <p>Php {depositBalance}</p>
+            <p>Php {userBalance}</p>
           </div>
         </div>
       </div>

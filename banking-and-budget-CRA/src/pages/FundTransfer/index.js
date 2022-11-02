@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "../../components/modal";
+import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 
 const FundTransfer = ({ userBalance }) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDesc, setEnteredDesc] = useState("");
   const [enteredDestination, setEnteredDestination] = useState("");
+  const [userTransactions, setUserTransaction, getUserTransactions] =
+    useLocalStorageStore("userTransaction", []);
+
+  useEffect(() => {
+    getUserTransactions();
+    return () => {};
+  }, [enteredAmount]);
 
   const amountChangeHandler = (event) => {
     setEnteredAmount(event.target.value);
@@ -17,17 +25,20 @@ const FundTransfer = ({ userBalance }) => {
   };
   const submitHandler = (event) => {
     event.preventDefault();
-    const fundtransferData = {
-      title: "Transfer To",
-      amount: enteredAmount,
-      destination: enteredDestination,
-      description: enteredDesc,
-    };
-
-    setEnteredAmount("");
-    setEnteredDesc("");
-    setEnteredDestination("");
-    userBalance(fundtransferData);
+    if (!enteredAmount && !enteredDestination && !enteredDesc) {
+      alert("Please Fill Up Required Fields Properly");
+    } else {
+      const fundTransferData = {
+        title: "Transfer",
+        amount: enteredAmount,
+        destination: enteredDestination,
+        description: enteredDesc,
+      };
+      setEnteredAmount("");
+      setEnteredDesc("");
+      setEnteredDestination("");
+      setUserTransaction([...userTransactions, fundTransferData]);
+    }
   };
   return (
     <Modal>

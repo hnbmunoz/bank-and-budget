@@ -118,56 +118,24 @@ export const MainPage = () => {
 };
 
 export const UserInterface = ({ displayPanel }) => {
-  const [userBalance, setUserBalance] = useState(100000);
-  const [userTransaction, setUserTransaction] = useState({
-    deposit: "",
-    withdraw: "",
-    transfer: "",
-  });
-
-  const onDepositBalance = (addDeposit) => {
-    setUserBalance((prevState) => {
-      return prevState + Number(addDeposit.amount);
-    });
-    setUserTransaction((prevState) => {
-      return { ...prevState, deposit: addDeposit };
-    });
-  };
-  const onWithdrawBalance = (minusWithdraw) => {
-    setUserBalance((prevState) => {
-      return prevState - Number(minusWithdraw.amount);
-    });
-    setUserTransaction((prevState) => {
-      return { ...prevState, withdraw: minusWithdraw };
-    });
-  };
-  const onTransferBalance = (minusTransfer) => {
-    setUserBalance((prevState) => {
-      return prevState - Number(minusTransfer.amount);
-    });
-    setUserTransaction((prevState) => {
-      return { ...prevState, transfer: minusTransfer };
-    });
-  };
-
   return (
     <div className="flex-column">
       <Header />
       <PanelSectionHolder panelIdx={displayPanel}>
         <PanelSections>
-          <Accounts depositBalance={userBalance} />
+          <Accounts />
         </PanelSections>
         <PanelSections>
-          <Transactions transactionData={userTransaction} />
+          <Transactions />
         </PanelSections>
         <PanelSections>
-          <Deposit userBalance={onDepositBalance} />
+          <Deposit />
         </PanelSections>
         <PanelSections>
-          <Withdraw userBalance={onWithdrawBalance} />
+          <Withdraw />
         </PanelSections>
         <PanelSections>
-          <FundTransfer userBalance={onTransferBalance} />
+          <FundTransfer />
         </PanelSections>
         <PanelSections>
           <Messages />
