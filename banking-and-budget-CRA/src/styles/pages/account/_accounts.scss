@@ -1,0 +1,30 @@
+.account {
+  font-size: 3rem;
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  .account__info,
+  .account__balance-image {
+    flex-basis: 45%;
+  }
+
+  .account__balance-image {
+    justify-content: space-between;
+
+    .account__image {
+      justify-content: center;
+      align-content: center;
+    }
+
+    .account__balance {
+      text-align: right;
+      font-size: 3.5rem;
+    }
+  }
+}
+
+.account__number {
+  text-align: right;
+}

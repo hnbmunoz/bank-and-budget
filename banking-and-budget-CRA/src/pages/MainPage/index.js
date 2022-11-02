@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { LoginPage } from "../LoginPage";
 import { PanelSections, PanelSectionHolder } from "../../components/panels";
-import { NavigationContainer, NavigationItems } from "../../components/navigation";
+import {
+  NavigationContainer,
+  NavigationItems,
+} from "../../components/navigation";
 import * as NavIcons from "../../components/navigation/navIcons";
 import Header from "../../components/header";
 
@@ -20,8 +23,8 @@ export const MainPage = () => {
   const [openNav, setOpenNav] = useState(true);
 
   const handleToggleNavbar = (e) => {
-    setOpenNav(!openNav)
-  }
+    setOpenNav(!openNav);
+  };
 
   const handleUserLogin = (data) => {
     setVerifiedAccount({...verifiedAccount, verify: true, profileName: `${data}`});
@@ -31,17 +34,17 @@ export const MainPage = () => {
     setVerifiedAccount({...verifiedAccount, verify: false});
   };
 
-  const handleSwitchPanel = (e) => {    
+  const handleSwitchPanel = (e) => {
     const btnClicked = e.currentTarget;
-    const panelIndex = btnClicked.dataset.id;    
+    const panelIndex = btnClicked.dataset.id;
     setDisplayIndex(panelIndex);
   };
-  
+
   useEffect(() => {
-    document.querySelector('.nav-widget').classList.toggle('close-widget')
-    return () => {}
-  }, [openNav])
-  
+    document.querySelector(".nav-widget").classList.toggle("close-widget");
+    return () => {};
+  }, [openNav]);
+
   return (
     <div>
        <NavigationContainer showNav={verifiedAccount.verify} navToggle={handleToggleNavbar} selectedPanel={displayIndex}>
@@ -110,6 +113,7 @@ export const MainPage = () => {
     </div>
   );
 };
+
 
 export const UserInterface = ({displayPanel, displayFullName}) => {  
   return (    
