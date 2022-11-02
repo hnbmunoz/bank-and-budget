@@ -1,3 +1,4 @@
+@import "./components/reset/reset";
 @import "./components/header/header";
 @import "./components/panels/panels";
 @import "./components/input/input";
@@ -6,12 +7,16 @@
 @import "./components/modal/modal";
 
 @import "./pages/login/login";
+@import "./pages/account/accounts";
+@import "./pages/transactions/transactions";
 
-
+html {
+  font-size: 16px;
+}
 
 body {
   overflow: hidden;
-  background-color: #0A0A0A;
+  background-color: #0a0a0a;
 }
 .flex-row {
   display: flex;
@@ -20,8 +25,4 @@ body {
 .flex-column {
   display: flex;
   flex-direction: column;
-}
-
-.hide {
-  display: none;
 }

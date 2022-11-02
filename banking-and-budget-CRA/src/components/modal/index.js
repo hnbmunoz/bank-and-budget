@@ -1,11 +1,14 @@
-import React from 'react'
+import React from "react";
 
-const Modal = ({children, backgroundColor="#1f1f1f"}) => {
+const Modal = ({ children, backgroundColor = "#1f1f1f" }) => {
   return (
-    <div style={{backgroundColor:`${backgroundColor}`}} className='modal-container'>
-      {children}
+    <div
+      style={{ backgroundColor: `${backgroundColor}` }}
+      className="modal-container"
+    >
+      <div className="sub-container">{children}</div>
     </div>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;
