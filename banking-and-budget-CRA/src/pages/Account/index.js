@@ -1,3 +1,4 @@
+import { click } from "@testing-library/user-event/dist/click";
 import { useState, useEffect } from "react";
 
 import Modal from "../../components/modal";
@@ -8,7 +9,7 @@ const Account = ({ depositBalance, getUserCode }) => {
     "registeredUsers",
     []
   );
-  
+  console.log("test");
   const [userTransactions, setUserTransaction, getUserTransactions] =
     useLocalStorageStore("userTransaction", []);
 
@@ -16,7 +17,7 @@ const Account = ({ depositBalance, getUserCode }) => {
   const [userBalance, setUserBalance] = useState("");
 
   const getUserProfile = () => {
-    setUserName(userStore.find((user) => user.userCode === `${getUserCode}`));//still static must be dynamic
+    setUserName(userStore.find((user) => user.userCode === `${getUserCode}`)); //still static must be dynamic
   };
 
   const getTransactions = () => {
