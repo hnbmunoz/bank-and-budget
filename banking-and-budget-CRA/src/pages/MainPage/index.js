@@ -15,7 +15,7 @@ import SwitchAccount from "../SwitchAccount";
 import Transactions from "../Transactions";
 
 export const MainPage = () => {
-  const [verifiedAccount, setVerifiedAccount] = useState(false);
+  const [verifiedAccount, setVerifiedAccount] = useState({verify: false, profileName: ""});
   const [displayIndex, setDisplayIndex] = useState(0);
   const [openNav, setOpenNav] = useState(true);
 
@@ -23,12 +23,12 @@ export const MainPage = () => {
     setOpenNav(!openNav)
   }
 
-  const handleUserLogin = () => {
-    setVerifiedAccount(true);
+  const handleUserLogin = (data) => {
+    setVerifiedAccount({...verifiedAccount, verify: true, profileName: `${data}`});
   };
 
   const handleUserLogout = () => {
-    setVerifiedAccount(false);
+    setVerifiedAccount({...verifiedAccount, verify: false});
   };
 
   const handleSwitchPanel = (e) => {    
@@ -44,7 +44,7 @@ export const MainPage = () => {
   
   return (
     <div>
-       <NavigationContainer showNav={verifiedAccount} navToggle={handleToggleNavbar}>
+       <NavigationContainer showNav={verifiedAccount.verify} navToggle={handleToggleNavbar} selectedPanel={displayIndex}>
           <NavigationItems
             itemName="Accounts"
             panelIdx={0}
@@ -102,8 +102,8 @@ export const MainPage = () => {
           />
         </NavigationContainer> 
 
-      {verifiedAccount ? (
-        <UserInterface displayPanel={displayIndex}/>
+      {verifiedAccount.verify ? (
+        <UserInterface displayPanel={displayIndex} displayFullName={verifiedAccount.profileName}/>
       ) : (
         <LoginPage verifyAccount={handleUserLogin} />
       )}
@@ -111,10 +111,10 @@ export const MainPage = () => {
   );
 };
 
-export const UserInterface = ({displayPanel}) => {  
+export const UserInterface = ({displayPanel, displayFullName}) => {  
   return (    
   <div className="flex-column">
-    <Header />
+    <Header displayFullName={displayFullName}/>
     <PanelSectionHolder panelIdx={displayPanel}>      
       <PanelSections>
         <Accounts />
