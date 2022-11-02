@@ -93,7 +93,7 @@ export const LoginPage = ({ verifyAccount }) => {
     const filteredUser = userStore.find(obj => 
       obj.userEmail === userName && obj.userPassword === passWord
     )
-    if (filteredUser) verifyAccount(filteredUser.userFullName);
+    if (filteredUser) verifyAccount(filteredUser);
   }
 
 

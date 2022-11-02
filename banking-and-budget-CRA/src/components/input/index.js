@@ -102,6 +102,7 @@ const Input = ({
     <div name = {`div${name}`} className="input-container">
       <input
         name = {name}
+        data-inputname ={name}
         className="input-container__textbox"
         type={!password ? "text" : showPassword ? "text" : "password"}
         placeholder=" "

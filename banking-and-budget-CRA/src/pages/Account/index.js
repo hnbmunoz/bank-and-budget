@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Modal from "../../components/modal";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 
-const Account = ({ depositBalance }) => {
+const Account = ({ depositBalance, getUserCode }) => {
   const [userStore, setUserStore, getUserStore] = useLocalStorageStore(
     "registeredUsers",
     []
@@ -16,7 +16,7 @@ const Account = ({ depositBalance }) => {
   const [userBalance, setUserBalance] = useState("");
 
   const getUserProfile = () => {
-    setUserName(userStore.find((user) => user.userName === "hnbmunoz"));//still static must be dynamic
+    setUserName(userStore.find((user) => user.userCode === `${getUserCode}`));//still static must be dynamic
   };
 
   const getTransactions = () => {
