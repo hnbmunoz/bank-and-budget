@@ -8,6 +8,7 @@ const Account = ({ depositBalance }) => {
     "registeredUsers",
     []
   );
+  
   const [userTransactions, setUserTransaction, getUserTransactions] =
     useLocalStorageStore("userTransaction", []);
 
@@ -15,7 +16,7 @@ const Account = ({ depositBalance }) => {
   const [userBalance, setUserBalance] = useState("");
 
   const getUserProfile = () => {
-    setUserName(userStore.find((user) => user.userName === "rob"));
+    setUserName(userStore.find((user) => user.userName === "hnbmunoz"));//still static must be dynamic
   };
 
   const getTransactions = () => {

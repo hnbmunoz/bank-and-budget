@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Input } from "../../components/input";
 import Wallpaper from "../../assets/wallpapers/Login_wallpaper.png";
-import {
-  NeonButton,
-  RoundedButton,
-  GlowingButton,
-} from "../../components/button";
+import { NeonButton, RoundedButton, GlowingButton } from "../../components/button";
 import useLocaleStorage from "../../utilities/hooks/useLocalStorage";
 
 import { v4 as uuidv4 } from "uuid"

@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { LoginPage } from "../LoginPage";
 import { PanelSections, PanelSectionHolder } from "../../components/panels";
-import {
-  NavigationContainer,
-  NavigationItems,
-} from "../../components/navigation";
+import { NavigationContainer, NavigationItems} from "../../components/navigation";
 import * as NavIcons from "../../components/navigation/navIcons";
 import Header from "../../components/header";
 
@@ -115,25 +112,25 @@ export const MainPage = () => {
 };
 
 
-export const UserInterface = ({displayPanel, displayFullName}) => {  
+export const UserInterface = ({displayPanel, displayFullName = ""}) => {  
   return (    
   <div className="flex-column">
     <Header displayFullName={displayFullName}/>
     <PanelSectionHolder panelIdx={displayPanel}>      
       <PanelSections>
-        <Accounts />
+        <Accounts depositBalance />
       </PanelSections>
       <PanelSections>
-        <Transactions />
+        <Transactions transactionData />
       </PanelSections>
       <PanelSections>
         <Deposit />
       </PanelSections>
       <PanelSections>
-        <Withdraw />
+        <Withdraw userBalance/>
       </PanelSections>
       <PanelSections>
-        <FundTransfer />
+        <FundTransfer userBalance/>
       </PanelSections>
       <PanelSections>
         <Messages />
