@@ -7,14 +7,14 @@ import {
   GlowingButton,
 } from "../../components/button";
 import useLocaleStorage from "../../utilities/hooks/useLocalStorage";
-import { v4 as uuidv4 } from "uuid";
-export const SignInForm = ({ newUser, verifyUser }) => {
-  const handleLoginClick = (e) => {
-    const targetEl = e.currentTarget.parentElement.parentElement.children;
-    verifyUser(
-      targetEl.divsignInMail.children.signInMail.value,
-      targetEl.divsignInPW.children.signInPW.value
-    );
+
+import { v4 as uuidv4 } from "uuid"
+
+export const SignInForm = ({newUser, verifyUser}) => {
+  const handleLoginClick = (e) => {    
+    const targetEl = e.currentTarget.parentElement.parentElement.children
+    verifyUser(targetEl.divsignInMail.children.signInMail.value, targetEl.divsignInPW.children.signInPW.value)
+
     e.preventDefault();
   };
 
@@ -92,12 +92,14 @@ export const LoginPage = ({ verifyAccount }) => {
     setSignUp(false);
   };
 
-  const filterUserAccount = (userName, passWord) => {
-    const filteredUser = userStore.find(
-      (obj) => obj.userEmail === userName && obj.userPassword === passWord
-    );
-    if (filteredUser) verifyAccount();
-  };
+
+  const filterUserAccount = (userName, passWord) => {  
+    const filteredUser = userStore.find(obj => 
+      obj.userEmail === userName && obj.userPassword === passWord
+    )
+    if (filteredUser) verifyAccount(filteredUser.userFullName);
+  }
+
 
   const gotoSignUp = (e) => {
     setSignUp(true);
