@@ -15,7 +15,7 @@ import SwitchAccount from "../SwitchAccount";
 import Transactions from "../Transactions";
 
 export const MainPage = () => {
-  const [verifiedAccount, setVerifiedAccount] = useState({verify: false, profileName: ""});
+  const [verifiedAccount, setVerifiedAccount] = useState({verify: false, profileName: "", userCode: "" });
   const [displayIndex, setDisplayIndex] = useState(0);
   const [openNav, setOpenNav] = useState(true);
 
@@ -24,12 +24,16 @@ export const MainPage = () => {
   };
 
   const handleUserLogin = (data) => {
-    setVerifiedAccount({...verifiedAccount, verify: true, profileName: `${data}`});
+    setVerifiedAccount({...verifiedAccount, verify: true, profileName: `${data.userFullName}`, userCode: `${data.userCode}`});
   };
 
   const handleUserLogout = () => {
     setVerifiedAccount({...verifiedAccount, verify: false});
   };
+
+  const getTotalBalance = () => {
+    
+  }
 
   const handleSwitchPanel = (e) => {
     const btnClicked = e.currentTarget;
@@ -103,7 +107,7 @@ export const MainPage = () => {
         </NavigationContainer> 
 
       {verifiedAccount.verify ? (
-        <UserInterface displayPanel={displayIndex} displayFullName={verifiedAccount.profileName}/>
+        <UserInterface displayPanel={displayIndex} displayFullName={verifiedAccount.profileName} getUserCode={verifiedAccount.userCode}/>
       ) : (
         <LoginPage verifyAccount={handleUserLogin} />
       )}
@@ -112,13 +116,13 @@ export const MainPage = () => {
 };
 
 
-export const UserInterface = ({displayPanel, displayFullName = ""}) => {  
+export const UserInterface = ({displayPanel, displayFullName = "", getUserCode = ""}) => {  
   return (    
   <div className="flex-column">
     <Header displayFullName={displayFullName}/>
     <PanelSectionHolder panelIdx={displayPanel}>      
       <PanelSections>
-        <Accounts depositBalance />
+        <Accounts depositBalance getUserCode={getUserCode} />
       </PanelSections>
       <PanelSections>
         <Transactions transactionData />

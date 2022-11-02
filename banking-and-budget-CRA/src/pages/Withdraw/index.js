@@ -3,9 +3,10 @@ import { useEffect } from "react";
 import Modal from "../../components/modal";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 
-const Withdraw = ({ userBalance }) => {
+const Withdraw = ({ userBalance = 0 }) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDesc, setEnteredDesc] = useState("");
+  const [currBalance, setCurrBalance] = useState(userBalance);
   const [userTransactions, setUserTransaction, getUserTransactions] =
     useLocalStorageStore("userTransaction", []);
 
@@ -14,14 +15,14 @@ const Withdraw = ({ userBalance }) => {
     return () => {};
   }, [enteredAmount]);
 
-  const amountChangeHandler = (event) => {
-    setEnteredAmount(event.target.value);
+  const amountChangeHandler = (e) => {
+    setEnteredAmount(e.target.value);
   };
-  const descChangeHandler = (event) => {
-    setEnteredDesc(event.target.value);
+  const descChangeHandler = (e) => {
+    setEnteredDesc(e.target.value);
   };
-  const submitHandler = (event) => {
-    event.preventDefault();
+  const submitHandler = (e) => {
+    e.preventDefault();
     if (!enteredAmount && !enteredDesc) {
       alert("Please Fill Up Required Fields Properly");
     } else {
@@ -29,7 +30,10 @@ const Withdraw = ({ userBalance }) => {
         title: "Withdraw",
         amount: enteredAmount,
         description: enteredDesc,
+        //userCode: 
+        //acctNumber:
       };
+      // setCurrBalance(prevBalance => prevBalance - enteredAmount)
       setEnteredAmount("");
       setEnteredDesc("");
 
