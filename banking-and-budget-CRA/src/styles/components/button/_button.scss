@@ -5,7 +5,7 @@
     color: #d0d0d0;
     position: relative;
     overflow: hidden;
-    font-family: 'PT Sans', 'Manrope', serif;
+    font-family: 'Montserrat','PT Sans', 'Manrope', serif;
     font-weight: 700;
     padding: 0.3rem;
     letter-spacing: 4px;
@@ -205,6 +205,7 @@
     border: none;
     filter: drop-shadow(2px 4px 6px black);
     margin: 0.5rem 0;
+    font-family: 'Montserrat', sans-serif;
 
     &:hover {
       cursor: pointer;
@@ -231,9 +232,9 @@
     border-radius: 0.625rem;
     font-weight: bolder;    
     border:none;
-    padding: 1em 2em;  
     transition: all 0.3s;
     color: rgb(174, 172, 172);
+    font-family: 'Montserrat', sans-serif;
 
     &:hover {
       cursor: pointer;    
@@ -249,9 +250,7 @@
       background-color:	#dc143c;
       border: none;
       color: #fff;
-      box-shadow: 0 0 0.9375rem #dc143c,
-      // 0 0 1.875rem #077c7c,
-      // 0 0 2.9rem #0bd3d3, ;    
+      box-shadow: 0 0 0.9375rem #dc143c,      
     }
   }
   

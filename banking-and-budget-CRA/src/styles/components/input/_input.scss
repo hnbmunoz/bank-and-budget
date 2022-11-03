@@ -4,19 +4,21 @@
   text-align:center;  
   background-color: transparent;
   margin: 0.5rem 0 1.5rem;
-  
+  border-color: #808080;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 0.63rem;
+  display: flex;
   &__textbox {   
-    width: 100%;
+    width: 95%;
     background-color: transparent;
-    border-color: #808080;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 0.63rem;
+    border:none;
     color: inherit;
     padding: 0.5rem;
     padding-top: 0.7rem;
     font-size: 1.3rem;
     box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
 
     &:focus  {
       outline: none;       
@@ -39,7 +41,7 @@
     position: absolute;;    
     font-size: 0.625rem;
     margin-top: 0.5rem;
-    margin-left: 0.5rem; 
+    margin-left: 0.5rem;
     left: 0;  
     top: 0;
     pointer-events: none;
@@ -48,8 +50,7 @@
   }
 
   .placeholder-icons-container {    
-    margin-top: 0.5rem;
-    margin-right: 0.5rem; 
+    margin-top: 0.7rem;
     right: 0;  
     top: 0;       
     cursor: pointer;
@@ -76,7 +77,7 @@
   .validation {
     position: absolute;
     font-size: 0.6rem;
-    top: 3rem;
+    top: 3.5rem;
     // margin-left: 0.5rem; 
     color:red; 
     font-family: 'Helvetica', 'Arial';
