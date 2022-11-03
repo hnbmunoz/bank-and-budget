@@ -11,15 +11,4 @@ const Modal = ({ children, backgroundColor = "#1f1f1f" }) => {
   );
 };
 
-export const PopUpModal = ({ children, backgroundColor = "#1f1f1f" }) => {
-  return (
-    <div
-      style={{ backgroundColor: `${backgroundColor}` }}
-      className="modal-container"
-    >
-      {children}
-    </div>
-  );
-};
-
 export default Modal;
