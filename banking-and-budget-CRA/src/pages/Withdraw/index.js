@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import Modal from "../../components/modal";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 
-const Withdraw = ({ userBalance = 0 }) => {
+const Withdraw = ({ getUserCode }) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDesc, setEnteredDesc] = useState("");
-  const [currBalance, setCurrBalance] = useState(userBalance);
+  const [currBalance, setCurrBalance] = useState("");
   const [userTransactions, setUserTransaction, getUserTransactions] =
     useLocalStorageStore("userTransaction", []);
 
@@ -27,10 +27,11 @@ const Withdraw = ({ userBalance = 0 }) => {
       alert("Please Fill Up Required Fields Properly");
     } else {
       const withdrawData = {
+        userCode: getUserCode,
         title: "Withdraw",
         amount: enteredAmount,
         description: enteredDesc,
-        //userCode: 
+        //userCode:
         //acctNumber:
       };
       // setCurrBalance(prevBalance => prevBalance - enteredAmount)
