@@ -3,10 +3,12 @@ import { Input } from "../../components/input";
 import Wallpaper from "../../assets/wallpapers/Login_wallpaper.png";
 import { NeonButton, RoundedButton, GlowingButton } from "../../components/button";
 import useLocaleStorage from "../../utilities/hooks/useLocalStorage";
+import Modal from "../../components/modal/index";
 
 import { v4 as uuidv4 } from "uuid"
 
 export const SignInForm = ({newUser, verifyUser}) => {
+  const [bottonPopup, setButtonPopup] = useState(false);
   const handleLoginClick = (e) => {    
     const targetEl = e.currentTarget.parentElement.parentElement.children
     verifyUser(targetEl.divsignInAcct.children.signInAcct.value, targetEl.divsignInPW.children.signInPW.value)
@@ -28,6 +30,10 @@ export const SignInForm = ({newUser, verifyUser}) => {
         <NeonButton displayText="Login" buttonClick={handleLoginClick} />
         <RoundedButton displayText="Register" buttonClick={newUser} />
       </form>
+
+      <Modal trigger={true}>
+        <h3 class="popup-text">Please fill up the form!</h3>
+      </Modal>
     </>
   );
 };
