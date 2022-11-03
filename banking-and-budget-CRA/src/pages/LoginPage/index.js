@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid"
 export const SignInForm = ({newUser, verifyUser}) => {
   const handleLoginClick = (e) => {    
     const targetEl = e.currentTarget.parentElement.parentElement.children
-    verifyUser(targetEl.divsignInMail.children.signInMail.value, targetEl.divsignInPW.children.signInPW.value)
+    verifyUser(targetEl.divsignInAcct.children.signInAcct.value, targetEl.divsignInPW.children.signInPW.value)
 
     e.preventDefault();
   };
@@ -23,7 +23,7 @@ export const SignInForm = ({newUser, verifyUser}) => {
   return (
     <>
       <form className="flex-column">
-        <Input name="signInMail" email placeholderText="Enter E-mail" />
+        <Input name="signInAcct" placeholderText="Username or E-mail" />
         <Input name="signInPW" password placeholderText="Password" />
         <NeonButton displayText="Login" buttonClick={handleLoginClick} />
         <RoundedButton displayText="Register" buttonClick={newUser} />
@@ -91,7 +91,7 @@ export const LoginPage = ({ verifyAccount }) => {
 
   const filterUserAccount = (userName, passWord) => {  
     const filteredUser = userStore.find(obj => 
-      obj.userEmail === userName && obj.userPassword === passWord
+      (obj.userEmail === userName || obj.userName === userName) && obj.userPassword === passWord
     )
     if (filteredUser) verifyAccount(filteredUser);
   }

@@ -8,8 +8,8 @@ const Messages = () => {
   const getData = (e) => {
     const targetEl = e.currentTarget.parentElement.parentElement.children;
     // let display = targetEl.divsample.children.sample.value;
-    // let display = document.querySelector('[data-inputname=sample]')
-    // alert(display)
+    let display = document.querySelector('[data-inputname=sample]').value;
+    alert(display)
   }
   return (
     <Modal>
