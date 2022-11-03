@@ -1,27 +1,61 @@
 import { click } from "@testing-library/user-event/dist/click";
+import { type } from "@testing-library/user-event/dist/type";
 import { useState, useEffect } from "react";
 
 import Modal from "../../components/modal";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
+import Deposit from "../Deposit";
 
-const Account = ({ depositBalance, getUserCode }) => {
+const Account = ({ getUserCode, displayPanel }) => {
   const [userStore, setUserStore, getUserStore] = useLocalStorageStore(
     "registeredUsers",
     []
   );
-  console.log("test");
+
   const [userTransactions, setUserTransaction, getUserTransactions] =
     useLocalStorageStore("userTransaction", []);
 
   const [userName, setUserName] = useState({});
-  const [userBalance, setUserBalance] = useState("");
+  const [userBalance, setUserBalance] = useState(0);
+
+  useEffect(() => {
+    getUserTransactions();
+    return () => {};
+  }, [displayPanel]);
+
+  useEffect(() => {
+    userStore.length > 0 && getTransactions();
+    return () => {};
+  }, [userTransactions]);
 
   const getUserProfile = () => {
-    setUserName(userStore.find((user) => user.userCode === `${getUserCode}`)); //still static must be dynamic
+    setUserName(userStore.find((user) => user.userCode === `${getUserCode}`));
   };
 
   const getTransactions = () => {
-    setUserBalance(1000);
+    const userData = userTransactions.filter(
+      (user) => user.userCode === `${getUserCode}`
+    );
+
+    const deposit = userData
+      .filter((data) => data.title === "Deposit")
+      .reduce((total, deposit) => {
+        return total + Number(deposit.amount);
+      }, 0);
+
+    const withdraw = userData
+      .filter((data) => data.title === "Withdraw")
+      .reduce((total, withdraw) => {
+        return total + Number(withdraw.amount);
+      }, 0);
+
+    const transfer = userData
+      .filter((data) => data.title === "Transfer")
+      .reduce((total, transfer) => {
+        return total + Number(transfer.amount);
+      }, 0);
+
+    setUserBalance(deposit);
   };
 
   useEffect(() => {

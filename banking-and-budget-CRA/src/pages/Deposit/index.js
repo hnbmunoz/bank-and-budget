@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Modal from "../../components/modal";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 
-const Deposit = () => {
+const Deposit = ({ getUserCode }) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDesc, setEnteredDesc] = useState("");
   const [userTransactions, setUserTransaction, getUserTransactions] =
@@ -26,6 +26,7 @@ const Deposit = () => {
       alert("Please Fill Up Required Fields Properly");
     } else {
       const depositData = {
+        userCode: getUserCode,
         title: "Deposit",
         amount: enteredAmount,
         description: enteredDesc,

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Modal from "../../components/modal";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 
-const FundTransfer = ({ userBalance }) => {
+const FundTransfer = ({ getUserCode }) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDesc, setEnteredDesc] = useState("");
   const [enteredDestination, setEnteredDestination] = useState("");
@@ -29,6 +29,7 @@ const FundTransfer = ({ userBalance }) => {
       alert("Please Fill Up Required Fields Properly");
     } else {
       const fundTransferData = {
+        userCode: getUserCode,
         title: "Transfer",
         amount: enteredAmount,
         destination: enteredDestination,
