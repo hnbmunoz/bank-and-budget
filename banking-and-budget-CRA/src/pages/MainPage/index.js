@@ -147,7 +147,7 @@ export const UserInterface = ({
           <Accounts getUserCode={getUserCode} displayPanel={displayPanel} />
         </PanelSections>
         <PanelSections>
-          <Transactions transactionData />
+          <Transactions getUserCode={getUserCode} displayPanel={displayPanel} />
         </PanelSections>
         <PanelSections>
           <Deposit getUserCode={getUserCode} />

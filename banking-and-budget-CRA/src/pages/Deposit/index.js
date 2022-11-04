@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import Modal from "../../components/modal";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
+import { RoundedButton } from "../../components/button"
 
 const Deposit = ({ getUserCode }) => {
   const [enteredAmount, setEnteredAmount] = useState("");
@@ -14,14 +15,14 @@ const Deposit = ({ getUserCode }) => {
     return () => {};
   }, [enteredAmount]);
 
-  const amountChangeHandler = (event) => {
-    setEnteredAmount(event.target.value);
+  const amountChangeHandler = (e) => {
+    setEnteredAmount(e.target.value);
   };
-  const descChangeHandler = (event) => {
-    setEnteredDesc(event.target.value);
+  const descChangeHandler = (e) => {
+    setEnteredDesc(e.target.value);
   };
-  const submitHandler = (event) => {
-    event.preventDefault();
+  const submitHandler = (e) => {
+    e.preventDefault();
     if (!enteredAmount && !enteredDesc) {
       alert("Please Fill Up Required Fields Properly");
     } else {
@@ -30,12 +31,13 @@ const Deposit = ({ getUserCode }) => {
         title: "Deposit",
         amount: enteredAmount,
         description: enteredDesc,
+        id: Math.random().toString(),
       };
 
-      const deposit = [...userTransactions, depositData];
+    
       setEnteredAmount("");
       setEnteredDesc("");
-      setUserTransaction(deposit);
+      setUserTransaction([depositData, ...userTransactions ]);
     }
   };
   return (
@@ -45,10 +47,11 @@ const Deposit = ({ getUserCode }) => {
           <div className="deposit__control">
             <label htmlFor="">Amount</label>
             <input
+              placeholderText="Amount"
               value={enteredAmount}
               type="number"
-              onChange={(event) => {
-                amountChangeHandler(event);
+              onChange={(e) => {
+                amountChangeHandler(e);
               }}
             />
           </div>
@@ -57,14 +60,14 @@ const Deposit = ({ getUserCode }) => {
             <input
               value={enteredDesc}
               type="text"
-              onChange={(event) => {
-                descChangeHandler(event);
+              onChange={(e) => {
+                descChangeHandler(e);
               }}
             />
           </div>
         </div>
-        <button type="button">Cancel</button>
-        <button type="submit">Deposit</button>
+        <RoundedButton displayText='Cancel' type="button"/>
+        <RoundedButton displayText='Deposit' type="submit"/>
       </form>
     </Modal>
   );

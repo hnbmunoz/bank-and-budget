@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "../../components/modal";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
+import { RoundedButton } from "../../components/button"
 
 const FundTransfer = ({ getUserCode }) => {
   const [enteredAmount, setEnteredAmount] = useState("");
@@ -14,31 +15,32 @@ const FundTransfer = ({ getUserCode }) => {
     return () => {};
   }, [enteredAmount]);
 
-  const amountChangeHandler = (event) => {
-    setEnteredAmount(event.target.value);
+  const amountChangeHandler = (e) => {
+    setEnteredAmount(e.target.value);
   };
-  const descChangeHandler = (event) => {
-    setEnteredDesc(event.target.value);
+  const descChangeHandler = (e) => {
+    setEnteredDesc(e.target.value);
   };
-  const destChangeHandler = (event) => {
-    setEnteredDestination(event.target.value);
+  const destChangeHandler = (e) => {
+    setEnteredDestination(e.target.value);
   };
-  const submitHandler = (event) => {
-    event.preventDefault();
+  const submitHandler = (e) => {
+    e.preventDefault();
     if (!enteredAmount && !enteredDestination && !enteredDesc) {
       alert("Please Fill Up Required Fields Properly");
     } else {
       const fundTransferData = {
         userCode: getUserCode,
         title: "Transfer",
-        amount: enteredAmount,
+        amount: enteredAmount * -1,
         destination: enteredDestination,
         description: enteredDesc,
+        id: Math.random().toString(),
       };
       setEnteredAmount("");
       setEnteredDesc("");
       setEnteredDestination("");
-      setUserTransaction([...userTransactions, fundTransferData]);
+      setUserTransaction([fundTransferData, ...userTransactions]);
     }
   };
   return (
@@ -70,8 +72,8 @@ const FundTransfer = ({ getUserCode }) => {
             />
           </div>
         </div>
-        <button type="button">Cancel</button>
-        <button type="submit">Transfer</button>
+        <RoundedButton displayText='Cancel' type="button"/>
+        <RoundedButton displayText='Transfer' type="submit"/>
       </form>
     </Modal>
   );
