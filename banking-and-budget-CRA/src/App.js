@@ -4,7 +4,7 @@ import { MainPage } from "./pages/MainPage";
 import { LoadingPage } from "./pages/LoadingPage";
 
 function App() {  
-  const [showLoading, setShowLoading] = useState(true);
+  const [showLoading, setShowLoading] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {setShowLoading(false)},3000);
@@ -16,7 +16,7 @@ function App() {
   
   return (
     <div className="App">
-      {showLoading && <LoadingPage />}
+      {/* {showLoading && <LoadingPage />} */}
       <MainPage />    
     </div>
   );

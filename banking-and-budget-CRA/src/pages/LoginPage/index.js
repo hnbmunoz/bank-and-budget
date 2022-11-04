@@ -3,16 +3,16 @@ import { Input } from "../../components/input";
 import Wallpaper from "../../assets/wallpapers/Login_wallpaper.png";
 import { NeonButton, RoundedButton, GlowingButton } from "../../components/button";
 import useLocaleStorage from "../../utilities/hooks/useLocalStorage";
-import Modal from "../../components/modal/index";
+import PopupModal from "../../components/popup/PopupModal";
 
 import { v4 as uuidv4 } from "uuid"
 
 export const SignInForm = ({newUser, verifyUser}) => {
-  const [bottonPopup, setButtonPopup] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false); 
   const handleLoginClick = (e) => {    
     const targetEl = e.currentTarget.parentElement.parentElement.children
     verifyUser(targetEl.divsignInAcct.children.signInAcct.value, targetEl.divsignInPW.children.signInPW.value)
-
+    setModalOpen(true);
     e.preventDefault();
   };
 
@@ -27,28 +27,27 @@ export const SignInForm = ({newUser, verifyUser}) => {
       <form className="flex-column">
         <Input name="signInAcct" placeholderText="Username or E-mail" />
         <Input name="signInPW" password placeholderText="Password" />
-        <NeonButton displayText="Login" buttonClick={handleLoginClick} />
+        <NeonButton displayText="Login" buttonClick={handleLoginClick}/>
         <RoundedButton displayText="Register" buttonClick={newUser} />
       </form>
 
-      <Modal trigger={true}>
-        <h3 class="popup-text">Please fill up the form!</h3>
-      </Modal>
+      {modalOpen && <PopupModal setOpenModal={setModalOpen} />}
     </>
   );
 };
 
 export const SignUpForm = ({ returnLogin }) => {
+  const [modalOpen, setModalOpen] = useState(false); 
   const [userStore, setUserStore, getUserStore] = useLocaleStorage(
     "registeredUsers",
     []
   );
 
   const handleSignUp = (e) => {
+    setModalOpen(true);
     e.preventDefault();
     let invalidFields = [...document.querySelectorAll(".validation")];
     if (invalidFields.length > 0) {
-      alert("Please Fill Up Required Fields Properly");
     } else {
       const targetEl = e.currentTarget.parentElement.parentElement.children;
       let userObj = {
@@ -60,7 +59,7 @@ export const SignUpForm = ({ returnLogin }) => {
       };
       const newUser = [...userStore, userObj];
       setUserStore(newUser);
-      alert("Sign Up Complete");
+      alert ("Sign Up Complete!")
       returnLogin();
     }
   };
@@ -74,12 +73,14 @@ export const SignUpForm = ({ returnLogin }) => {
         <Input name="signUpPW" password placeholderText="Password" />
         <GlowingButton displayText="Sign Up" buttonClick={handleSignUp} />
       </form>
+
+      {modalOpen && <PopupModal setOpenModal={setModalOpen} />}
     </>
   );
 };
 
 export const LoginPage = ({ verifyAccount }) => {
-  const [signUp, setSignUp] = useState(false);
+  const [signUp, setSignUp,] = useState(false);
   const [userStore, setUserStore, getUserStore] = useLocaleStorage(
     "registeredUsers",
     []
@@ -95,7 +96,7 @@ export const LoginPage = ({ verifyAccount }) => {
   };
 
 
-  const filterUserAccount = (userName, passWord) => {  
+  const filterUserAccount = (userName, passWord) => {
     const filteredUser = userStore.find(obj => 
       (obj.userEmail === userName || obj.userName === userName) && obj.userPassword === passWord
     )
