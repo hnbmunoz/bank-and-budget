@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import Modal from "../../components/modal";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
+import { RoundedButton } from "../../components/button"
 
 const Withdraw = ({ getUserCode }) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDesc, setEnteredDesc] = useState("");
-  const [currBalance, setCurrBalance] = useState("");
   const [userTransactions, setUserTransaction, getUserTransactions] =
     useLocalStorageStore("userTransaction", []);
 
@@ -29,16 +29,15 @@ const Withdraw = ({ getUserCode }) => {
       const withdrawData = {
         userCode: getUserCode,
         title: "Withdraw",
-        amount: enteredAmount,
+        amount: enteredAmount * -1,
         description: enteredDesc,
-        //userCode:
-        //acctNumber:
+        id: Math.random().toString(),
       };
-      // setCurrBalance(prevBalance => prevBalance - enteredAmount)
+  
       setEnteredAmount("");
       setEnteredDesc("");
 
-      setUserTransaction([...userTransactions, withdrawData]);
+      setUserTransaction([withdrawData,...userTransactions]);
     }
   };
   return (
@@ -62,8 +61,8 @@ const Withdraw = ({ getUserCode }) => {
             />
           </div>
         </div>
-        <button type="button">Cancel</button>
-        <button type="submit">Withdraw</button>
+        <RoundedButton displayText='Cancel' type="button"/>
+        <RoundedButton displayText='Withdraw' type="submit"/>
       </form>
     </Modal>
   );

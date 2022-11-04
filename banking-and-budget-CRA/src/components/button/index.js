@@ -24,20 +24,20 @@ export const NeonButton = ({displayText = "Submit", buttonClick}) => {
   )
 }
 
-export const RoundedButton = ({displayText = "Submit", buttonClick}) => {
+export const RoundedButton = ({displayText = "Submit", buttonClick, type}) => {
   return (
     <div className="rounded-container">       
-      <button className="btn-rounded" type="" onClick={buttonClick}>     
+      <button className="btn-rounded" type={type} onClick={buttonClick}>     
         {displayText}
       </button>      
     </div>
   )
 }
 
-export const GlowingButton = ({displayText = "Submit", buttonClick}) => {
+export const GlowingButton = ({displayText = "Submit", buttonClick, value}) => {
   return (
     <div className="glowing-container">       
-      <button className="btn-glow" type="" onClick={buttonClick}>     
+      <button className="btn-glow" type="" onClick={buttonClick} value={value}>     
         {displayText}
       </button>      
     </div>

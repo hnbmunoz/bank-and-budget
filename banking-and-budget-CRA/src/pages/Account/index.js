@@ -1,10 +1,6 @@
-import { click } from "@testing-library/user-event/dist/click";
-import { type } from "@testing-library/user-event/dist/type";
 import { useState, useEffect } from "react";
-
 import Modal from "../../components/modal";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
-import Deposit from "../Deposit";
 
 const Account = ({ getUserCode, displayPanel }) => {
   const [userStore, setUserStore, getUserStore] = useLocalStorageStore(
@@ -20,42 +16,33 @@ const Account = ({ getUserCode, displayPanel }) => {
 
   useEffect(() => {
     getUserTransactions();
+    setUserBalance(0)
     return () => {};
   }, [displayPanel]);
 
   useEffect(() => {
-    userStore.length > 0 && getTransactions();
+    userStore.length > 0 && getBalance();
     return () => {};
   }, [userTransactions]);
+
+
 
   const getUserProfile = () => {
     setUserName(userStore.find((user) => user.userCode === `${getUserCode}`));
   };
 
-  const getTransactions = () => {
+  const getBalance = () => {
     const userData = userTransactions.filter(
       (user) => user.userCode === `${getUserCode}`
     );
 
-    const deposit = userData
-      .filter((data) => data.title === "Deposit")
-      .reduce((total, deposit) => {
-        return total + Number(deposit.amount);
+    const totalBalance = userData
+      .filter((data) => data.userCode === `${getUserCode}`)
+      .reduce((total, transaction) => {
+        return total + Number(transaction.amount);
       }, 0);
 
-    const withdraw = userData
-      .filter((data) => data.title === "Withdraw")
-      .reduce((total, withdraw) => {
-        return total + Number(withdraw.amount);
-      }, 0);
-
-    const transfer = userData
-      .filter((data) => data.title === "Transfer")
-      .reduce((total, transfer) => {
-        return total + Number(transfer.amount);
-      }, 0);
-
-    setUserBalance(deposit);
+      setUserBalance(prevBalance=> prevBalance + totalBalance);
   };
 
   useEffect(() => {
@@ -79,7 +66,7 @@ const Account = ({ getUserCode, displayPanel }) => {
           </div>
           <div className="account__balance">
             <p>Available Balance</p>
-            <p>Php {userBalance}</p>
+            <p>Php {userBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</p>
           </div>
         </div>
       </div>
