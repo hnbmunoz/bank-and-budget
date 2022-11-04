@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Modal from "../../components/modal";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 import { RoundedButton } from "../../components/button"
+import { GetTransactionBalance} from "../../utilities/utilities"
 
 const Withdraw = ({ getUserCode }) => {
   const [enteredAmount, setEnteredAmount] = useState("");
@@ -26,12 +27,9 @@ const Withdraw = ({ getUserCode }) => {
 
     const userData = userTransactions.filter(
       (user) => user.userCode === `${getUserCode}`
-    );
-    const totalBalance = userData
-    .filter((data) => data.userCode === `${getUserCode}`)
-    .reduce((total, transaction) => {
-      return total + Number(transaction.amount);
-    }, 0);
+    );    
+
+    const totalBalance = GetTransactionBalance(userData, getUserCode)
 
     if (!enteredAmount && !enteredDesc) {
       alert("Please Fill Up Required Fields Properly");
