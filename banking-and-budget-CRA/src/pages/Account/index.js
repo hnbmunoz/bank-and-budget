@@ -49,8 +49,7 @@ const Account = ({ getUserCode, displayPanel }) => {
     userStore.length > 0 && getUserProfile();
     return () => {};
   }, [userStore]);
-
-  return (
+  return (<div>   
     <Modal backgroundColor="#1f1f1f">
       <div className="account flex-row">
         <div className="account__info">
@@ -71,6 +70,7 @@ const Account = ({ getUserCode, displayPanel }) => {
         </div>
       </div>
     </Modal>
+    </div>
   );
 };
 
