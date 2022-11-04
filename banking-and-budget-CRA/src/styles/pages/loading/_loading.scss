@@ -2,9 +2,11 @@
   position: absolute;
   height: 100vh;
   width: 100%;
-  background-color: olive;
+  background-color: #0a0a0a;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #ccc;
+  font-size: 7rem;
   z-index: 9;
 }
