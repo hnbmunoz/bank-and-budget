@@ -4,6 +4,7 @@ import Wallpaper from "../../assets/wallpapers/Login_wallpaper.png";
 import { NeonButton, RoundedButton, GlowingButton } from "../../components/button";
 import useLocaleStorage from "../../utilities/hooks/useLocalStorage";
 import PopupModal from "../../components/popup/PopupModal";
+import { Popup } from "../../components/modal";
 
 import { v4 as uuidv4 } from "uuid"
 
@@ -31,7 +32,7 @@ export const SignInForm = ({newUser, verifyUser}) => {
         <RoundedButton displayText="Register" buttonClick={newUser} />
       </form>
 
-      {modalOpen && <PopupModal setOpenModal={setModalOpen} />}
+      {/* {modalOpen && <PopupModal setOpenModal={setModalOpen} />} */}
     </>
   );
 };
@@ -81,10 +82,8 @@ export const SignUpForm = ({ returnLogin }) => {
 
 export const LoginPage = ({ verifyAccount }) => {
   const [signUp, setSignUp,] = useState(false);
-  const [userStore, setUserStore, getUserStore] = useLocaleStorage(
-    "registeredUsers",
-    []
-  );
+  const [userStore, setUserStore, getUserStore] = useLocaleStorage( "registeredUsers",[]);
+  const [modalOpen, setModalOpen] = useState(false); 
 
   useEffect(() => {
     getUserStore();
@@ -101,6 +100,7 @@ export const LoginPage = ({ verifyAccount }) => {
       (obj.userEmail === userName || obj.userName === userName) && obj.userPassword === passWord
     )
     if (filteredUser) verifyAccount(filteredUser);
+    if (!filteredUser) setModalOpen(true);
   }
 
 
@@ -108,8 +108,8 @@ export const LoginPage = ({ verifyAccount }) => {
     setSignUp(true);
   };
 
-  const handleSignUp = (e) => {
-    setSignUp(false);
+  const handleClosePopUp = (e) => {
+    setModalOpen(false);
   };
   const handleSignIn = (e) => {};
   return (
@@ -121,6 +121,7 @@ export const LoginPage = ({ verifyAccount }) => {
           <SignUpForm returnLogin={returnToLoginPage} />
         )}
       </div>
+      {modalOpen && <Popup closeModal={handleClosePopUp} message="Please Fill Up the Required Fields Properly!"/>}
     </div>
   );
 };
