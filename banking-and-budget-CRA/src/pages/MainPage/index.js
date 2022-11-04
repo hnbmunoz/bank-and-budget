@@ -16,6 +16,7 @@ import Accounts from "../Account";
 import Messages from "../Messages";
 import SwitchAccount from "../SwitchAccount";
 import Transactions from "../Transactions";
+import { LoadingPage } from "../LoadingPage";
 
 export const MainPage = () => {
   const [verifiedAccount, setVerifiedAccount] = useState({
@@ -138,9 +139,20 @@ export const UserInterface = ({
   displayFullName = "",
   getUserCode = "",
   displayIndex = "",
+  
 }) => {
+  const [showLoading, setShowLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {setShowLoading(false)},3000);
+  
+    return () => {
+      
+    }
+  }, [])
   return (
-    <div className="flex-column">
+    <div className="flex-column"> 
+     {showLoading && <LoadingPage />}
       <Header displayFullName={displayFullName} />
       <PanelSectionHolder panelIdx={displayPanel}>
         <PanelSections>
