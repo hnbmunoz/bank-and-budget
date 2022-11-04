@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "../../components/modal";
-import TransactionFilter from "../../components/transactions/TransactionFilter";
-import TransactionItem from "../../components/transactions/TransactionItem";
+import TransactionFilter from "./TransactionFilter";
+import TransactionItem from "./TransactionItem";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 
 
