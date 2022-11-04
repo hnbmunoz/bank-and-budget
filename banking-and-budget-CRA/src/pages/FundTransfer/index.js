@@ -26,9 +26,25 @@ const FundTransfer = ({ getUserCode }) => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
+    const userData = userTransactions.filter(
+      (user) => user.userCode === `${getUserCode}`
+    );
+    const totalBalance = userData
+    .filter((data) => data.userCode === `${getUserCode}`)
+    .reduce((total, transaction) => {
+      return total + Number(transaction.amount);
+    }, 0);
     if (!enteredAmount && !enteredDestination && !enteredDesc) {
       alert("Please Fill Up Required Fields Properly");
-    } else {
+    } 
+    else if(totalBalance < enteredAmount){
+      alert('You have insufficient balance!')
+      setEnteredAmount("");
+      setEnteredDesc("");
+      setEnteredDestination("");
+    }
+    
+    else {
       const fundTransferData = {
         userCode: getUserCode,
         title: "Transfer",
