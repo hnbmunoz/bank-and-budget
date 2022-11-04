@@ -79,7 +79,7 @@ export const NavToggler = ({toggleClick}) => {
   }
 
   return (
-    <div onClick={handleToggleClick} style={{display: "grid", alignItems: "center", justifyContent: "center" }}>
+    <div className="nav-toggle-icon" onClick={handleToggleClick} style={{display: "grid", alignItems: "center", justifyContent: "center" }}>
       {open && <CgChevronDoubleLeft />}
       {!open && <CgChevronDoubleRight  />}
     </div>
