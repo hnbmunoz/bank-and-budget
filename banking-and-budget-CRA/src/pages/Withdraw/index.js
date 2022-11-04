@@ -23,8 +23,22 @@ const Withdraw = ({ getUserCode }) => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
+
+    const userData = userTransactions.filter(
+      (user) => user.userCode === `${getUserCode}`
+    );
+    const totalBalance = userData
+    .filter((data) => data.userCode === `${getUserCode}`)
+    .reduce((total, transaction) => {
+      return total + Number(transaction.amount);
+    }, 0);
+
     if (!enteredAmount && !enteredDesc) {
       alert("Please Fill Up Required Fields Properly");
+    } else if(totalBalance < enteredAmount){
+      alert('You have insufficient balance!')
+      setEnteredAmount("");
+      setEnteredDesc("");
     } else {
       const withdrawData = {
         userCode: getUserCode,
