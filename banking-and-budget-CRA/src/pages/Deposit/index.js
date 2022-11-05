@@ -21,6 +21,8 @@ const Deposit = ({ getUserCode }) => {
   const descChangeHandler = (e) => {
     setEnteredDesc(e.target.value);
   };
+ 
+  
   const submitHandler = (e) => {
     e.preventDefault();
     if (!enteredAmount && !enteredDesc) {
@@ -32,9 +34,9 @@ const Deposit = ({ getUserCode }) => {
         amount: enteredAmount,
         description: enteredDesc,
         id: Math.random().toString(),
+        date: new Date().toISOString().split('T')[0],
       };
 
-    
       setEnteredAmount("");
       setEnteredDesc("");
       setUserTransaction([depositData, ...userTransactions ]);
