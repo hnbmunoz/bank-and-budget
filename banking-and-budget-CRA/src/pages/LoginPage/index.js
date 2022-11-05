@@ -7,7 +7,7 @@ import PopupModal from "../../components/popup/PopupModal";
 import { LoadingPage } from "../LoadingPage";
 import ModalSuccesSignup from "../../components/popup/ModalSuccesSignup";
 
-import { Popup } from "../../components/modal";
+import { WarningPopup, SuccessPopup } from "../../components/modal";
 
 
 import { v4 as uuidv4 } from "uuid"
@@ -142,7 +142,7 @@ export const LoginPage = ({ verifyAccount }) => {
           <SignUpForm returnLogin={returnToLoginPage} />
         )}
       </div>
-      {modalOpen && <Popup closeModal={handleClosePopUp} message="Please Fill Up the Required Fields Properly!"/>}
+      {modalOpen && <WarningPopup closeModal={handleClosePopUp} message="User does not exist"/>}
     </div>
   );
 };
