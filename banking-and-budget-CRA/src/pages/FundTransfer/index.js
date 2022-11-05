@@ -36,7 +36,7 @@ const FundTransfer = ({ getUserCode }) => {
     
     if (!enteredAmount && !enteredDestination && !enteredDesc) {
       alert("Please Fill Up Required Fields Properly");
-    } else if(totalBalance < enteredAmount){
+    } else if( enteredAmount > totalBalance){
       alert('You have insufficient balance!')
       setEnteredAmount("");
       setEnteredDesc("");
@@ -49,6 +49,7 @@ const FundTransfer = ({ getUserCode }) => {
         destination: enteredDestination,
         description: enteredDesc,
         id: Math.random().toString(),
+        date:new Date().toISOString().split('T')[0],
       };
       setEnteredAmount("");
       setEnteredDesc("");

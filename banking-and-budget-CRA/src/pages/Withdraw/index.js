@@ -28,12 +28,11 @@ const Withdraw = ({ getUserCode }) => {
     const userData = userTransactions.filter(
       (user) => user.userCode === `${getUserCode}`
     );    
-
     const totalBalance = GetTransactionBalance(userData, getUserCode)
 
     if (!enteredAmount && !enteredDesc) {
       alert("Please Fill Up Required Fields Properly");
-    } else if(totalBalance < enteredAmount){
+    } else if(enteredAmount > totalBalance){
       alert('You have insufficient balance!')
       setEnteredAmount("");
       setEnteredDesc("");
@@ -44,6 +43,7 @@ const Withdraw = ({ getUserCode }) => {
         amount: enteredAmount * -1,
         description: enteredDesc,
         id: Math.random().toString(),
+        date: new Date().toISOString().split('T')[0],
       };
   
       setEnteredAmount("");
