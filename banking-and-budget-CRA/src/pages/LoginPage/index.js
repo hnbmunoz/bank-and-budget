@@ -4,7 +4,11 @@ import Wallpaper from "../../assets/wallpapers/Login_wallpaper.png";
 import { NeonButton, RoundedButton, GlowingButton } from "../../components/button";
 import useLocaleStorage from "../../utilities/hooks/useLocalStorage";
 import PopupModal from "../../components/popup/PopupModal";
+import { LoadingPage } from "../LoadingPage";
+import ModalSuccesSignup from "../../components/popup/ModalSuccesSignup";
+
 import { Popup } from "../../components/modal";
+
 
 import { v4 as uuidv4 } from "uuid"
 
@@ -38,34 +42,51 @@ export const SignInForm = ({newUser, verifyUser}) => {
 };
 
 export const SignUpForm = ({ returnLogin }) => {
-  const [modalOpen, setModalOpen] = useState(false); 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalSuccess, setModalSuccess] = useState(false); 
   const [userStore, setUserStore, getUserStore] = useLocaleStorage(
     "registeredUsers",
     []
   );
 
-  const handleSignUp = (e) => {
-    setModalOpen(true);
-    e.preventDefault();
-    let invalidFields = [...document.querySelectorAll(".validation")];
-    if (invalidFields.length > 0) {
-    } else {
-      const targetEl = e.currentTarget.parentElement.parentElement.children;
-      let userObj = {
-        userCode: uuidv4(),
-        userFullName: `${targetEl.divsignUpFname.children.signUpFname.value} ${targetEl.divsignUpLname.children.signUpLname.value}`,
-        userName: targetEl.divsignUpUname.children.signUpUname.value,
-        userEmail: targetEl.divsignUpMail.children.signUpMail.value,
-        userPassword: targetEl.divsignUpPW.children.signUpPW.value,
-      };
-      const newUser = [...userStore, userObj];
-      setUserStore(newUser);
-      alert ("Sign Up Complete!")
-      returnLogin();
+  const [showLoading, setShowLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {setShowLoading(false)},3000);
+  
+    return () => {
+      
     }
+  }, [])
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    const targetEl = e.currentTarget.parentElement.parentElement.children;
+    let userObj = {
+      userCode: uuidv4(),
+      userFullName: `${targetEl.divsignUpFname.children.signUpFname.value} ${targetEl.divsignUpLname.children.signUpLname.value}`,
+      userName: targetEl.divsignUpUname.children.signUpUname.value,
+      userEmail: targetEl.divsignUpMail.children.signUpMail.value,
+      userPassword: targetEl.divsignUpPW.children.signUpPW.value,
+    };
+    let invalidFields = [...document.querySelectorAll(".validation")];
+    userStore.map( item => {
+      if ((item.userEmail === userObj.userEmail) || (invalidFields.length > 0)) {
+        setModalOpen(true);
+        console.log("Email is already exist")
+      } else {
+        const newUser = [...userStore, userObj];
+        setUserStore(newUser);
+        setModalSuccess(true);
+        setTimeout(returnLogin, 2000);
+        // console.log(userObj.userEmail)
+      }
+    })
   };
+  
   return (
     <>
+      {showLoading && <LoadingPage />}
       <form className="flex-column">
         <Input name="signUpFname" placeholderText="First Name" />
         <Input name="signUpLname" placeholderText="Last Name" />
@@ -74,8 +95,8 @@ export const SignUpForm = ({ returnLogin }) => {
         <Input name="signUpPW" password placeholderText="Password" />
         <GlowingButton displayText="Sign Up" buttonClick={handleSignUp} />
       </form>
-
       {modalOpen && <PopupModal setOpenModal={setModalOpen} />}
+      {modalSuccess && <ModalSuccesSignup />}
     </>
   );
 };
