@@ -1,11 +1,12 @@
 import React from 'react'
 
-const Header = ({displayFullName}) => {
+const Header = ({children , displayFullName}) => {
   return (
     <div className='header-container flex-row'>
       <div>
         Insert Logo Here
-      </div>
+      </div>      
+      {children}      
       <div>
         {displayFullName}
       </div>

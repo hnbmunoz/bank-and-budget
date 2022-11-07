@@ -7,8 +7,8 @@ import {
 } from "../../components/navigation";
 import * as NavIcons from "../../components/navigation/navIcons";
 import Header from "../../components/header";
-
-import Dashboard from "../Dashboard";
+import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
+import { SearchInput } from "../../components/input";
 import Deposit from "../Deposit";
 import Withdraw from "../Withdraw";
 import FundTransfer from "../FundTransfer";
@@ -17,7 +17,7 @@ import Messages from "../Messages";
 import SwitchAccount from "../SwitchAccount";
 import Transactions from "../Transactions";
 import { LoadingPage } from "../LoadingPage";
-
+import AdminPage from "../AdminPages";
 export const MainPage = () => {
   const [verifiedAccount, setVerifiedAccount] = useState({
     verify: false,
@@ -153,7 +153,7 @@ export const UserInterface = ({
   return (
     <div className="flex-column"> 
      {showLoading && <LoadingPage />}
-      <Header displayFullName={displayFullName} />
+      <Header displayFullName={displayFullName}></Header> 
       <PanelSectionHolder panelIdx={displayPanel}>
         <PanelSections>
           <Accounts getUserCode={getUserCode} displayPanel={displayPanel} />
@@ -177,6 +177,52 @@ export const UserInterface = ({
           <SwitchAccount />
         </PanelSections>
       </PanelSectionHolder>
+    </div>
+  );
+};
+
+
+export const AdminInterface = ({
+  displayPanel,
+  displayFullName = "",
+  getUserCode = "",
+  displayIndex = "",
+  
+}) => {
+  const [showLoading, setShowLoading] = useState(true);
+  const [userStore, setUserStore, getUserStore] = useLocalStorageStore("registeredUsers",[]);
+
+  useEffect(() => {
+    if (displayPanel !== 0) return;
+    getUserStore();
+    return () => {}
+  }, [displayPanel])
+
+  useEffect(() => {
+    setTimeout(() => {setShowLoading(false)},3000);
+  
+    return () => {
+      
+    }
+  }, [])
+  return (
+    <div className="flex-column"> 
+     {showLoading && <LoadingPage />}
+      <Header displayFullName={displayFullName}>
+        <SearchInput
+          dataStore={userStore}
+          displayField="userFullName"
+          filterField="username"
+          name="searchUser"
+        /> 
+      </Header> 
+      
+      <AdminPage 
+        displayPanel={displayPanel}
+        displayFullName={displayFullName}
+        getUserCode={getUserCode}
+        displayIndex={displayIndex}
+      />    
     </div>
   );
 };
