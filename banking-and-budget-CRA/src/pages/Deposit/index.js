@@ -24,6 +24,7 @@ const Deposit = ({ getUserCode }) => {
  
   
   const submitHandler = (e) => {
+
     e.preventDefault();
     if (!enteredAmount && !enteredDesc) {
       alert("Please Fill Up Required Fields Properly");
@@ -42,6 +43,7 @@ const Deposit = ({ getUserCode }) => {
       setUserTransaction([depositData, ...userTransactions ]);
     }
   };
+
   return (
     <Modal>
       <form className="deposit__form" onSubmit={submitHandler}>

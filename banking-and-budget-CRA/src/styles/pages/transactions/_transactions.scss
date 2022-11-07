@@ -1,0 +1,88 @@
+.transaction {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #fff;
+  .transaction-filter__date {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .transaction__display {
+    background-color: #4b4b4b;
+    border-radius: 1rem;
+    padding: 0 1rem;
+    margin: 1rem 0;
+    height: 25rem;
+    overflow-y: scroll;
+    &::-webkit-scrollbar { width: 0 !important }
+  }
+
+  .transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    margin: 1rem 0;
+    background-color: #fff;
+    border-radius: 1rem;
+    
+
+    
+
+    .transaction-item__info {
+      display: flex;
+      gap: 1rem;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+    
+    }
+    
+    .transaction-item__title {
+      color: #3a3a3a;
+      font-size: 1rem;
+      flex-basis: 13%;
+      margin: 0 1rem;
+    }
+    
+    .transaction-item__description {
+      color: #3a3a3a;
+      font-size: .8rem;
+      flex: 1;
+      margin: 0 1rem; 
+    }
+    
+    .transaction-item__date {
+      color: #ee2737;
+    }
+    
+    .transaction-item__amount {
+      font-size: 1rem;
+      font-weight: bold;
+      color: white;
+      background-color: #ee2737;
+      border: 1px solid white;
+      padding: 0.5rem;
+      border-radius: 12px;
+      flex-basis: 20%;
+      text-align: center;
+    }
+  }
+};
+
+
+
+.transaction-btn {
+  display: flex;
+
+  .glowing-container .btn-glow{
+    width: 9rem;
+    margin: 0 1rem;
+  };
+}
+
+.transaction_filter {
+  text-align: center;
+  margin-top: 1rem;
+}

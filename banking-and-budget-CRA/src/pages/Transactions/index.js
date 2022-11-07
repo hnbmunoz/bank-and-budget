@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Modal from "../../components/modal";
 import TransactionFilter from "./TransactionFilter";
-import TransactionItem from "./TransactionItem";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
+import TransactionList from "./TransactionList";
 
 
 
@@ -12,7 +12,7 @@ const Transactions = ({getUserCode, displayPanel}) => {
   useLocalStorageStore("userTransaction", []);
   const [displayTransaction,setDisplayTransaction] = useState('All Transactions')
   const [userData, setUserData] = useState([]);
-  const [filterDate, setFilterDate] = useState('');
+  const [filterDate, setFilterDate] = useState(new Date().toISOString().split('T')[0]);
 
 
   useEffect(() => {
@@ -43,41 +43,23 @@ const Transactions = ({getUserCode, displayPanel}) => {
   };
 
   const filteredByDate = userData.filter(data=>{
-    return data.date === filterDate});
+  return data.date === filterDate})
+
 
   
   const filteredByTransaction = filteredByDate.filter(data=>{
     return data.title === displayTransaction;
   });
 
-  if (displayTransaction.length === 0) {
-    return <Modal> 
-    <div className="transaction__header">Transactions</div>
-    <h2 className="transaction__fallback">No Transactions!</h2>
-    </Modal>
-      
-  };
- 
   return (
     <Modal>
-      <div className="transaction">
-        <div className="transaction__header">Transactions</div>
-        <div className="transaction_content">
+      <div className="transaction flex-column">
+        <h2 className="transaction__header">Transactions</h2>
+        <div className="transaction__content">
           <nav className="navbar">
-           <TransactionFilter onTransaction={transactionFilter} onDate={getDate}/>
+           <TransactionFilter onTransaction={transactionFilter} onDate={getDate} currentDate={filterDate}/>
           </nav>
-          <div className="transaction__display">
-            <h2 className="transaction_filter">{displayTransaction}</h2>
-            {(displayTransaction === 'All Transactions' ? userData : filteredByTransaction).map((transaction) => 
-              <TransactionItem 
-                title={transaction.title}
-                amount={transaction.amount.toLocaleString("en-US")}
-                description={transaction.description}
-                key={transaction.id}
-
-              />
-            )}           
-          </div>
+           <TransactionList filterDate={filteredByDate} filterTransaction={filteredByTransaction} displayTransaction={displayTransaction}/>
         </div>
       </div>
     </Modal>
