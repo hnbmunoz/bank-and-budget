@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import PasswordIcons from "../passwordIcons";
+import SearchIcons from "./searchIcons";
 
 const InputPlaceholder = ({ display, deactivate = false }) => {
   const [placeholderDisplay, setPlaceholderDisplay] = useState(display);
@@ -18,6 +19,23 @@ const InputPlaceholder = ({ display, deactivate = false }) => {
     </div>
   );
 };
+
+const DisplayFilter = ({children}) => {
+  const displayStyle = {
+    borderRadius: "0.5rem",
+    padding: "0.5rem",
+    width: "30rem",
+    minWidth: "20%",
+    backgroundColor: "#ccc",
+    position: "absolute",
+    color: "#1f1f1f"
+  }
+  return (
+    <div style={displayStyle}>
+      {children}
+    </div>
+  )
+}
 
 const Input = ({
   name,
@@ -138,4 +156,53 @@ const Input = ({
   );
 };
 
-export { Input, InputPlaceholder};
+const SearchInput = ({dataStore = [], displayField, filterField, name}) => {
+  const [userInput, setUserInput] = useState("");
+  const [showSearchResult, setShowSearchResult] = useState (false);
+
+  useEffect(() => {
+    (userInput.trim() === "" || userInput.trim() === "undefined") ? setShowSearchResult(false):setShowSearchResult(true)
+  
+    return () => {
+      
+    }
+  }, [userInput])
+  
+
+  const onChangeInput = (e) => {    
+    setUserInput(e.target.value);
+  };
+  return (
+    <div className="search-input-container">
+      <div  className="input-container">
+        <input
+          name={name}
+          data-searchname={name}
+          className="input-container__textbox"
+          placeholder=" "
+          value={userInput}
+          onChange={onChangeInput}
+          autoComplete="off"
+          autoCorrect="off"
+        ></input>
+        <InputPlaceholder display="Search"  />       
+        <div className="placeholder-icons-container">
+          <SearchIcons />
+        </div>       
+      </div>
+      {showSearchResult && <DisplayFilter>
+        {dataStore.map((obj,idx) => (
+          <div>{obj.userFullName}</div>
+        ))}
+     
+      </DisplayFilter> }
+    </div>
+  );
+};
+
+export {
+  InputPlaceholder,
+  DisplayFilter,
+  Input,
+  SearchInput
+};

@@ -58,4 +58,15 @@ export const SuccessPopup = ({ closeModal, message = "Congratulations" }) => {
   );
 };
 
+export const AdminModal = ({ children, backgroundColor = "#1f1f1f" }) => {
+  return (
+    <div
+      style={{ backgroundColor: `${backgroundColor}` }}
+      className="modal-admin"
+    >
+      {children}
+    </div>
+  );
+};
+
 export default Modal;

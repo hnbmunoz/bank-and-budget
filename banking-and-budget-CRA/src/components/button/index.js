@@ -1,11 +1,14 @@
 import React from 'react'
-
+import { CloseButtonIcon } from './buttonIcons'
 export const CloseButton = ({onClickClose}) => {
   return (
     <div className="close-container" >
-      <button  onClick={onClickClose}
+      <button
+        onClick={onClickClose}
         className="btn-close"
-      >X</button>
+      >
+        <CloseButtonIcon />
+      </button>
     </div>
   )
 }

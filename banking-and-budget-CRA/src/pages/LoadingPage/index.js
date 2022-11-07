@@ -1,7 +1,7 @@
 import React from 'react'
 import Typewriter from '../../components/typewriter'
 
-export const LoadingPage = ({showLoading}) => {
+export const LoadingPage = () => {
   return (
     <div className='loading'>
       <Typewriter
