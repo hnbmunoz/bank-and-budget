@@ -3,9 +3,7 @@ import { Input } from "../../components/input";
 import Wallpaper from "../../assets/wallpapers/Login_wallpaper.png";
 import { NeonButton, RoundedButton, GlowingButton } from "../../components/button";
 import useLocaleStorage from "../../utilities/hooks/useLocalStorage";
-import PopupModal from "../../components/popup/PopupModal";
 import { LoadingPage } from "../LoadingPage";
-import ModalSuccesSignup from "../../components/popup/ModalSuccesSignup";
 
 import { WarningPopup, SuccessPopup } from "../../components/modal";
 
@@ -35,14 +33,13 @@ export const SignInForm = ({newUser, verifyUser}) => {
         <NeonButton displayText="Login" buttonClick={handleLoginClick}/>
         <RoundedButton displayText="Register" buttonClick={newUser} />
       </form>
-
-      {/* {modalOpen && <PopupModal setOpenModal={setModalOpen} />} */}
     </>
   );
 };
 
 export const SignUpForm = ({ returnLogin }) => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalInvalidUsernameEmail, setModaIInvalidUsernameEmail] = useState(false);
+  const [modalInvalidFields, setModalInvalidFields] = useState(false);
   const [modalSuccess, setModalSuccess] = useState(false); 
   const [userStore, setUserStore, getUserStore] = useLocaleStorage(
     "registeredUsers",
@@ -53,11 +50,11 @@ export const SignUpForm = ({ returnLogin }) => {
 
   useEffect(() => {
     setTimeout(() => {setShowLoading(false)},3000);
-  
-    return () => {
-      
-    }
-  }, [])
+  })
+  const handleClosePopUp = (e) => {
+    setModalInvalidFields(false);
+    setModaIInvalidUsernameEmail(false)
+  }
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -70,41 +67,45 @@ export const SignUpForm = ({ returnLogin }) => {
       userPassword: targetEl.divsignUpPW.children.signUpPW.value,
     };
     let invalidFields = [...document.querySelectorAll(".validation")];
-    userStore.map( item => {
-      if ((item.userEmail === userObj.userEmail) || (invalidFields.length > 0)) {
-        setModalOpen(true);
-        console.log("Email is already exist")
+    const filteredUser = userStore.find(obj => 
+      (obj.userEmail === userObj.userEmail || obj.userName === userObj.userName)
+      )
+      if ((invalidFields.length > 0) && (filteredUser === undefined)) {
+        setModalInvalidFields(true);
+      } else if (filteredUser !== undefined) {
+        setModaIInvalidUsernameEmail(true);
       } else {
         const newUser = [...userStore, userObj];
         setUserStore(newUser);
         setModalSuccess(true);
         setTimeout(returnLogin, 2000);
-        // console.log(userObj.userEmail)
       }
-    })
   };
   
   return (
     <>
-      {showLoading && <LoadingPage />}
       <form className="flex-column">
+      {showLoading && <LoadingPage />}
         <Input name="signUpFname" placeholderText="First Name" />
         <Input name="signUpLname" placeholderText="Last Name" />
         <Input name="signUpUname" placeholderText="User Name" />
         <Input name="signUpMail" email placeholderText="Enter E-mail" />
         <Input name="signUpPW" password placeholderText="Password" />
         <GlowingButton displayText="Sign Up" buttonClick={handleSignUp} />
+        {modalInvalidFields && <WarningPopup closeModal={handleClosePopUp} message="Please Fill Up Required Fields Properly!"/>}
+        {modalInvalidUsernameEmail && <WarningPopup closeModal={handleClosePopUp} message="Username or Email is already existing"/>}
+        {modalSuccess && <SuccessPopup message="Sign Up Complete! Please Wait"/>} 
       </form>
-      {modalOpen && <PopupModal setOpenModal={setModalOpen} />}
-      {modalSuccess && <ModalSuccesSignup />}
+     
     </>
   );
 };
 
 export const LoginPage = ({ verifyAccount }) => {
+  const [modalInvalidUsernameEmail, setModaIInvalidUsernameEmail] = useState(false);
   const [signUp, setSignUp,] = useState(false);
   const [userStore, setUserStore, getUserStore] = useLocaleStorage( "registeredUsers",[]);
-  const [modalOpen, setModalOpen] = useState(false); 
+  const [modalInvalidFields, setModalInvalidFields] = useState(false);
 
   useEffect(() => {
     getUserStore();
@@ -120,8 +121,14 @@ export const LoginPage = ({ verifyAccount }) => {
     const filteredUser = userStore.find(obj => 
       (obj.userEmail === userName || obj.userName === userName) && obj.userPassword === passWord
     )
-    if (filteredUser) verifyAccount(filteredUser);
-    if (!filteredUser) setModalOpen(true);
+    let invalidFields = [...document.querySelectorAll(".validation")];
+    if (filteredUser) {
+      verifyAccount(filteredUser)
+    } else if (invalidFields.length > 0) {
+      setModalInvalidFields(true)
+    } else {
+     setModaIInvalidUsernameEmail(true)
+    };
   }
 
 
@@ -130,7 +137,9 @@ export const LoginPage = ({ verifyAccount }) => {
   };
 
   const handleClosePopUp = (e) => {
-    setModalOpen(false);
+    setModalInvalidFields(false);
+    setModaIInvalidUsernameEmail(false);
+
   };
   const handleSignIn = (e) => {};
   return (
@@ -142,7 +151,8 @@ export const LoginPage = ({ verifyAccount }) => {
           <SignUpForm returnLogin={returnToLoginPage} />
         )}
       </div>
-      {modalOpen && <WarningPopup closeModal={handleClosePopUp} message="User does not exist"/>}
+      {modalInvalidUsernameEmail && <WarningPopup closeModal={handleClosePopUp} message="Username or Email does not exist. Please click 'Register' to create 'New Account'"/>}
+      {modalInvalidFields && <WarningPopup closeModal={handleClosePopUp} message="Please Fill Up Required Fields Properly!"/>}
     </div>
   );
 };
