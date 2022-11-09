@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useImperativeHandle, forwardRef  } from "react";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import PasswordIcons from "../passwordIcons";
 import SearchIcons from "./searchIcons";
@@ -10,9 +10,9 @@ const InputPlaceholder = ({ display, deactivate = false }) => {
     <div className="input-placeholder">
       <label
         id="target"
-        for="userNameInput"
+        htmlFor="userNameInput"
         autoCorrect="off"
-        autoComplete="off"
+        autoComplete="off"        
       >
         {!deactivate ?  `${placeholderDisplay}` : "Disabled"}
       </label>
@@ -37,27 +37,25 @@ const DisplayFilter = ({children}) => {
   )
 }
 
-const Input = ({
-  name,
-  email = false,
-  password = false,
-  number = false,
-  text = true,
-  required = false,
-  deactivate = false,
-  placeholderText = "Enter Data Here",
-  min = 0,
-  max = 10,
-}) => {
+const Input = forwardRef(({name="" , email = false, password = false, number = false,
+  text = true, required = false, deactivate = false, placeholderText = "Enter Data Here",
+  min = 0, max = 10}, ref) => {
+  
   const [userInput, setUserInput] = useState("");
   const [isValid, setIsValid] = useState({ show: false, message: "" });
-  const prevInputRef = useRef();
+  // const prevInputRef = useRef();
   const [showPassword, setShowPassword] = useState(false);
+
+  useImperativeHandle(ref, () => ({
+    clearValue() {
+      setUserInput("")
+    }
+  }));
 
   useEffect(() => {
     number && isValidRange(userInput);
-    prevInputRef.current = userInput;
-    userInput === 0 && setUserInput("");
+    // prevInputRef.current = userInput;
+    userInput === 0 && setUserInput("");    
   }, [userInput]);
 
   const eyeClick = (e) => {
@@ -70,7 +68,7 @@ const Input = ({
     let Input = e.target.value;
     email &&
       setIsValid({ show: isValidEmail(Input), message: "Not Email Format" });
-    number && !isValidNumber(Input) && setUserInput(prevInputRef.current);
+    number && !isValidNumber(Input) &&    setUserInput(prevValue => prevValue);
     password &&
       (setIsValid({show: isValidPassword(Input),
         message:
@@ -128,6 +126,9 @@ const Input = ({
         onChange={onChangeInput}
         autoComplete="off"
         autoCorrect="off"
+        style={{
+          width: number ? "88%" : "93%"
+        }}
       ></input>
        <InputPlaceholder
         display={placeholderText}
@@ -154,7 +155,8 @@ const Input = ({
       {!isValid.show && <div className="validation">{isValid.message}</div>}
     </div>
   );
-};
+}
+);
 
 const SearchInput = ({dataStore = [], displayField, filterField, name}) => {
   const [userInput, setUserInput] = useState("");
@@ -191,7 +193,7 @@ const SearchInput = ({dataStore = [], displayField, filterField, name}) => {
         </div>       
       </div>
       {showSearchResult && <DisplayFilter>
-        {dataStore.map((obj,idx) => (
+        {dataStore.filter(allRecords => allRecords.userFullName.toLowerCase().includes(`${userInput.trim()}`)).map((obj,idx) => (
           <div>{obj.userFullName}</div>
         ))}
      

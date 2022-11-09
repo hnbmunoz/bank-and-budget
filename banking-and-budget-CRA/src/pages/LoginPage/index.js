@@ -65,6 +65,7 @@ export const SignUpForm = ({ returnLogin }) => {
       userName: targetEl.divsignUpUname.children.signUpUname.value,
       userEmail: targetEl.divsignUpMail.children.signUpMail.value,
       userPassword: targetEl.divsignUpPW.children.signUpPW.value,
+      userType: "user"
     };
     let invalidFields = [...document.querySelectorAll(".validation")];
     const filteredUser = userStore.find(obj => 
@@ -121,14 +122,22 @@ export const LoginPage = ({ verifyAccount }) => {
     const filteredUser = userStore.find(obj => 
       (obj.userEmail === userName || obj.userName === userName) && obj.userPassword === passWord
     )
-    let invalidFields = [...document.querySelectorAll(".validation")];
-    if (filteredUser) {
-      verifyAccount(filteredUser)
-    } else if (invalidFields.length > 0) {
-      setModalInvalidFields(true)
+
+    if (userName !== "admin" && passWord !== "admin"){
+      let invalidFields = [...document.querySelectorAll(".validation")];
+      if (filteredUser) {
+        verifyAccount(filteredUser)
+      } else if (invalidFields.length > 0) {
+        setModalInvalidFields(true)
+      } else {
+      setModaIInvalidUsernameEmail(true)
+      };
     } else {
-     setModaIInvalidUsernameEmail(true)
-    };
+      verifyAccount({  verify: true,
+        profileName: "System Admin",
+        userCode: "Admin ",
+        userType: "admin"})
+    }
   }
 
 

@@ -23,11 +23,11 @@ export const NavigationWidget = ({children, isOpen, selectedPanel=0}) => {
     });
   }, [selectedPanel, isOpen]);
   // const [openNav, setOpenNav] = useState(true);
-  // const dragRef = useRef(null);
-  // useDraggable(dragRef);
+  const dragRef = useRef(null);
+  useDraggable(dragRef);
   return (
     <div 
-      // ref={dragRef}
+      ref={dragRef}
       className='nav-widget flex-column'
     > 
       <ToggleButton>

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import Modal from "../../components/modal";
+import Modal, { AdminModal } from "../../components/modal";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
-import { RoundedButton } from "../../components/button"
-import { GetTransactionBalance} from "../../utilities/utilities"
+import { RoundedButton } from "../../components/button";
+import { GetTransactionBalance} from "../../utilities/utilities";
+import BankTransactions from "../BankTransactions";
 
 const Withdraw = ({ getUserCode }) => {
   const [enteredAmount, setEnteredAmount] = useState("");
@@ -52,9 +53,14 @@ const Withdraw = ({ getUserCode }) => {
       setUserTransaction([withdrawData,...userTransactions]);
     }
   };
+
+  const handleWithdraw = () => {
+
+  }
   return (
-    <Modal>
-      <form className="withdraw__form" onSubmit={submitHandler}>
+    <AdminModal>
+       <BankTransactions getUserCode={getUserCode} transactionType="Withdraw" handleTransaction={handleWithdraw}/>
+      {/* <form className="withdraw__form" onSubmit={submitHandler}>
         <div className="withdraw__controls">
           <div className="withdraw__control">
             <label htmlFor="">Amount</label>
@@ -75,8 +81,8 @@ const Withdraw = ({ getUserCode }) => {
         </div>
         <RoundedButton displayText='Cancel' type="button"/>
         <RoundedButton displayText='Withdraw' type="submit"/>
-      </form>
-    </Modal>
+      </form> */}
+    </AdminModal>
   );
 };
 

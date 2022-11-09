@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import Modal from "../../components/modal";
+import Modal, { AdminModal } from "../../components/modal";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 import { RoundedButton } from "../../components/button"
+import BankTransactions from "../BankTransactions";
 
 const Deposit = ({ getUserCode }) => {
   const [enteredAmount, setEnteredAmount] = useState("");
@@ -44,9 +45,15 @@ const Deposit = ({ getUserCode }) => {
     }
   };
 
+  const handleDeposit = (amount, description) => {
+    alert(amount)
+    alert(description)
+  }
+
   return (
-    <Modal>
-      <form className="deposit__form" onSubmit={submitHandler}>
+    <AdminModal>
+      <BankTransactions getUserCode={getUserCode} transactionType="Deposit" handleTransaction={handleDeposit}/>
+      {/* <form className="deposit__form" onSubmit={submitHandler}>
         <div className="deposit__controls">
           <div className="deposit__control">
             <label htmlFor="">Amount</label>
@@ -72,8 +79,8 @@ const Deposit = ({ getUserCode }) => {
         </div>
         <RoundedButton displayText='Cancel' type="button"/>
         <RoundedButton displayText='Deposit' type="submit"/>
-      </form>
-    </Modal>
+      </form> */}
+    </AdminModal>
   );
 };
 
