@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Modal from "../../components/modal";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
+import { GetTransactionBalance } from "../../utilities/utilities";
 
 const Account = ({ getUserCode, displayPanel }) => {
   const [userStore, setUserStore, getUserStore] = useLocalStorageStore(
@@ -36,13 +37,8 @@ const Account = ({ getUserCode, displayPanel }) => {
       (user) => user.userCode === `${getUserCode}`
     );
 
-    const totalBalance = userData
-      .filter((data) => data.userCode === `${getUserCode}`)
-      .reduce((total, transaction) => {
-        return total + Number(transaction.amount);
-      }, 0);
-
-      setUserBalance(prevBalance=> prevBalance + totalBalance);
+    const totalBalance = GetTransactionBalance(userData, getUserCode)
+    setUserBalance(prevBalance=> prevBalance + totalBalance);
   };
 
   useEffect(() => {

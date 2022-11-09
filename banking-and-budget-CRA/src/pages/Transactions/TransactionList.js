@@ -2,7 +2,6 @@ import React from 'react';
 import TransactionItem from './TransactionItem';
 
 const TransactionList = ({filterDate, filterTransaction, displayTransaction}) => {
-  // console.log(filterDate);
 
   if (filterDate.length === 0) {
     return <h2 className="expenses-list__fallback">Found no Transaction!</h2>;

@@ -27,10 +27,14 @@ export const NeonButton = ({displayText = "Submit", buttonClick}) => {
   )
 }
 
-export const RoundedButton = ({displayText = "Submit", buttonClick, type}) => {
+export const RoundedButton = ({displayText = "Submit", buttonClick
+, type
+}) => {
   return (
     <div className="rounded-container">       
-      <button className="btn-rounded" type={type} onClick={buttonClick}>     
+      <button className="btn-rounded" 
+      type={type}
+       onClick={buttonClick}>     
         {displayText}
       </button>      
     </div>

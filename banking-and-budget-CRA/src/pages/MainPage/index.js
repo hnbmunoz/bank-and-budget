@@ -18,11 +18,16 @@ import SwitchAccount from "../SwitchAccount";
 import Transactions from "../Transactions";
 import { LoadingPage } from "../LoadingPage";
 import AdminPage from "../AdminPages";
+import BankTransactions from "../BankTransactions";
+import DepositTransaction from "../BankTransactions/DepositTransaction";
+import WithdrawTransaction from "../BankTransactions/WithdrawTransaction";
+
 export const MainPage = () => {
   const [verifiedAccount, setVerifiedAccount] = useState({
     verify: false,
     profileName: "",
     userCode: "",
+    userType: ""
   });
   const [displayIndex, setDisplayIndex] = useState(0);
   const [openNav, setOpenNav] = useState(true);
@@ -37,14 +42,14 @@ export const MainPage = () => {
       verify: true,
       profileName: `${data.userFullName}`,
       userCode: `${data.userCode}`,
+      userType: `${data.userType}`
     });
   };
 
   const handleUserLogout = () => {
+    setDisplayIndex(0);
     setVerifiedAccount({ ...verifiedAccount, verify: false });
   };
-
-  const getTotalBalance = () => {};
 
   const handleSwitchPanel = (e) => {
     const btnClicked = e.currentTarget;
@@ -122,7 +127,13 @@ export const MainPage = () => {
       </NavigationContainer>
 
       {verifiedAccount.verify ? (
+        verifiedAccount.userType === "user" ?
         <UserInterface
+          displayPanel={displayIndex}
+          displayFullName={verifiedAccount.profileName}
+          getUserCode={verifiedAccount.userCode}
+        /> :
+        <AdminInterface
           displayPanel={displayIndex}
           displayFullName={verifiedAccount.profileName}
           getUserCode={verifiedAccount.userCode}
@@ -162,10 +173,14 @@ export const UserInterface = ({
           <Transactions getUserCode={getUserCode} displayPanel={displayPanel} />
         </PanelSections>
         <PanelSections>
-          <Deposit getUserCode={getUserCode} />
+          {/* <BankTransactions getUserCode={getUserCode} /> */}
+          {/* <Deposit getUserCode={getUserCode} /> */}
+          <DepositTransaction getUserCode={getUserCode} displayPanel={displayPanel}/>
         </PanelSections>
         <PanelSections>
-          <Withdraw getUserCode={getUserCode} />
+          {/* <Withdraw getUserCode={getUserCode} /> */}
+          <WithdrawTransaction getUserCode={getUserCode} displayPanel={displayPanel}/>
+
         </PanelSections>
         <PanelSections>
           <FundTransfer getUserCode={getUserCode} />
