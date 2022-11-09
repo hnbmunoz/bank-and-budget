@@ -1,27 +1,74 @@
-.modal-container {
-  border-radius: 2rem;
-  padding: 0.5rem;
-  height: fit-content;
-  width: fit-content;
-  min-width: 80%;
-  min-height: 80%;
-  background-color: #1f1f1f;
-  color: #000;
-  filter: drop-shadow(2px 4px 6px black);
-
-  .sub-container {
-    color: #fff;
-    background-color: #ee2737;
-    padding: 3rem;
-    margin: 3rem auto;
-    width: 90%;
-    height: 70vh;
-    border-radius: 2rem;
-  }
+@property --rotate {
+  syntax: "<angle>";
+  initial-value: 132deg;
+  inherits: false;
+} 
+:root {
+  --card-height: 80vh;
+  --card-width: calc(var(--card-height) / 1.1);
 }
 
 
+.modal-container {
+  background: #fff;
+  width: var(--card-width);
+  height: var(--card-height);
+  padding: 3px;
+  position: relative;
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  font-size: 1.5rem;
+  color: #fff;
+  cursor: pointer;
+  font-family: cursive;
+}
 
+.modal-container::before {
+  content: "";
+  width: 102.2%;
+  height: 102%;
+  border-radius: 8px;
+  background-image: linear-gradient(
+    var(--rotate)
+    ,#f3717b, #f0414f 43%, #ee2737);
+    position: absolute;
+    z-index: -1;
+    top: -1%;
+    left: -1%;
+    animation: spin 2.5s linear infinite;
+}
+
+.modal-container::after {
+  position: absolute;
+  content: "";
+  top: calc(var(--card-height) / 6);
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  transform: scale(0.8);
+  filter: blur(calc(var(--card-height) / 6));
+  background-image: linear-gradient(
+    var(--rotate)
+    ,#f3717b, #f0414f 43%, #ee2737);
+    opacity: 1;
+  transition: opacity .5s;
+  animation: spin 2.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    --rotate: 0deg;
+  }
+  100% {
+    --rotate: 360deg;
+  }
+}
 
 
 .modal-admin {
@@ -35,7 +82,5 @@
   box-sizing: border-box;
   // color: #000;
   filter: drop-shadow(2px 4px 6px black);
-
-
 }
 

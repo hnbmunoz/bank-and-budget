@@ -8,8 +8,7 @@ const Modal = ({ children, backgroundColor = "#1f1f1f" }) => {
     <div
       style={{ backgroundColor: `${backgroundColor}` }}
       className="modal-container"
-    >
-      <div className="sub-container">{children}</div>
+    >{children}
     </div>
   );
 };
