@@ -53,9 +53,9 @@ const DepositTransaction = ({ getUserCode, displayPanel }) => {
   }
 
   return (
-    <AdminModal>          
+    <Modal>          
       <BankTransactions getUserCode={getUserCode} transactionType="Deposit" handleTransaction={handleDeposit} displayPanel={displayPanel}/>   
-    </AdminModal>
+    </Modal>
   );
 };
 

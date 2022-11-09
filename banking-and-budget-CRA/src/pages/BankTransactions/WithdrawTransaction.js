@@ -49,9 +49,9 @@ const WithdrawTransaction = ({ getUserCode, displayPanel }) => {
   };
 
   return (
-    <AdminModal>          
+    <Modal>          
       <BankTransactions getUserCode={getUserCode} transactionType="Withdraw" handleTransaction={handleWithdraw} displayPanel={displayPanel}/>   
-    </AdminModal>
+    </Modal>
   );
 };
 

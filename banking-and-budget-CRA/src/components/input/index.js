@@ -23,7 +23,7 @@ const InputPlaceholder = ({ display, deactivate = false }) => {
 const DisplayFilter = ({children}) => {
   const displayStyle = {
     borderRadius: "0.5rem",
-    padding: "0.5rem",
+    padding: "0.5rem 0",
     width: "30rem",
     minWidth: "20%",
     backgroundColor: "#ccc",
@@ -31,7 +31,7 @@ const DisplayFilter = ({children}) => {
     color: "#1f1f1f"
   }
   return (
-    <div style={displayStyle}>
+    <div  className="searched-item-container" style={{}}>
       {children}
     </div>
   )
@@ -194,7 +194,11 @@ const SearchInput = ({dataStore = [], displayField, filterField, name}) => {
       </div>
       {showSearchResult && <DisplayFilter>
         {dataStore.filter(allRecords => allRecords.userFullName.toLowerCase().includes(`${userInput.trim()}`)).map((obj,idx) => (
-          <div>{obj.userFullName}</div>
+          <div className="searched-item">
+            <div style={{padding:"0 1rem"}}>
+              {obj.userFullName}
+            </div>
+          </div>
         ))}
      
       </DisplayFilter> }
