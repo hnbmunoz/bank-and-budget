@@ -1,8 +1,9 @@
 import React from 'react'
 import { PanelSections, PanelSectionHolder } from "../../components/panels";
-import {AdminModal} from '../../components/modal';
+import Modal from '../../components/modal';
 import * as adminPages from '../AdminPages';
 import AdminAccounts from './AdminAccounts';
+import CreateAdminUser from './CreateAdminUser';
 
 
 const AdminPage = ({
@@ -16,36 +17,37 @@ const AdminPage = ({
     <div className='flex-column'>
     <PanelSectionHolder panelIdx={displayPanel}>
       <PanelSections>    
-        <AdminModal>          
+        <Modal>          
           <AdminAccounts />
-        </AdminModal> 
+        </Modal> 
       </PanelSections>
       <PanelSections>    
-        <AdminModal>
-        </AdminModal> 
+        <Modal>
+        </Modal> 
       </PanelSections>
       <PanelSections>    
-        <AdminModal>
-        </AdminModal> 
+        <Modal>
+        </Modal> 
       </PanelSections>
       <PanelSections>    
-        <AdminModal>
-        </AdminModal> 
+        <Modal>
+        </Modal> 
       </PanelSections>
       <PanelSections>    
-        <AdminModal>
-        </AdminModal> 
+        <Modal>
+        </Modal> 
       </PanelSections>
       <PanelSections>    
-        <AdminModal>
-        </AdminModal> 
+        <Modal>
+        </Modal> 
       </PanelSections>
       <PanelSections>    
-        <AdminModal>
-        </AdminModal> 
-      </PanelSections>
-   
-  </PanelSectionHolder></div>
+        <Modal>
+          <CreateAdminUser />
+        </Modal> 
+      </PanelSections>   
+  </PanelSectionHolder>
+  </div>
   )
 }
 

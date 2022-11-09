@@ -79,9 +79,8 @@
   }
   .validation {
     position: absolute;
-    font-size: 0.6rem;
-    top: 3.5rem;
-    // margin-left: 0.5rem; 
+    font-size: 0.519rem;
+    top: 3.3rem;
     color:red; 
     font-family: 'Helvetica', 'Arial';
     word-wrap: break-word;
@@ -92,3 +91,21 @@
   width:30rem;
   min-width: 5rem;
 }
+
+.searched-item-container {
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  width: 30rem;
+  min-width: 20%;
+  background-color: #fff;
+  position: absolute;
+  color: #1f1f1f;  
+}
+.searched-item {
+  &:hover {
+    cursor: pointer;
+    background-color: #ccc;
+    color: #000;
+  }
+}
+

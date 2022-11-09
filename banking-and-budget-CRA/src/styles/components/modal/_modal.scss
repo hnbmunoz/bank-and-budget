@@ -13,24 +13,25 @@
   background: #fff;
   width: var(--card-width);
   height: var(--card-height);
-  padding: 3px;
+  padding: 2rem 1rem;
   position: relative;
-  border-radius: 6px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  display: flex;
+  border-radius: 2rem;
+  // justify-content: center;
+  // align-items: center;
+  // text-align: center;
+  // display: flex;
   font-size: 1.5rem;
   color: #fff;
   cursor: pointer;
-  font-family: cursive;
+  margin-top: 3rem;
+  // font-family: cursive;
 }
 
 .modal-container::before {
   content: "";
   width: 102.2%;
   height: 102%;
-  border-radius: 8px;
+  border-radius: 2rem;
   background-image: linear-gradient(
     var(--rotate)
     ,#f3717b, #f0414f 43%, #ee2737);
@@ -51,7 +52,7 @@
   height: 100%;
   width: 100%;
   margin: 0 auto;
-  transform: scale(0.8);
+  transform: scale(0.7);
   filter: blur(calc(var(--card-height) / 6));
   background-image: linear-gradient(
     var(--rotate)
@@ -82,5 +83,14 @@
   box-sizing: border-box;
   // color: #000;
   filter: drop-shadow(2px 4px 6px black);
+}
+
+.modal-header {
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  font-size: 1.25rem;
+  border-bottom: 0.06rem solid #ccc;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
