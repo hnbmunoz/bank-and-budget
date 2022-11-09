@@ -54,7 +54,8 @@ const Transactions = ({getUserCode, displayPanel}) => {
   return (
     <Modal>
       <div className="transaction flex-column">
-        <h2 className="transaction__header">Transactions</h2>
+        {/* <h2 className="transaction__header">Transactions</h2> */}
+        <div className="modal-header">Transactions</div>
         <div className="transaction__content">
           <nav className="navbar">
            <TransactionFilter onTransaction={transactionFilter} onDate={getDate} currentDate={filterDate}/>

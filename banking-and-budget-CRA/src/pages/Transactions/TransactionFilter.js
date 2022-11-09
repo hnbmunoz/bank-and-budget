@@ -11,7 +11,7 @@ const TransactionFilter = ({onTransaction, onDate, currentDate}) => {
     <div className="transaction-filter">
       <div className="transaction-filter__control">
         <div className="transaction-filter__date">
-            <h3>Select Date</h3>  
+            <div className='modal-details'>Select Date</div>  
             <input type="date" onChange={changeDateHandler} value={currentDate}/>
         </div>       
 
