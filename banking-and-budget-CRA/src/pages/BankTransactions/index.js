@@ -62,8 +62,8 @@ const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction
       <Input ref={inputAmount} name="transactionAmount" placeholderText='Amount' number  />
       <Input ref={inputDescription} name="transactionDesc" placeholderText='Description'  /> 
       <div className="flex-row" style={{alignItems: "center", justifyContent: "space-evenly"}}>
-        <RoundedButton displayText={`${transactionType}`} type="submit" buttonClick={getTransactionData} />          
-        <RoundedButton displayText='Cancel' type="button" buttonClick={clearTransaction}/>            
+        <RoundedButton displayText='Cancel' type="button" buttonClick={clearTransaction}/>      
+        <RoundedButton displayText={`${transactionType}`} type="submit" buttonClick={getTransactionData} />                       
       </div>
     </div>
   )
