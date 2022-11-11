@@ -21,7 +21,7 @@ import AdminPage from "../AdminPages";
 import BankTransactions from "../BankTransactions";
 import DepositTransaction from "../BankTransactions/DepositTransaction";
 import WithdrawTransaction from "../BankTransactions/WithdrawTransaction";
-
+import Dashboard from '../Dashboard';
 export const MainPage = () => {
   const [verifiedAccount, setVerifiedAccount] = useState({
     verify: false,
@@ -70,7 +70,7 @@ export const MainPage = () => {
         selectedPanel={displayIndex}
       >
         <NavigationItems
-          itemName="Accounts"
+          itemName="Dashboard"
           panelIdx={0}
           itemClick={handleSwitchPanel}
           navIcon={<NavIcons.AccountIcon />}
@@ -167,7 +167,7 @@ export const UserInterface = ({
       <Header displayFullName={displayFullName}></Header> 
       <PanelSectionHolder panelIdx={displayPanel}>
         <PanelSections>
-          <Accounts getUserCode={getUserCode} displayPanel={displayPanel} />
+          <Dashboard getUserCode={getUserCode} displayPanel={displayPanel}/>
         </PanelSections>
         <PanelSections>
           <Transactions getUserCode={getUserCode} displayPanel={displayPanel} />
