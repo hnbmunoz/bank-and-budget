@@ -19,7 +19,7 @@ export const WarningPopup = ({ closeModal, message = "Warning Error" }) => {
     height: "100vh",
     width: "100%",
     backgroundColor: "#000",
-    opacity: "0.8"
+    opacity: "0.8" 
   }
   return (
     <>

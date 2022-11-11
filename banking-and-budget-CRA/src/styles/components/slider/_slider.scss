@@ -1,0 +1,140 @@
+body, * {
+    margin: 0;
+    padding: 0;
+    color: var(--white);
+  }
+  
+  :root {
+    --white: #FFFFFF;
+    --green: #2EA9A5;
+    --black: #0D111F;
+  }
+  
+  .choose-card {
+    position: fixed;
+    background: var(--black);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .title {
+    font-weight: 700;
+    font-size: 24px;
+  }
+  
+  .card-item {
+    width: 145px;
+    height: 145px;
+    background-size: cover;
+    border-radius: 55px;
+    transition: transform 500ms;
+    transition-timing-function: cubic-bezier(0.22, 0.11, 0.67, 0.55);
+  }
+  
+  .cards-container {
+    display: flex;
+    width: 500px;
+    height: 300px;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    font-family: monospace;
+    position: relative;
+    gap: 50px;
+  }
+  
+  .cards-container::before {
+    content: '<';
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 35px;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    display: flex;
+    box-shadow: 0px 0px 50px 60px var(--black);
+    background: var(--black);
+  }
+  
+  .cards-container::after {
+    content: '>';
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 35px;
+    right: 0;
+    top: 0;
+    display: flex;
+    box-shadow: 0px 0px 50px 60px var(--black);
+    background: var(--black);
+  }
+  
+  .cards {
+    position: relative;
+    display: flex;
+    gap: 50px;
+    transition: transform 500ms;
+  }
+  
+  #text-card {
+    display: none;
+  }
+  
+  .button-simple {
+    padding: 20px 70px;
+    border-radius: 16px;
+    font-size: 20px;
+    background-color: var(--green);
+    border: none;
+    font-weight: 700;
+    transition: .3s;
+  }
+  
+  .button-simple:hover {
+    cursor: pointer;
+    opacity: .8;
+  }
+  
+  .left {
+    position: absolute;
+    left: 0;
+    width: 35px;
+    height: 50px;
+    z-index: 2;
+    cursor: pointer;
+  }
+  
+  .right {
+    position: absolute;
+    right: 0;
+    width: 35px;
+    height: 50px;
+    z-index: 2;
+    cursor: pointer;
+  }
+  
+  .current {
+    transform: scale(1.3);
+  }
+  
+  .current:hover #text-card {
+    display: block;
+  }
+  
+  .current:hover {
+    cursor: pointer;
+    background-blend-mode: overlay;
+    background-color: #0d111f89;
+    place-items: center;
+    display: grid;
+  }
+  
