@@ -1,27 +1,26 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react'
 import Modal from '../../components/modal'
 import { Input } from '../../components/input'
-import { NeonButton, RoundedButton, GlowingButton } from "../../components/button"
+import { FloatingButton  } from "../../components/button"
+import useLocaleStorageStore from "../../utilities/hooks/useLocalStorage"
+import NewMessage from './NewMessage'
+
 
 const Messages = () => {
+  const [ messageStore, setMessageStore, getMessageStore] = useLocaleStorageStore('userMessages', [])
+  const [ newMessage, setNewMessage] = useState(false);
 
-  const getData = (e) => {
-    const targetEl = e.currentTarget.parentElement.parentElement.children;
-    // let display = targetEl.divsample.children.sample.value;
-    let display = document.querySelector('[data-inputname=sample]').value;
-    alert(display)
+  const handleComposeMessage = () => {
+    setNewMessage(!newMessage)
   }
+
   return (
     <Modal>
-      <div>Messages</div>
-      <Input name="sample" placeholderText='my placeholder'/>
-
-      <NeonButton displayText='Submit' buttonClick={getData}/>
-      
-      <RoundedButton displayText='Submit' buttonClick={getData}/>
-
-      <GlowingButton displayText='Submit' buttonClick={getData}/>
-
+      <div className="message-container">
+        {newMessage && <NewMessage />}
+        <FloatingButton buttonClick={handleComposeMessage}/>
+      </div>
+    
     </Modal>
   )
 }

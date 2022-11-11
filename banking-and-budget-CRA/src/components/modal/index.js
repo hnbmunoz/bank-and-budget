@@ -1,7 +1,7 @@
 import React from "react";
 import { CloseButton } from "../button";
 import { TiWarning } from "react-icons/ti";
-import { GiDiamondTrophy } from "react-icons/gi";
+import { GiDiamondTrophy, GiLaurelsTrophy } from "react-icons/gi";
 
 const Modal = ({ children, backgroundColor = "#1f1f1f" }) => {
   return (
@@ -48,8 +48,8 @@ export const SuccessPopup = ({ closeModal, message = "Congratulations" }) => {
     <div style={blurEffect}></div>
     <div className="popUp-container">
       <div className="popUp-modal flex-column">
-        <CloseButton onClickClose={closeModal} />        
-        <div className=""><GiDiamondTrophy fontSize="10rem" color="green"/></div>
+        {/* <CloseButton onClickClose={closeModal} />         */}
+        <div className=""><GiLaurelsTrophy fontSize="10rem" color="FFB404"/></div> 
         <div className="">{message}</div>        
       </div>
     </div>
