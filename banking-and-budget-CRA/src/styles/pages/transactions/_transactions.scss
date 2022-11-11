@@ -75,8 +75,30 @@
           }
           
           .transaction-item__date {
-            font-size: 1rem;
-            color: #ee2737;
+            display: flex;
+            flex-direction: column;
+            width: 5.5rem;
+            height: 5.5rem;
+            border: 1px solid #ececec;
+            background-color: #2a2a2a;
+            color: white;
+            border-radius: 12px;
+            align-items: center;
+            justify-content: center;
+
+            .transaction-date__month {
+              font-size: 0.75rem;
+              font-weight: bold;
+            }
+            
+            .transaction-date__year {
+              font-size: 0.75rem;
+            }
+            
+            .transaction-date__day {
+              font-size: 1.5rem;
+              font-weight: bold;
+            }
           }
           
           .transaction-item__amount {
