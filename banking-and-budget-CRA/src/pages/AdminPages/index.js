@@ -4,6 +4,9 @@ import Modal from '../../components/modal';
 import * as adminPages from '../AdminPages';
 import AdminAccounts from './AdminAccounts';
 import CreateAdminUser from './CreateAdminUser';
+import DepositTransaction from '../BankTransactions/DepositTransaction';
+import WithdrawTransaction from '../BankTransactions/WithdrawTransaction';
+import Messages from '../Messages';
 
 
 const AdminPage = ({
@@ -26,20 +29,17 @@ const AdminPage = ({
         </Modal> 
       </PanelSections>
       <PanelSections>    
-        <Modal>
-        </Modal> 
+          <DepositTransaction />
+      </PanelSections>
+      <PanelSections>    
+          <WithdrawTransaction />
       </PanelSections>
       <PanelSections>    
         <Modal>
         </Modal> 
       </PanelSections>
       <PanelSections>    
-        <Modal>
-        </Modal> 
-      </PanelSections>
-      <PanelSections>    
-        <Modal>
-        </Modal> 
+       <Messages />
       </PanelSections>
       <PanelSections>    
         <Modal>
