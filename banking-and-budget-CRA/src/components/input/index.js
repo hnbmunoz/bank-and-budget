@@ -39,7 +39,7 @@ const DisplayFilter = ({children}) => {
 
 const Input = forwardRef(({name="" , email = false, password = false, number = false,
   text = true, required = false, deactivate = false, placeholderText = "Enter Data Here",
-  min = 0, max = 10}, ref) => {
+  min = 0, max = 9999}, ref) => {
   
   const [userInput, setUserInput] = useState("");
   const [isValid, setIsValid] = useState({ show: false, message: "" });
@@ -76,7 +76,13 @@ const Input = forwardRef(({name="" , email = false, password = false, number = f
       }));
 
     !email && !number && !password && setIsValid({show: true, message: null}) ;
-    setUserInput(Input);
+    if (!number) {
+      setUserInput(Input);
+    } else {
+      // if (Input < min) return
+      (Number(Input) || Input.trim() === "") ? setUserInput(Input) : setUserInput(prevInput => prevInput);
+    }
+    
   };
 
   const isValidPassword = (input) => {   
@@ -193,7 +199,7 @@ const SearchInput = ({dataStore = [], displayField, filterField, name}) => {
         </div>       
       </div>
       {showSearchResult && <DisplayFilter>
-        {dataStore.filter(allRecords => allRecords.userFullName.toLowerCase().includes(`${userInput.trim()}`)).map((obj,idx) => (
+        {dataStore.filter(allRecords => allRecords.userFullName.toLowerCase().includes(`${userInput.toLowerCase().trim()}`)).map((obj,idx) => (
           <div className="searched-item">
             <div style={{padding:"0 1rem"}}>
               {obj.userFullName}
