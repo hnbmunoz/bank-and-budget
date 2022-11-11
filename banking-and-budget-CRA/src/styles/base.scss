@@ -6,7 +6,11 @@
 @import "./components/navigation/navigation";
 @import "./components/modal/modal";
 @import "./components/typewriter/typewriter";
-@import "./components/popup/popup"; @import "./pages/banktransactions/banktransactions";
+@import "./components/popup/popup";
+@import "./pages/banktransactions/banktransactions";
+@import "./components/atmCards/atmCards";
+@import "./components/slider/slider";
+
 
 @import "./pages/login/login";
 @import "./pages/account/accounts";
