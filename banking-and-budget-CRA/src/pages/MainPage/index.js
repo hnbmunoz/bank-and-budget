@@ -70,7 +70,7 @@ export const MainPage = () => {
         selectedPanel={displayIndex}
       >
         <NavigationItems
-          itemName="Accounts"
+          itemName={verifiedAccount.userType === "user"? "Dashboard" : "Client Account"}
           panelIdx={0}
           itemClick={handleSwitchPanel}
           navIcon={<NavIcons.AccountIcon />}
@@ -112,7 +112,7 @@ export const MainPage = () => {
           navOpen={openNav}
         />
         <NavigationItems
-          itemName="SwitchAccount"
+          itemName={verifiedAccount.userType === "user"? "My Accounts" : "New Account"}
           panelIdx={6}
           itemClick={handleSwitchPanel}
           navIcon={<NavIcons.SwitchAccountIcon />}

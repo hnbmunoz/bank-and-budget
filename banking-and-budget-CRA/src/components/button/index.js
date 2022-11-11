@@ -1,5 +1,6 @@
 import React from 'react'
-import { CloseButtonIcon } from './buttonIcons'
+import { CloseButtonIcon, PencilIcon } from './buttonIcons'
+
 export const CloseButton = ({onClickClose}) => {
   return (
     <div className="close-container" >
@@ -55,6 +56,16 @@ export const ToggleButton = ({children}) => {
   return (
     <div className="toggle-container" >
       <button className="btn-toggle"> {children} </button>
+    </div>
+  )
+}
+
+export const FloatingButton = ({buttonClick}) => {
+  return (
+    <div className="floating-container" >
+      <button className="btn-float" onClick={buttonClick}> 
+        <PencilIcon />
+      </button>
     </div>
   )
 }
