@@ -8,7 +8,7 @@ const AtmCards = () => {
 
 export const GalaxyAtm = ({logo, backgroundImage, cardType}) => {
     return (
-        <div className="container">
+        <div className="container cards">
           <div className="payment space">
             <div className="front-card" style={{backgroundImage: `url(${backgroundImage})`}}>
               <div className='header'>
@@ -23,17 +23,17 @@ export const GalaxyAtm = ({logo, backgroundImage, cardType}) => {
                   </svg>
                 </div>
               </div>
-              <fieldset class="card-number card-number__fields">
-                <legend class="card-number__title">CARD NUMBER</legend>
-                  <input type="tel" class="card-number__part" maxlength="4" />
-                  <input type="tel" class="card-number__part" maxlength="4" />
-                  <input type="tel" class="card-number__part" maxlength="4" />
-                  <input type="tel" class="card-number__part" maxlength="4" />
+              <fieldset className="card-number card-number__fields">
+                <legend className="card-number__title">CARD NUMBER</legend>
+                  <input type="tel" className="card-number__part" maxLength={4} />
+                  <input type="tel" className="card-number__part" maxLength={4} />
+                  <input type="tel" className="card-number__part" maxLength={4} />
+                  <input type="tel" className="card-number__part" maxLength={4} />
               </fieldset>
               <div className="holder-valid-container">
                 <label className="card-holder">
                   <span className="card-holder__title">CARD HOLDER</span>
-                  <input name="ccname" autocomplete="cc-name" />
+                  <input name="ccname" autoComplete="cc-name" />
                 </label>
                 <fieldset className="valid-thru">
                   <legend className="valid-trhu__title">VALID THRU</legend>
@@ -75,7 +75,7 @@ export const GalaxyAtm = ({logo, backgroundImage, cardType}) => {
               <div className="back-card">
                 <label className="cvc">
                   <span className="cvc__title">CVC</span>
-                  <input className="cvc_input" type="password" name="cvc" maxlength="3" />
+                  <input className="cvc_input" type="password" name="cvc" maxLength={3} />
                 </label>
               </div>
           </div>
@@ -86,7 +86,7 @@ export const GalaxyAtm = ({logo, backgroundImage, cardType}) => {
 
 export const RedAtm = ({logo, backgroundImage, cardType}) => {
     return (
-        <div className="container">
+        <div className="container cards">
           <div className="payment sparkasse">
             <div className="front-card" style={{backgroundImage: `url(${backgroundImage})`}}>
               <div className='header'>
@@ -101,17 +101,17 @@ export const RedAtm = ({logo, backgroundImage, cardType}) => {
                   </svg>
                 </div>
               </div>
-              <fieldset class="card-number card-number__fields">
-                <legend class="card-number__title">CARD NUMBER</legend>
-                  <input type="tel" class="card-number__part" maxlength="4" />
-                  <input type="tel" class="card-number__part" maxlength="4" />
-                  <input type="tel" class="card-number__part" maxlength="4" />
-                  <input type="tel" class="card-number__part" maxlength="4" />
+              <fieldset className="card-number card-number__fields">
+                <legend className="card-number__title">CARD NUMBER</legend>
+                  <input type="tel" className="card-number__part" maxLength={4} />
+                  <input type="tel" className="card-number__part" maxLength={4} />
+                  <input type="tel" className="card-number__part" maxLength={4} />
+                  <input type="tel" className="card-number__part" maxLength={4} />
               </fieldset>
               <div className="holder-valid-container">
                 <label className="card-holder">
                   <span className="card-holder__title">CARD HOLDER</span>
-                  <input name="ccname" autocomplete="cc-name" />
+                  <input name="ccname" autoComplete="cc-name" />
                 </label>
                 <fieldset className="valid-thru">
                   <legend className="valid-trhu__title">VALID THRU</legend>
@@ -153,7 +153,7 @@ export const RedAtm = ({logo, backgroundImage, cardType}) => {
               <div className="back-card">
                 <label className="cvc">
                   <span className="cvc__title">CVC</span>
-                  <input className="cvc_input" type="password" name="cvc" maxlength="3" />
+                  <input className="cvc_input" type="password" name="cvc" maxLength={3} />
                 </label>
               </div>
           </div>
@@ -163,7 +163,7 @@ export const RedAtm = ({logo, backgroundImage, cardType}) => {
 
 export const PinkAtm = ({ logo, backgroundImage, cardType }) => {
     return (
-      <div className="container">
+      <div className="container cards">
         <div className="payment klarna">
           <div
             className="front-card"
@@ -176,17 +176,17 @@ export const PinkAtm = ({ logo, backgroundImage, cardType }) => {
                 <svg>{cardType}</svg>
               </div>
             </div>
-            <fieldset class="card-number card-number__fields">
-              <legend class="card-number__title">CARD NUMBER</legend>
-              <input type="tel" class="card-number__part" maxlength="4" />
-              <input type="tel" class="card-number__part" maxlength="4" />
-              <input type="tel" class="card-number__part" maxlength="4" />
-              <input type="tel" class="card-number__part" maxlength="4" />
+            <fieldset className="card-number card-number__fields">
+              <legend className="card-number__title">CARD NUMBER</legend>
+              <input type="tel" className="card-number__part" maxLength={4} />
+              <input type="tel" className="card-number__part" maxLength={4} />
+              <input type="tel" className="card-number__part" maxLength={4} />
+              <input type="tel" className="card-number__part" maxLength={4} />
             </fieldset>
             <div className="holder-valid-container">
               <label className="card-holder">
                 <span className="card-holder__title">CARD HOLDER</span>
-                <input name="ccname" autocomplete="cc-name" />
+                <input name="ccname" autoComplete="cc-name" />
               </label>
               <fieldset className="valid-thru">
                 <legend className="valid-trhu__title">VALID THRU</legend>
@@ -234,7 +234,7 @@ export const PinkAtm = ({ logo, backgroundImage, cardType }) => {
                 className="cvc_input"
                 type="password"
                 name="cvc"
-                maxlength="3"
+                maxLength={3}
               />
             </label>
           </div>
