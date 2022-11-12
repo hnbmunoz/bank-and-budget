@@ -3,7 +3,7 @@ import Modal, { AdminModal } from '../../components/modal';
 import BalanceChart from './BalanceChart';
 import ExpenseChart from './ExpenseChart';
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
-import { GetTransactionBalance } from "../../utilities/utilities";
+import { GetCashInflow, GetCashOutflow, GetTransactionBalance } from "../../utilities/utilities";
 import { useState, useEffect } from "react";
 
 const Dashboard = ({getUserCode, displayPanel}) => {
@@ -16,10 +16,13 @@ const Dashboard = ({getUserCode, displayPanel}) => {
     useLocalStorageStore("userTransaction", []);
   const [userBalance, setUserBalance] = useState(0);
   const [userCashInflow, setUserCashInflow] = useState(0);
+  const [userCashOutflow, setUserCashOutflow] = useState(0);
 
   useEffect(() => {
     getUserTransactions();
     setUserBalance(0)
+    setUserCashInflow(0)
+    setUserCashOutflow(0)
     return () => {};
   }, [displayPanel]);
 
@@ -33,8 +36,16 @@ const Dashboard = ({getUserCode, displayPanel}) => {
       (user) => user.userCode === `${getUserCode}`
     );
 
+    
     const totalBalance = GetTransactionBalance(userData, getUserCode)
     setUserBalance(prevBalance => prevBalance + totalBalance);
+
+    const totalCashInflow = GetCashInflow(userData);
+    setUserCashInflow(prevBalance => prevBalance + totalCashInflow)
+
+    const totalCashOutflow = GetCashOutflow (userData);
+    setUserCashOutflow(prevBalance => prevBalance + totalCashOutflow)
+    
   };
   
    
@@ -46,28 +57,28 @@ const Dashboard = ({getUserCode, displayPanel}) => {
         </div>     
         <div className="chart flex-row">
           <div className="chart-balance">
-            <BalanceChart/>
+            <BalanceChart getUserCode={getUserCode} displayPanel={displayPanel}/>
           </div>
           <div className="chart-expense">
-          <ExpenseChart/>
+          <ExpenseChart />
           </div>
         </div>
         <div className="user-info flex-row">
           <div className="user-card">
             "USER CARD"
           </div>
-          <div className="user-info-balance">
+          <div className="user-info-balance flex-column">
             <div className="user-balance balance flex-row">
               <h3>Available Balance</h3>
               <div className='amount'>PHP {userBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
             </div>
             <div className="user-balance inflow flex-row">
              <h3>Total Cash Inflow</h3>
-              <div className='amount'>PHP10000</div>
+              <div className='amount'>PHP {userCashInflow.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
             </div>
             <div className="user-balance outflow flex-row">
              <h3>Total Cash Outflow</h3>
-              <div className='amount'>-PHP10000</div>
+              <div className='amount'>-PHP {userCashOutflow.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
             </div>
           </div>
         </div>

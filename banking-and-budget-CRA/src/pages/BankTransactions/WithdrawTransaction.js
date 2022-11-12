@@ -42,7 +42,7 @@ const WithdrawTransaction = ({ getUserCode, displayPanel }) => {
         amount: amount * -1,
         description: description,
         id: Math.random().toString(),
-        date: new Date().toISOString().split('T')[0],
+        date: new Date,
       };  
       setUserTransaction([withdrawData,...userTransactions]);
     }
