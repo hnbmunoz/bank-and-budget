@@ -5,7 +5,8 @@ const TransactionFilter = ({onTransaction, onDate, currentDate}) => {
    onTransaction(e.target.value)
   };
   const changeDateHandler = (e)=>{
-   onDate(e.target.value); 
+  const date = new Date(e.target.value)
+   onDate(date);
   };
   return (
     <div className="transaction-filter">

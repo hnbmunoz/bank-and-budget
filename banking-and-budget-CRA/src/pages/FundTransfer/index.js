@@ -49,7 +49,7 @@ const FundTransfer = ({ getUserCode }) => {
         destination: enteredDestination,
         description: enteredDesc,
         id: Math.random().toString(),
-        date:new Date().toISOString().split('T')[0],
+        date:new Date(),
       };
       setEnteredAmount("");
       setEnteredDesc("");

@@ -1,16 +1,58 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
+import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
+import { useState, useEffect } from "react";
 
 
-const BalanceChart = () => {
+const BalanceChart = ({getUserCode, displayPanel}) => {
+
+  const [userStore, setUserStore, getUserStore] = useLocalStorageStore(
+    "registeredUsers",
+    []
+  );
+  const [userTransactions, setUserTransaction, getUserTransactions] =
+  useLocalStorageStore("userTransaction", []);
+
+  const [userCashInflow, setUserCashInflow] = useState([]);
+  const [userCashaOutflow, setUserCashaOutflow] = useState([]);
+  const [transactionDate,setTransactionDate] = useState([]);
+
+  useEffect(() => {
+    getUserTransactions();
+   
+    return () => {};
+  }, [displayPanel]);
+
+  useEffect(() => {
+    userStore.length > 0 && getBalance();
+    return () => {};
+  }, [userTransactions]);
+
+  const getBalance = () => {
+      const userData = userTransactions.filter(
+        (user) => user.userCode === `${getUserCode}`
+      );
+
+      const cashInflow = userData.filter((data) => data.title === 'Deposit').map((data) => Number(data.amount));  
+      const withdraw = userData.filter((data) => data.title === 'Withdraw').map((data) => Number(data.amount * -1));
+      const transfer = userData.filter((data) => data.title === 'Transfer').map((data) => Number(data.amount * -1));
+      const cashOutflow = withdraw.concat(transfer)
+      const date = userData.map((data) => data.date)
+
+  
+      setTransactionDate(date)
+      setUserCashInflow(cashInflow)
+      setUserCashaOutflow(cashOutflow)
+  };
+
   const series = [
     {
       name: 'Cash Inflow',
-      data: [31, 40, 28, 51, 42, 109, 100]
+      data: userCashInflow,
     }, 
     {
       name: 'Cash Outflow',
-      data: [11, 32, 45, 32, 34, 52, 41]
+      data: userCashaOutflow,
     },
   ];
 
@@ -50,10 +92,10 @@ const BalanceChart = () => {
       },
       xaxis: {
         type: 'datetime',
-        categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+        categories: transactionDate,
       },
       yaxis:{
-        show: false,
+        show: true,
       },    
       tooltip: {
         x: {
