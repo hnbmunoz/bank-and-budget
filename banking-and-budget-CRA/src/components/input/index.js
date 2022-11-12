@@ -164,7 +164,7 @@ const Input = forwardRef(({name="" , email = false, password = false, number = f
 }
 );
 
-const SearchInput = ({dataStore = [], displayField, filterField, name}) => {
+const SearchInput = ({dataStore = [], displayField, filterField, name, selectedClient}) => {
   const [userInput, setUserInput] = useState("");
   const [showSearchResult, setShowSearchResult] = useState (false);
 
@@ -176,6 +176,10 @@ const SearchInput = ({dataStore = [], displayField, filterField, name}) => {
     }
   }, [userInput])
   
+  const getUser = (e) => {
+    selectedClient(e.currentTarget.dataset.usercode)
+    setShowSearchResult(false)
+  };
 
   const onChangeInput = (e) => {    
     setUserInput(e.target.value);
@@ -201,12 +205,11 @@ const SearchInput = ({dataStore = [], displayField, filterField, name}) => {
       {showSearchResult && <DisplayFilter>
         {dataStore.filter(allRecords => allRecords.userFullName.toLowerCase().includes(`${userInput.toLowerCase().trim()}`)).map((obj,idx) => (
           <div className="searched-item">
-            <div style={{padding:"0 1rem"}}>
+            <div style={{padding:"0 1rem"}} onClick={getUser} data-usercode={obj.userCode}>
               {obj.userFullName}
             </div>
           </div>
         ))}
-     
       </DisplayFilter> }
     </div>
   );
