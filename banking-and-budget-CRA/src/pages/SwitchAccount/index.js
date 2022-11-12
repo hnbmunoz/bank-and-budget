@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "../../components/modal";
 import Slider from "../../components/slider/Slider";
+import { Shifting } from "../../components/carousel";
 
 //Atm Cards
 import { GalaxyAtm, PinkAtm, RedAtm } from "../../components/atmCards/AtmCards";
@@ -19,27 +20,31 @@ import VisaWhiteLogo from "../../assets/wallpapers/VisaWhiteLogo";
 import VisaBlackLogo from "../../assets/wallpapers/VisaBlackLogo";
 import MasterCardLogo from "../../assets/wallpapers/MasterCardLogo";
 
-const SwitchAccount = () => {
+const SwitchAccount = () => {  
   return (
-    <>
-    {/* <Slider> */}
-    <GalaxyAtm
-        backgroundImage={Galaxy}
-        logo={<LogoN26 />}
-        cardType={<VisaWhiteLogo />}
-      />
+    <Shifting>
+      <div data-carousel="galaxy" className="carousel-div">
+        <GalaxyAtm
+            backgroundImage={Galaxy}
+            logo={<LogoN26 />}
+            cardType={<VisaWhiteLogo />}
+          />
+      </div> 
+      <div data-carousel="klarna" className="carousel-div">
       <PinkAtm
         backgroundImage={<KlarnaBackgroundImg />}
         logo={<LogoKlarna />}
         cardType={<VisaBlackLogo />}
       />
+      </div>
+      <div data-carousel="sparksse" className="carousel-div">
       <RedAtm
         backgroundImage={""}
         logo={<LogoSparksse />}
         cardType={<MasterCardLogo />}
       />
-    {/* </Slider> */}
-    </>
+      </div>
+    </Shifting>
   )
 };
 
