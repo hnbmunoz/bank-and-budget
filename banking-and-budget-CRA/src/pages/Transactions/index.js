@@ -33,8 +33,7 @@ const Transactions = ({getUserCode, displayPanel}) => {
     setUserData(userData)
   };
   const getDate = (date) => {
-    const regex = /\//g;
-    const newDate = date.replace(regex, '-')
+    const newDate = new Date(date).toISOString().split('T')[0]
     setFilterDate(newDate);
 
   }
@@ -43,7 +42,7 @@ const Transactions = ({getUserCode, displayPanel}) => {
   };
 
   const filteredByDate = userData.filter(data=>{
-  return data.date === filterDate})
+  return new Date(data.date).toISOString().split('T')[0] === filterDate})
 
 
   
