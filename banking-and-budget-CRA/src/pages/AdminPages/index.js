@@ -21,7 +21,7 @@ const AdminPage = ({
     <PanelSectionHolder panelIdx={displayPanel}>
       <PanelSections>    
         <Modal>          
-          <AdminAccounts />
+          <AdminAccounts getUserCode={getUserCode}/>
         </Modal> 
       </PanelSections>
       <PanelSections>    

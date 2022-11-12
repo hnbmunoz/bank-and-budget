@@ -26,8 +26,7 @@ const Account = ({ getUserCode, displayPanel }) => {
     return () => {};
   }, [userTransactions]);
 
-
-
+  
   const getUserProfile = () => {
     setUserName(userStore.find((user) => user.userCode === `${getUserCode}`));
   };
