@@ -69,3 +69,19 @@ export const AdminModal = ({ children, backgroundColor = "#1f1f1f" }) => {
 };
 
 export default Modal;
+
+
+export const DefaultPopUp = ({children, closeModal }) => {
+
+  return (
+    <>
+    {/* <div style={blurEffect}></div> */}
+    <div className="default-popUp-container">
+      <div className="popUp-modal flex-column">
+        <CloseButton onClickClose={closeModal} />        
+        {children}            
+      </div>
+    </div>
+    </>
+  );
+};
