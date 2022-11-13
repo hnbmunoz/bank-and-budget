@@ -2,14 +2,18 @@ import React,{ useEffect, useState } from 'react';
 import useLocalStorageStore from '../../utilities/hooks/useLocalStorage';
 import { GetTransactionBalance } from "../../utilities/utilities";
 import { GlowingButton } from '../../components/button';
-import { AdminModal } from '../../components/modal';
+import { DefaultPopUp } from '../../components/modal';
+import { CustomDropDown } from '../../components/input/DropDown'
+import Modal from '../../components/modal';
 
 
 const AdminAccounts = ({ getUserCode = "" }) => {
   const [ userInput, setUserInput ] = useState("");
   const [ searchResult, setSearchResult ] = useState({ result: ""});
   const [ userBalance, setUserBalance ] = useState(0);
-  const [modalclose, setModalOpen] = useState(false);
+  // const [modalclose, setModalOpen] = useState(false);
+  const [newAcctModal, setNewAcctModal] = useState(false);
+
 
 
   const [ userStore, setUserStore, getUserStore ] = useLocalStorageStore(
@@ -52,12 +56,16 @@ const AdminAccounts = ({ getUserCode = "" }) => {
     };
   }
 
-  const handleClosePopUp = (e) => {
-    setModalOpen(false);
+  // const handleClosePopUp = (e) => {
+  //   setModalOpen(false);
+  // }
+
+  const toggleNewAcct = () => {
+    setNewAcctModal(!newAcctModal)
   }
   return (
     <div> 
-      <div className='flex-column'>
+      {/* <div className='flex-column'>
         {typeof searchResult.result === "No result found" && <div>{searchResult.result}</div>}
         {typeof searchResult.result === "object" &&
           <>
@@ -79,9 +87,39 @@ const AdminAccounts = ({ getUserCode = "" }) => {
             {modalclose && <AdminModal closeModal={handleClosePopUp}/>}
           </>
         }
-      </div>
+      </div> */}
+      <Modal>
+        {newAcctModal && <CreateUserAcctNumber closeModal={toggleNewAcct}/>}
+        <div className='user-account-header'>{searchResult.result.userFullName} Account Details</div>
+        <div className='user-account-details'>Full Name :<p className='details'>{searchResult.result.userFullName}</p></div>
+        <div className='user-account-details'>Email :<p className='details'>{searchResult.result.userEmail}</p></div>
+        <div className='user-account-details'>Username :<p className='details'>{searchResult.result.userName}</p></div>
+        {/* <div className='user-account-details'><p className='details'>Account Number</p></div> */}
+        <CustomDropDown name="adminCurrAccDrop" title="Current Accounts :"/>
+        <div className='user-account-details'>Account Type :<p className='details'></p></div>
+        <div className='balance-container'></div>
+        <div className='user-account-balance'>
+          <div>Available Balance</div>
+            <div className='user-account-amount'>
+              PHP {userBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            </div>
+          </div>
+       
+        <div className='flex-row' style={{justifyContent: "center", marginTop: "1rem"}}>
+          <GlowingButton displayText="Open Account" buttonClick={toggleNewAcct} />
+        </div>
+       
+      </Modal>
     </div>
   )
+}
+
+export const CreateUserAcctNumber = ({closeModal}) => {
+  return (
+   <DefaultPopUp closeModal={closeModal}>
+      <CustomDropDown name="newAcctType" title="Current Accounts :" dataStore={['Galaxy', 'Klarna', 'Sparksse']}/>
+   </DefaultPopUp>
+  ) 
 }
 
 export default AdminAccounts

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef} from 'react'
-import Modal from '../../components/modal'
+import Modal, {DefaultPopUp} from '../../components/modal'
 import { RoundedButton } from "../../components/button";
 import { GetTransactionBalance} from "../../utilities/utilities"
 import { Input } from "../../components/input";
@@ -13,6 +13,8 @@ export const AdminFundTransfer = ({getUserCode}) => {
   const [userBalance, setUserBalance] = useState(0);
   const transferAmount = useRef();
   const transferDescription = useRef();
+  const startingAccnt = useRef();
+  const destinationAccnt = useRef();
   const [enteredDestination, setEnteredDestination] = useState("");
 
   const getBalance = () => {     
@@ -63,20 +65,24 @@ export const AdminFundTransfer = ({getUserCode}) => {
   const clearTransaction = () => {
     transferAmount.current.clearValue();
     transferDescription.current.clearValue();
+    startingAccnt.current.clearValue();
+    destinationAccnt.current.clearValue();
   }
   return (
     <Modal>
        <div className='flex-column'>
       <div className="modal-header">
-        Fund Transfer Form 
+        Admin Fund Transfer Form 
       </div>
       <div className="modal-details"> 
         Bank Account Balance : {userBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
       </div>    
-      <CustomDropDown name="" title="Current Account Number :"/>     
+      <Input ref={startingAccnt} name="transactionStart" placeholderText='Current Account Number'   />
+      <Input ref={destinationAccnt} name="transactionEnd" placeholderText='Destination Account Number'  /> 
+         
       <Input ref={transferAmount} name="transactionAmount" placeholderText='Amount' number  />
       <Input ref={transferDescription} name="transactionDesc" placeholderText='Description'  /> 
-      <CustomDropDown name="" title="Destination Account Number :"/>
+     
       <div className="flex-row" style={{alignItems: "center", justifyContent: "space-evenly"}}>
         <RoundedButton displayText='Cancel' type="button" buttonClick={clearTransaction}/>      
         <RoundedButton displayText={`Transfer`} type="submit" buttonClick={getTransactionData} />                       

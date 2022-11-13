@@ -35,7 +35,7 @@ const DropDownData = ({ children }) => {
 // };
 
 export const CustomDropDown = ({
-  // dataStore = [],
+  dataStore = [],
   // displayField,
   // filterField,
    name,
@@ -44,7 +44,7 @@ export const CustomDropDown = ({
 }) => {
   const [userInput, setUserInput] = useState("");
   const [showDrop, setShowDrop] = useState(false);
-
+  debugger
   // useEffect(() => {
   //   userInput.trim() === "" || userInput.trim() === "undefined"
   //     ? setShowSearchResult(false)
@@ -103,7 +103,7 @@ export const CustomDropDown = ({
           )}
         </div>
       </div>
-      {showDrop && (
+      {showDrop && (     
         <DropDownData>
           {/* {dataStore
             .filter((allRecords) =>
@@ -121,7 +121,15 @@ export const CustomDropDown = ({
                   {obj.userFullName}
                 </div>
               </div>
-            ))} */}
+            ))} */}           
+            {dataStore.length >= 0 &&
+               dataStore.map((cardType, idx) => {            
+                <div>
+                {/* {cardType} */}
+                {`Test${idx}`}
+               </div>
+               })            
+            }
         </DropDownData>
       )}
     </div>
