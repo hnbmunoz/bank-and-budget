@@ -1,10 +1,11 @@
 import React from 'react'
+import Nbank from '../customLogo/Nbank'
 
 const Header = ({children , displayFullName}) => {
   return (
     <div className='header-container flex-row'>
       <div>
-        Insert Logo Here
+        <Nbank />
       </div>      
       {children}      
       <div>
