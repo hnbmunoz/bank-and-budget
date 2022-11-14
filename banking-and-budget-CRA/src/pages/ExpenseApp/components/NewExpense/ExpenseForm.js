@@ -1,5 +1,7 @@
 import "./ExpenseForm.css";
 import { useState } from "react";
+import { RoundedButton } from "../../../../components/button"
+
 
 const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
@@ -57,6 +59,25 @@ const ExpenseForm = (props) => {
       setEnteredDate("");
     }
   };
+
+
+  const submitNewExpense = () => {
+    console.log(enteredDate);
+    if (enteredTitle && enteredAmount && enteredDate) {
+      const expenseData = {
+        title: enteredTitle,
+        amount: enteredAmount,
+        date: new Date(enteredDate),
+      };
+
+ 
+
+      props.onSaveExpenseData(expenseData);
+      setEnteredTitle("");
+      setEnteredAmount("");
+      setEnteredDate("");
+    }
+  }
   const date1 = new Date().toISOString().split('T')[0];
   localStorage.setItem('date', date1)
 
@@ -66,10 +87,10 @@ const ExpenseForm = (props) => {
 
   return (
     <div>
-      <form className="form" onSubmit={submitHandler}>
+      <div className="form" onSubmit={submitHandler}>
         <div className="new-expense__controls">
           <div className="new-expense__control">
-            <label htmlFor="">Title</label>
+            <div className="modal-details">Title</div>
             <input
               type="text"
               value={enteredTitle}
@@ -77,7 +98,7 @@ const ExpenseForm = (props) => {
             />
           </div>
           <div className="new-expense__control">
-            <label htmlFor="">Amount</label>
+            <div className="modal-details">Amount</div>
             <input
               type="number"
               value={enteredAmount}
@@ -87,7 +108,7 @@ const ExpenseForm = (props) => {
             />
           </div>
           <div className="new-expense__control">
-            <label htmlFor="">Title</label>
+            <div className="modal-details">Date</div>
             <input
               type="date"
               value={enteredDate}
@@ -97,13 +118,18 @@ const ExpenseForm = (props) => {
             />
           </div>
         </div>
-        <div className="new-expense__actions">
-          <button type="button" onClick={props.onCancel}>
+        {/* <div className="new-expense__actions"> */}
+          {/* <button type="button" onClick={props.onCancel}>
             Cancel
-          </button>
-          <button type="submit">Add Expense</button>
+          </button> */}
+        
+          {/* <button type="submit">Add Expense</button> */}
+        {/* </div> */}
+        <div className="flex-row" style={{alignItems:"center", justifyContent:"space-evenly"}}>
+          <RoundedButton buttonClick={props.onCancel} displayText="Cancel"/>
+          <RoundedButton buttonClick={submitNewExpense} displayText="Add Expense"/>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

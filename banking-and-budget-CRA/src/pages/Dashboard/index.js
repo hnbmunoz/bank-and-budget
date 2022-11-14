@@ -69,16 +69,16 @@ const Dashboard = ({getUserCode, displayPanel}) => {
           </div>
           <div className="user-info-balance flex-column">
             <div className="user-balance balance flex-row">
-              <h3>Available Balance</h3>
-              <div className='amount'>PHP {userBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
+              <div>Available Balance</div>
+              <div className='amount'> {userBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
             </div>
             <div className="user-balance inflow flex-row">
-             <h3>Total Cash Inflow</h3>
-              <div className='amount'>PHP {userCashInflow.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
+             <div>Total Cash Inflow</div>
+              <div className='amount'> {userCashInflow.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
             </div>
             <div className="user-balance outflow flex-row">
-             <h3>Total Cash Outflow</h3>
-              <div className='amount'>-PHP {userCashOutflow.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
+             <div>Total Cash Outflow</div>
+              <div className='amount'>{userCashOutflow.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
             </div>
           </div>
         </div>
