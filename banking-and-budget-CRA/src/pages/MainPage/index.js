@@ -23,6 +23,7 @@ import DepositTransaction from "../BankTransactions/DepositTransaction";
 import WithdrawTransaction from "../BankTransactions/WithdrawTransaction";
 import Dashboard from '../Dashboard';
 import ExpenseApp from "../ExpenseApp";
+
 export const MainPage = () => {
   const [verifiedAccount, setVerifiedAccount] = useState({
     verify: false,
@@ -207,9 +208,10 @@ export const AdminInterface = ({
 }) => {
   const [showLoading, setShowLoading] = useState(true);
   const [userStore, setUserStore, getUserStore] = useLocalStorageStore("registeredUsers",[]);
+  const [selectedUser, setSelectedUser] = useState("");
 
   useEffect(() => {
-    if (displayPanel !== 0) return;
+    if (displayPanel !== 0) return; 
     getUserStore();
     return () => {}
   }, [displayPanel])
@@ -220,7 +222,13 @@ export const AdminInterface = ({
     return () => {
       
     }
+
   }, [])
+
+  const handleSelectedClient = (userCode) => {
+    setSelectedUser(userCode)
+  }
+
   return (
     <div className="flex-column"> 
      {showLoading && <LoadingPage />}
@@ -230,13 +238,14 @@ export const AdminInterface = ({
           displayField="userFullName"
           filterField="username"
           name="searchUser"
+          selectedClient={handleSelectedClient}
         /> 
       </Header> 
       
       <AdminPage 
         displayPanel={displayPanel}
         displayFullName={displayFullName}
-        getUserCode={getUserCode}
+        getUserCode={selectedUser}
         displayIndex={displayIndex}
       />    
     </div>

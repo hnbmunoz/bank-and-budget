@@ -1,0 +1,49 @@
+.flex-column {
+    display: flex;
+    flex-direction: column;
+
+    .user-account-header {
+        font-family: 'Montserrat', sans-serif;
+        color: #fff;
+        font-size: 1.25rem;
+        border-bottom: 0.06rem solid #ccc;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .user-account-details {
+        display: flex;
+        font-family: 'Montserrat', sans-serif;
+        color: #ccc;
+        font-size: 1rem;
+        padding-bottom: 0.5rem; 
+        gap: 5px;
+    }
+    
+    .details {
+        color: #fff;
+    }
+
+    .user-account-balance {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem;
+        margin: 1rem 0;
+        background-color: #3a3a3a;
+        border-radius: 1rem;
+    
+        .user-account-amount {
+            font-weight: bold;
+            flex-basis: 20%;
+            color: white;
+            background-color: #ee2737;
+            border: 1px solid white;
+            padding: 0.5rem;
+            border-radius: 12px;
+            flex-basis: 20%;
+            text-align: center;
+        }
+    }
+}
+

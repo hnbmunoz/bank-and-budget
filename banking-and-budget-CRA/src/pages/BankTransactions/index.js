@@ -1,6 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react'
 import { RoundedButton } from '../../components/button';
 import { Input } from '../../components/input';
+import { CustomDropDown } from '../../components/input/DropDown';
 import useLocalStorageStore from '../../utilities/hooks/useLocalStorage';
 import { GetTransactionBalance } from '../../utilities/utilities';
 
@@ -58,7 +59,8 @@ const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction
       </div>
       <div className="bankTrans-details"> 
         Bank Account Balance : {userBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-      </div>
+      </div>    
+      <CustomDropDown name="" title="Account Number :"/>
       <Input ref={inputAmount} name="transactionAmount" placeholderText='Amount' number  />
       <Input ref={inputDescription} name="transactionDesc" placeholderText='Description'  /> 
       <div className="flex-row" style={{alignItems: "center", justifyContent: "space-evenly"}}>

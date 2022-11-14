@@ -33,3 +33,40 @@
   }
 
 }
+
+
+.default-popUp-container {  
+  height: 25rem;
+  width: 31.25rem;
+  background-color: transparent;
+  font-family: 'Roboto Mono';
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2222;
+  .popUp-modal {
+    border-radius: 2rem;
+    padding: 3rem 1rem;
+    height: 100%;
+    width: 100%;
+    min-width: 100%;
+    background-color: #1f1f1f;
+    color: #ccc;
+    filter: drop-shadow(2px 4px 6px black);
+    font-family: 'Roboto Mono';
+    font-size: 1.10rem;
+    text-align: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    
+    // background: rgba( 204, 204, 204, 0.1 );
+    // box-shadow: 0px 0px 40px 2px #ee2737;
+    // backdrop-filter: blur( 5px );
+    // -webkit-backdrop-filter: blur( 5px );
+    // border-radius: 10px;
+  }
+
+}
