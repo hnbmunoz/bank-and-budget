@@ -33,8 +33,8 @@ const DepositTransaction = ({ getUserCode, displayPanel }) => {
     setUserBalance(totalBalance);    
   };
  
-  const handleDeposit = (amount, description) => {
-    if (!amount && !description) {
+  const handleDeposit = (amount, description, acctNum) => {
+    if (!amount && !description && !acctNum) {
       alert("Please Fill Up Required Fields Properly");
     } else {
       setUserBalance(userBalance + amount)  
@@ -43,6 +43,7 @@ const DepositTransaction = ({ getUserCode, displayPanel }) => {
         userCode: getUserCode,
         title: "Deposit",
         amount: amount,
+        accountNumber: acctNum,
         description: description,
         id: Math.random().toString(),
         date: new Date(),

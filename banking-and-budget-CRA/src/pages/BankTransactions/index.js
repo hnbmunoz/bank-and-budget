@@ -3,16 +3,20 @@ import { RoundedButton } from '../../components/button';
 import { Input } from '../../components/input';
 import { CustomDropDown } from '../../components/input/DropDown';
 import useLocalStorageStore from '../../utilities/hooks/useLocalStorage';
-import { GetTransactionBalance } from '../../utilities/utilities';
+import { GetTransactionBalance, GetAccountBalance } from '../../utilities/utilities';
 
 const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction, displayPanel = 0 }) => {  
   const [userStore, setUserStore, getUserStore] = useLocalStorageStore("registeredUsers",[]);
   const [userTransactions, setUserTransaction, getUserTransactions] = useLocalStorageStore("userTransaction", []);
+  const [userAccount, setUserAccount, getUserAccount] = useLocalStorageStore('userAccounts',[]);
+
   const inputAmount = useRef();
   const inputDescription = useRef();
+  const userAccountDrop = useRef();
   
   const [userName, setUserName] = useState({});
   const [userBalance, setUserBalance] = useState(0);
+  const [selectedAcct, setSelectedAcct] = useState("");
 
   useEffect(() => {
     getUserTransactions();
@@ -21,30 +25,30 @@ const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction
   }, [displayPanel]);
 
   useEffect(() => {
-    userStore.length > 0 && getBalance();
+    userStore.length > 0 && getAccountBalance();
     return () => {};
   }, [userTransactions]);
 
-  // replace with userAcct Number
-  // const getUserProfile = () => { 
-  //   setUserName(userStore.find((user) => user.userCode === `${getUserCode}`));
-  // };
-
-  const getBalance = () => {     
+  const getAccountBalance = (accountNumber = "") => {   
+      
+    const acctNum = accountNumber
     const userData = userTransactions.filter(
-      (user) => user.userCode === `${getUserCode}`
+      (user) => user.userCode === `${getUserCode}` && user.accountNumber === `${acctNum}`
     );
-    const totalBalance = GetTransactionBalance(userData, getUserCode)
-    setUserBalance(totalBalance);
+    const totalBalance = GetAccountBalance(userData)
+
+    acctNum.trim() === "" ?setUserBalance(0) :setUserBalance(totalBalance);
+    setSelectedAcct(acctNum)
   };
 
-  const getTransactionData =  (e) => {        
+  const getTransactionData =  (e) => {            
     const targetEl = e.currentTarget.parentElement.parentElement.parentElement.children;    
     const transactionAmount = targetEl.divtransactionAmount.children.transactionAmount.value;
     const transactionDesc = targetEl.divtransactionDesc.children.transactionDesc.value;
-    handleTransaction(transactionAmount, transactionDesc);
+    const transactionAcct = selectedAcct;
+    handleTransaction(transactionAmount, transactionDesc, transactionAcct);
     getUserTransactions();
-    getBalance();
+    getAccountBalance();
     clearTransaction();
   }
 
@@ -60,7 +64,14 @@ const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction
       <div className="bankTrans-details"> 
         Bank Account Balance : {userBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
       </div>    
-      <CustomDropDown name="" title="Account Number :"/>
+      <CustomDropDown 
+          name="adminCurrAccDrop"
+          title="Current Accounts :"
+          dataStore={userAccount}
+          filterField="accountUser"
+          selectedClient={getUserCode}
+          getAccountBalance={getAccountBalance}
+        />
       <Input ref={inputAmount} name="transactionAmount" placeholderText='Amount' number  />
       <Input ref={inputDescription} name="transactionDesc" placeholderText='Description'  /> 
       <div className="flex-row" style={{alignItems: "center", justifyContent: "space-evenly"}}>
