@@ -8,7 +8,8 @@
 @import "./components/typewriter/typewriter";
 @import "./components/atmCards/atmCards";
 @import "./components/slider/slider";
-@import "./components/popup/popup"; 
+@import "./components/popup/popup";
+@import "./components/carousel/carousel"; 
 
 @import "./pages/banktransactions/banktransactions"; 
 @import "./pages/message/message";
@@ -18,7 +19,7 @@
 @import "./pages/transactions/transactions";
 @import "./pages/loading/loading";
 @import "./pages/adminAccount/adminAccount";
-@import "./pages/loading/loading"; @import "./components/carousel/carousel";
+@import "./pages/loading/loading"; 
 
 
 html {
