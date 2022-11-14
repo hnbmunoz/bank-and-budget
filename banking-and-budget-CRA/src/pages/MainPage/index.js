@@ -107,7 +107,7 @@ export const MainPage = () => {
           navOpen={openNav}
         />
         <NavigationItems
-          itemName="Messages"
+          itemName={verifiedAccount.userType === "user"? "Expenses" : "Disable Account"}
           panelIdx={5}
           itemClick={handleSwitchPanel}
           navIcon={<NavIcons.MessagesIcon />}

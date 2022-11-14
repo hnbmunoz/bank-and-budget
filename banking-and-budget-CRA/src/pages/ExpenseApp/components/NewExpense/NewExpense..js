@@ -1,5 +1,6 @@
-import { useState } from "react";
+import React,{ useState, useEffect } from "react";
 import ExpenseForm from "./ExpenseForm";
+import { GlowingButton } from "../../../../components/button"
 import "./NewExpense.css";
 
 const NewExpense = (props) => {
@@ -20,16 +21,35 @@ const NewExpense = (props) => {
   const stopEditingHandler = () => {
     setIsEditing(false);
   };
+
+
+  useEffect(() => {
+    let hideThisForm = document.querySelector('.hideThisCard')
+    debugger
+    if (isEditing) {
+      hideThisForm.style.opacity = "0"
+    } else {
+      hideThisForm.style.opacity = "1"
+    }
+
+  },[isEditing])
   return (
-    <div className="new-expense">
-      {!isEditing && (
-        <button onClick={startEditingHandler}>Add New Expense</button>
-      )}
+    <div className="">
+      <div className="modal-header">
+        Expenses
+      </div>     
       {isEditing && (
         <ExpenseForm
           onSaveExpenseData={saveExpenseData}
           onCancel={stopEditingHandler}
         />
+      )}
+
+      {!isEditing && (
+        // <button onClick={startEditingHandler}>Add New Expense</button>
+        <div className="flex-row" style={{justifyContent: "center"}}>
+        <GlowingButton buttonClick={startEditingHandler} displayText="Add new Expense"/>
+        </div>
       )}
     </div>
   );
