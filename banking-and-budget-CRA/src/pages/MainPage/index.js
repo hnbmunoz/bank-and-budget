@@ -174,15 +174,11 @@ export const UserInterface = ({
         <PanelSections>
           <Transactions getUserCode={getUserCode} displayPanel={displayPanel} />
         </PanelSections>
-        <PanelSections>
-          {/* <BankTransactions getUserCode={getUserCode} /> */}
-          {/* <Deposit getUserCode={getUserCode} /> */}
+        <PanelSections>          
           <DepositTransaction getUserCode={getUserCode} displayPanel={displayPanel}/>
         </PanelSections>
-        <PanelSections>
-          {/* <Withdraw getUserCode={getUserCode} /> */}
+        <PanelSections>          
           <WithdrawTransaction getUserCode={getUserCode} displayPanel={displayPanel}/>
-
         </PanelSections>
         <PanelSections>
           <FundTransfer getUserCode={getUserCode} />

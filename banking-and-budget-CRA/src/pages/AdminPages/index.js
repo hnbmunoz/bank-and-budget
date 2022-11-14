@@ -8,6 +8,8 @@ import DepositTransaction from '../BankTransactions/DepositTransaction';
 import WithdrawTransaction from '../BankTransactions/WithdrawTransaction';
 import Messages from '../Messages';
 import { AdminFundTransfer } from './AdminFundTransfer';
+import Transactions from "../Transactions";
+
 
 
 const AdminPage = ({
@@ -21,13 +23,10 @@ const AdminPage = ({
     <div className='flex-column'>
     <PanelSectionHolder panelIdx={displayPanel}>
       <PanelSections>    
-        {/* <Modal>           */}
-          <AdminAccounts getUserCode={getUserCode}/>
-        {/* </Modal>  */}
+        <AdminAccounts getUserCode={getUserCode}/>
       </PanelSections>
       <PanelSections>    
-        <Modal>
-        </Modal> 
+        <Transactions getUserCode={getUserCode} displayPanel={displayPanel} />
       </PanelSections>
       <PanelSections>    
         <DepositTransaction />
