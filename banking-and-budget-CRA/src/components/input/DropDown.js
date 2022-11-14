@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useImperativeHandle, forwardRef } from "react";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
 const DropDownData = ({ children }) => {
@@ -11,7 +11,6 @@ const DropDownData = ({ children }) => {
     position: "absolute",
     color: "#1f1f1f"
   };
-  // alert('test')
   return (
     <div className="searched-item-container" style={{}}>
       {children}
@@ -27,7 +26,7 @@ export const CustomDropDown = ({
    title,
   selectedClient = "",
   getAccountBalance
-}) => {
+},ref) => {
   
   const [userInput, setUserInput] = useState("");
   const [showDrop, setShowDrop] = useState(false);
@@ -49,6 +48,12 @@ export const CustomDropDown = ({
     setShowDrop(false)
     getAccountBalance(e.target.dataset.acctnum)
   }
+
+  // useImperativeHandle(ref, () => ({
+  //   clearValue() {
+  //     setUserInput("")
+  //   }
+  // }));
 
   return (
     <div className="search-input-container">
@@ -102,7 +107,8 @@ export const CustomDropDown = ({
       }
     </div>
   );
-};
+}
+// );
 
 
 export const StaticDropDown = ({
