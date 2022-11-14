@@ -30,7 +30,7 @@ const WithdrawTransaction = ({ getUserCode, displayPanel }) => {
     setUserBalance(totalBalance);    
   };
  
-  const handleWithdraw = (amount, description) => {
+  const handleWithdraw = (amount, description, acctNum) => {
     if (!amount && !description) {
       alert("Please Fill Up Required Fields Properly");
     } else if(amount > userBalance){
@@ -40,6 +40,7 @@ const WithdrawTransaction = ({ getUserCode, displayPanel }) => {
         userCode: getUserCode,
         title: "Withdraw",
         amount: amount * -1,
+        accountNumber: acctNum,
         description: description,
         id: Math.random().toString(),
         date: new Date,
