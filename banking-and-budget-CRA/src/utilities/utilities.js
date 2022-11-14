@@ -1,6 +1,6 @@
-export const GetTransactionBalance = (userData = [], getUserCode) => {
+export const GetTransactionBalance = (userData = [], getUserCode, acctNumber) => {
  return userData
-  .filter((data) => data.userCode === `${getUserCode}`)
+  .filter((data) => data.userCode === `${getUserCode}` && data.acctNumber === `${acctNumber}`)
   .reduce((total, transaction) => {
     return total + Number(transaction.amount);
   }, 0);
