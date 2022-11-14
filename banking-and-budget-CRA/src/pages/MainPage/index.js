@@ -22,6 +22,7 @@ import BankTransactions from "../BankTransactions";
 import DepositTransaction from "../BankTransactions/DepositTransaction";
 import WithdrawTransaction from "../BankTransactions/WithdrawTransaction";
 import Dashboard from '../Dashboard';
+import ExpenseApp from "../ExpenseApp";
 
 export const MainPage = () => {
   const [verifiedAccount, setVerifiedAccount] = useState({
@@ -187,7 +188,7 @@ export const UserInterface = ({
           <FundTransfer getUserCode={getUserCode} />
         </PanelSections>
         <PanelSections>
-          <Messages />
+          <ExpenseApp />
         </PanelSections>
         <PanelSections>
           <SwitchAccount />
