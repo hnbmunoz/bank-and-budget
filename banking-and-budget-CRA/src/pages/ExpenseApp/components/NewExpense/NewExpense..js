@@ -24,8 +24,7 @@ const NewExpense = (props) => {
 
 
   useEffect(() => {
-    let hideThisForm = document.querySelector('.hideThisCard')
-    debugger
+    let hideThisForm = document.querySelector('.hideThisCard')    
     if (isEditing) {
       hideThisForm.style.opacity = "0"
     } else {

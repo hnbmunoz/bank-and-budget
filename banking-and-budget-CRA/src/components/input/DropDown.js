@@ -93,7 +93,7 @@ export const CustomDropDown = ({
               allRecords.accountUser === selectedClient                 
             )
             .map((obj, idx) => (
-              <div className="searched-item">
+              <div className="searched-item" key={idx}>
                 <div
                   style={{ padding: "0 1rem" }}
                   onClick={selectedAccount}

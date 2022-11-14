@@ -12,29 +12,15 @@ const FundTransfer = ({ getUserCode }) => {
   const [userTransactions, setUserTransaction, getUserTransactions] =
     useLocalStorageStore("userTransaction", []);
 
-  useEffect(() => {
-    getUserTransactions();
-    return () => {};
-  }, [enteredAmount]);
-
-  const amountChangeHandler = (e) => {
-    setEnteredAmount(e.target.value);
-  };
-  const descChangeHandler = (e) => {
-    setEnteredDesc(e.target.value);
-  };
-  const destChangeHandler = (e) => {
-    setEnteredDestination(e.target.value);
-  };
- 
-
-  //////////////////////////
+  // useEffect(() => {
+  //   getUserTransactions();
+  //   return () => {};
+  // }, [enteredAmount]);
   const [userBalance, setUserBalance] = useState(0);
   const [enteredStarting, setEnteredStarting] = useState("");
   const [enteredDestination, setEnteredDestination] = useState("");
 
   const transferAmount = useRef();
-  const transferDescription = useRef();
   const [currentAccounts, setCurrentAccounts] = useState([]);
   const [selectedAcct, setSelectedAcct] = useState("");
 
@@ -42,8 +28,9 @@ const FundTransfer = ({ getUserCode }) => {
 
   useEffect(() => {
     // handleSearch();
+    getUserAccount();
     getAccounts();
-  }, [getUserCode,currentAccounts]);
+  }, [getUserCode,enteredStarting]);
 
 
   const getAccounts = () => {
@@ -53,8 +40,6 @@ const FundTransfer = ({ getUserCode }) => {
     const currAccounts = userAccount.filter((acct) => acct.accountUser === getUserCode)
     setCurrentAccounts(currAccounts);
   }
-
-
 
   const getBalance = () => {     
     const userData = userTransactions.filter(
@@ -99,16 +84,15 @@ const FundTransfer = ({ getUserCode }) => {
     
     handleTransaction(transactionAmount);
     getUserTransactions();
-    getBalance();
+    // getBalance();
     clearTransaction();
   }
 
   const clearTransaction = () => {
     transferAmount.current.clearValue();
-    transferDescription.current.clearValue();
   }
 
-  const getStartAcctNumber = (acct) => {
+  const getStartAcctNumber = (acct = "") => {
     setEnteredStarting(acct)
 
     const acctNum = acct
@@ -117,7 +101,7 @@ const FundTransfer = ({ getUserCode }) => {
     );
     const totalBalance = GetAccountBalance(userData)
 
-    acctNum.trim() === "" ?setUserBalance(0) :setUserBalance(totalBalance);
+    acctNum.trim() === "" ? setUserBalance(0) :setUserBalance(totalBalance);
     setSelectedAcct(acctNum)
   }
 
@@ -134,7 +118,6 @@ const FundTransfer = ({ getUserCode }) => {
         <div className="modal-details"> 
           Bank Account Balance : {userBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
         </div>    
-        {/* <CustomDropDown name="" title="Current Account Number :"/>    */}
         <CustomDropDown 
             name="startAcctNumber"
             title="Current Accounts :"
@@ -145,7 +128,6 @@ const FundTransfer = ({ getUserCode }) => {
           />
 
         <Input ref={transferAmount} name="transactionAmount" placeholderText='Amount' number  />
-        {/* <Input ref={transferDescription} name="transactionDesc" placeholderText='Description'  />  */}
         <CustomDropDown 
             name="endAcctNumber"
             title="Destination Accounts :"
