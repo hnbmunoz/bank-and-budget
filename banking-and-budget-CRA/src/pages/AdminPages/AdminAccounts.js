@@ -115,9 +115,21 @@ const AdminAccounts = ({ getUserCode = "" }) => {
 }
 
 export const CreateUserAcctNumber = ({closeModal}) => {
+  const [cardNumber, setCardNumber] = useState("")
+
+  const getRandomNumber = () => {
+        let min = 4000000000000000;
+        let max = 4999999999999999;
+        setCardNumber(Math.round(Math.random() * (max - min) + min))
+    } 
   return (
    <DefaultPopUp closeModal={closeModal}>
-      <CustomDropDown name="newAcctType" title="Current Accounts :" dataStore={['Galaxy', 'Klarna', 'Sparksse']}/>
+      <CustomDropDown name="newAcctType" title="Account Type :" dataStore={['Galaxy', 'Klarna', 'Sparksse']}/>
+      <div>Card Number : {cardNumber}</div>
+      <div>Valid Thru : 12/29</div>
+      <div>CVC : 413</div>
+      <button onClick={() => getRandomNumber()}>Show Card Info</button>
+
    </DefaultPopUp>
   ) 
 }

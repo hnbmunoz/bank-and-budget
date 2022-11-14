@@ -44,7 +44,6 @@ export const CustomDropDown = ({
 }) => {
   const [userInput, setUserInput] = useState("");
   const [showDrop, setShowDrop] = useState(false);
-  debugger
   // useEffect(() => {
   //   userInput.trim() === "" || userInput.trim() === "undefined"
   //     ? setShowSearchResult(false)
