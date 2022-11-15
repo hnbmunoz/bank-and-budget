@@ -7,7 +7,7 @@ import { CustomDropDown } from "../../components/input/DropDown";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 
 
-export const AdminFundTransfer = ({getUserCode}) => {
+export const AdminFundTransfer = ({getUserCode, displayPanel = 0}) => {
   const [userTransactions, setUserTransaction, getUserTransactions] =
   useLocalStorageStore("userTransaction", []);
   const [userBalance, setUserBalance] = useState(0);

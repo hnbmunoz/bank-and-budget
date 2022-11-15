@@ -29,13 +29,13 @@ const AdminPage = ({
         <Transactions getUserCode={getUserCode} displayPanel={displayPanel} />
       </PanelSections>
       <PanelSections>    
-        <DepositTransaction />
+        <DepositTransaction getUserCode={getUserCode} displayPanel={displayPanel} />
       </PanelSections>
       <PanelSections>    
-        <WithdrawTransaction />
+        <WithdrawTransaction getUserCode={getUserCode} displayPanel={displayPanel}  />
       </PanelSections>
       <PanelSections>    
-        <AdminFundTransfer />
+        <AdminFundTransfer getUserCode={getUserCode} displayPanel={displayPanel} />
       </PanelSections>
       <PanelSections>    
        <Messages />
