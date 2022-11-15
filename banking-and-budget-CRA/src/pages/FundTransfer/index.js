@@ -10,11 +10,6 @@ const FundTransfer = ({ getUserCode, displayPanel = 0 }) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDesc, setEnteredDesc] = useState("");
   const [userTransactions, setUserTransaction, getUserTransactions] = useLocalStorageStore("userTransaction", []);
-
-  useEffect(() => {
-    getUserTransactions();
-    return () => {};
-  }, [displayPanel]);
   const [userBalance, setUserBalance] = useState(0);
   const [enteredStarting, setEnteredStarting] = useState("");
   const [enteredDestination, setEnteredDestination] = useState("");
@@ -27,8 +22,13 @@ const FundTransfer = ({ getUserCode, displayPanel = 0 }) => {
 
   const [userAccount, setUserAccount, getUserAccount] = useLocalStorageStore('userAccounts',[])
 
+  
   useEffect(() => {
-    // handleSearch();
+    getUserTransactions();
+    return () => {};
+  }, [displayPanel]);
+
+  useEffect(() => {
     getUserAccount();
     getAccounts();
   }, [getUserCode,enteredStarting]);
