@@ -14,6 +14,7 @@ const AdminAccounts = ({ getUserCode = "" }) => {
   const [ userBalance, setUserBalance ] = useState(0);
   const [newAcctModal, setNewAcctModal] = useState(false);
   const [currentAccounts, setCurrentAccounts] = useState([]);
+  const [selectedAcct, setSelectedAcct] = useState();
 
   const [userStore, setUserStore, getUserStore ] = useLocalStorageStore("registeredUsers",[]);
   const [userTransactions, setUserTransaction, getUserTransactions] = useLocalStorageStore("userTransaction", []);
@@ -69,6 +70,10 @@ const AdminAccounts = ({ getUserCode = "" }) => {
   const getAccountBalance = () => {
 
   }
+  
+  const refreshStorage = () => {
+    getUserAccount();
+  }
   return (
     <div> 
       <Modal>
@@ -77,14 +82,16 @@ const AdminAccounts = ({ getUserCode = "" }) => {
         <div className='user-account-details'>Full Name :<p className='details'>{searchResult.result.userFullName}</p></div>
         <div className='user-account-details'>Email :<p className='details'>{searchResult.result.userEmail}</p></div>
         <div className='user-account-details'>Username :<p className='details'>{searchResult.result.userName}</p></div>
+        <div className='user-account-details'>Account Number :<p className='details'>{selectedAcct}</p></div>
         <CustomDropDown 
           ref={inputDrop}
           name="adminCurrAccDrop"
-          title="Current Accounts :"
+          title="Current Accounts"
           dataStore={userAccount}
           filterField="accountUser"
           selectedClient={getUserCode}
           getAccountBalance={getAccountBalance}
+          refreshStorage={refreshStorage}
         />
         <div className='balance-container'></div>
         <div className='user-account-balance'>

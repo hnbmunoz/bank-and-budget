@@ -4,7 +4,7 @@ import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 import { RoundedButton } from "../../components/button";
 import { GetTransactionBalance, GetAccountBalance} from "../../utilities/utilities"
 import { Input } from "../../components/input";
-import { CustomDropDown } from "../../components/input/DropDown";
+import { CustomDropDown, BankExclusiveDropDown } from "../../components/input/DropDown";
 
 const FundTransfer = ({ getUserCode, displayPanel = 0 }) => {
   const [enteredAmount, setEnteredAmount] = useState("");
@@ -12,7 +12,7 @@ const FundTransfer = ({ getUserCode, displayPanel = 0 }) => {
   const [userTransactions, setUserTransaction, getUserTransactions] = useLocalStorageStore("userTransaction", []);
   const [userBalance, setUserBalance] = useState(0);
   const [enteredStarting, setEnteredStarting] = useState("");
-  const [enteredDestination, setEnteredDestination] = useState("");
+  // const [enteredDestination, setEnteredDestination] = useState("");
   const [currentAccounts, setCurrentAccounts] = useState([]);
   const [selectedAcct, setSelectedAcct] = useState("");
 
@@ -42,30 +42,30 @@ const FundTransfer = ({ getUserCode, displayPanel = 0 }) => {
     setCurrentAccounts(currAccounts);
   }
 
-  const getBalance = () => {     
-    const userData = userTransactions.filter(
-      (user) => user.userCode === `${getUserCode}`
-    );
-    const totalBalance = GetTransactionBalance(userData, getUserCode)
-    setUserBalance(totalBalance);
-  };
+  // const getBalance = () => {     
+  //   const userData = userTransactions.filter(
+  //     (user) => user.userCode === `${getUserCode}`
+  //   );
+  //   const totalBalance = GetTransactionBalance(userData, getUserCode)
+  //   setUserBalance(totalBalance);
+  // };
 
-  const handleTransaction = (amount) => {
+  const handleTransaction = (amount, destinationAcct) => {
 
-    if (!amount && !enteredDestination) {
+    if (!amount && !destinationAcct) {
       alert("Please Fill Up Required Fields Properly");
     } else if( amount > userBalance){
       alert('You have insufficient balance!')
       setEnteredAmount("");
       setEnteredDesc("");
-      setEnteredDestination("");
+      // setEnteredDestination("");
     } else {
       const transferDataFrom = {
         userCode: getUserCode,
         title: "Transfer",
         amount: amount * -1,
         accountNumber: enteredStarting,
-        description: `Transferred to ${enteredDestination}`,
+        description: `Transferred to ${destinationAcct}`,
         id: Math.random().toString(),
         date:new Date(),
       };
@@ -73,27 +73,28 @@ const FundTransfer = ({ getUserCode, displayPanel = 0 }) => {
         userCode: getUserCode,
         title: "Transfer",
         amount: amount ,
-        accountNumber: enteredDestination,
-        description: `Transferred from ${enteredStarting}`,
+        accountNumber: destinationAcct,
+        description: `Transferred from ${destinationAcct}`,
         id: Math.random().toString(),
         date:new Date(),
       };
       setEnteredAmount("");
       setEnteredDesc("");
-      setEnteredDestination("");
+      setUserBalance(0);
+      
       setUserTransaction([...userTransactions,transferDataFrom,transferDataTo]);
+      alert('Fund Transferred')
     }
 
   }
 
   const getTransactionData =  (e) => {        
     const targetEl = e.currentTarget.parentElement.parentElement.parentElement.children;    
-    const transactionAmount = targetEl.divtransactionAmount.children.transactionAmount.value;
-    // const transactionDesc = targetEl.divtransactionDesc.children.transactionDesc.value;
+    const transactionAmount = targetEl.divtransactionAmount.children.transactionAmount.value;    
+    const destinationAcct = targetEl.dropDownendAcctNumber.children.divendAcctNumber.children.endAcctNumber.value
     
-    handleTransaction(transactionAmount);
+    handleTransaction(transactionAmount, destinationAcct);
     getUserTransactions();
-    // getBalance();
     clearTransaction();
   }
 
@@ -116,9 +117,14 @@ const FundTransfer = ({ getUserCode, displayPanel = 0 }) => {
     setSelectedAcct(acctNum)
   }
 
-  const getEndAcctNumber = (acct ="") => {
-    setEnteredDestination(acct)
+  // const getEndAcctNumber = (acct ="") => {
+  //   setEnteredDestination(acct)
+  // }
+
+  const refreshStorage = () => {
+    getUserAccount();
   }
+
 
   return (
     <Modal>
@@ -137,17 +143,19 @@ const FundTransfer = ({ getUserCode, displayPanel = 0 }) => {
             filterField="accountUser"
             selectedClient={getUserCode}
             getAccountBalance={getStartAcctNumber}
+            refreshStorage={refreshStorage}
           />
 
         <Input ref={transferAmount} name="transactionAmount" placeholderText='Amount' number  />
-        <CustomDropDown
+        <BankExclusiveDropDown
             ref={inputDropEnd} 
             name="endAcctNumber"
             title="Destination Accounts :"
             dataStore={userAccount}
             filterField="accountUser"
             selectedClient={getUserCode}
-            getAccountBalance={getEndAcctNumber}
+            // getAccountBalance={getEndAcctNumber}
+            refreshStorage={refreshStorage}
           />
         <div className="flex-row" style={{alignItems: "center", justifyContent: "space-evenly"}}>
           <RoundedButton displayText='Cancel' type="button" buttonClick={clearTransaction}/>      

@@ -73,7 +73,7 @@ export default function Typewriter({
     <div className="typing-placeholder">
       <label
         id="target"
-        for="userNameInput"
+        htmlFor="userNameInput"
         autoCorrect="off"
         autoComplete="off"
         data-id={exclusiveComponentID}
