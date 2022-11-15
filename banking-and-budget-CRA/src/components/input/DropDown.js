@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useImperativeHandle, forwardRef } from "react";
+import React, { useEffect, useState,useRef, useImperativeHandle, forwardRef } from "react";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
 const DropDownData = ({ children }) => {
@@ -18,96 +18,100 @@ const DropDownData = ({ children }) => {
   );
 };
 
-export const CustomDropDown = ({
-  dataStore = [],
-  staticStore = [],  
-  filterField,
-   name,
-   title,
-  selectedClient = "",
-  getAccountBalance
-},ref) => {
-  
-  const [userInput, setUserInput] = useState("");
-  const [showDrop, setShowDrop] = useState(false);
-  
-  const onChangeInput = (e) => {
-    setUserInput(e.target.value);
-  };
+const CustomDropDown = forwardRef(
+  (
+    {
+      dataStore = [],
+      staticStore = [],
+      filterField,
+      name="",
+      title,
+      selectedClient = "",
+      getAccountBalance,
+    },
+    ref
+  ) => {
+    const [userInput, setUserInput] = useState("");
+    const [showDrop, setShowDrop] = useState(false);
 
-  const hideDrop = () => {
-    setShowDrop(false);
-  };
+    useImperativeHandle(ref, () => ({
+      clearValue() {
+        setUserInput("");
+      },
+    }));
 
-  const displayDrop = () => {
-    setShowDrop(true);
-  };
+    const onChangeInput = (e) => {
+      setUserInput(e.target.value);
+    };
 
-  const selectedAccount = (e) => {
-    setUserInput(e.target.innerHTML);
-    setShowDrop(false)
-    getAccountBalance(e.target.dataset.acctnum)
-  }
+    const hideDrop = () => {
+      setShowDrop(false);
+    };
 
-  // useImperativeHandle(ref, () => ({
-  //   clearValue() {
-  //     setUserInput("")
-  //   }
-  // }));
+    const displayDrop = () => {
+      setShowDrop(true);
+    };
 
-  return (
-    <div className="search-input-container">
-      <div style={{
-        fontFamily:"Montserrat",
-        color:"#ccc",
-        fontSize:"1rem"
-        }}>
-      {title}
-      </div>
-      <div className="input-container">        
-        <input
-          name={name}
-          data-searchname={name}
-          className="input-container__textbox"
-          placeholder=" "
-          value={userInput}
-          onChange={onChangeInput}
-          autoComplete="off"
-          autoCorrect="off"
-        ></input>
-        <div className="placeholder-icons-container">
-          {showDrop ? (
-            <button className="placeholder-button" onClick={hideDrop}>
-              <IoIosArrowUp />
-            </button>
-          ) : (
-            <button className="placeholder-button" onClick={displayDrop}>
-              <IoIosArrowDown />
-            </button>
-          )}
+    const selectedAccount = (e) => {
+      setUserInput(e.target.innerHTML);
+      setShowDrop(false);
+      getAccountBalance(e.target.dataset.acctnum);
+    };
+    return (
+      <div className="search-input-container">
+        <div
+          style={{
+            fontFamily: "Montserrat",
+            color: "#ccc",
+            fontSize: "1rem",
+          }}
+        >
+          {title}
         </div>
+        <div className="input-container">
+          <input
+            name={name}
+            data-searchname={name}
+            className="input-container__textbox"
+            placeholder=" "
+            value={userInput}
+            // onChange={onChangeInput}
+            autoComplete="off"
+            autoCorrect="off"
+          ></input>
+          <div className="placeholder-icons-container">
+            {showDrop ? (
+              <button className="placeholder-button" onClick={hideDrop}>
+                <IoIosArrowUp />
+              </button>
+            ) : (
+              <button className="placeholder-button" onClick={displayDrop}>
+                <IoIosArrowDown />
+              </button>
+            )}
+          </div>
+        </div>
+        {showDrop && (
+          <div className="searched-item-container">
+            {dataStore
+              .filter((allRecords) => allRecords.accountUser === selectedClient)
+              .map((obj, idx) => (
+                <div className="searched-item" key={idx}>
+                  <div
+                    style={{ padding: "0 1rem" }}
+                    onClick={selectedAccount}
+                    data-acctnum={obj.accountNumber}
+                  >
+                    {obj.accountType}
+                  </div>
+                </div>
+              ))}
+            </div>
+        )}
       </div>
-      { showDrop &&
-        <DropDownData>          
-            { dataStore.filter((allRecords) =>
-              allRecords.accountUser === selectedClient                 
-            )
-            .map((obj, idx) => (
-              <div className="searched-item" key={idx}>
-                <div
-                  style={{ padding: "0 1rem" }}
-                  onClick={selectedAccount}
-                  data-acctnum={obj.accountNumber}
-                >
-                  {obj.accountType}
-              </div>
-              </div>
-            ))}
-        </DropDownData>
-      }
-    </div>
-  );
-}
+    );
+  }
+);
 // );
 
 
@@ -178,3 +182,7 @@ export const StaticDropDown = ({
     </div>
   );
 };
+
+export {
+  CustomDropDown
+}

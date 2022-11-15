@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from 'react';
+import React,{ useEffect, useState, useRef } from 'react';
 import useLocalStorageStore from '../../utilities/hooks/useLocalStorage';
 import { GetTransactionBalance } from "../../utilities/utilities";
 import { GlowingButton, RoundedButton } from '../../components/button';
@@ -17,7 +17,9 @@ const AdminAccounts = ({ getUserCode = "" }) => {
 
   const [userStore, setUserStore, getUserStore ] = useLocalStorageStore("registeredUsers",[]);
   const [userTransactions, setUserTransaction, getUserTransactions] = useLocalStorageStore("userTransaction", []);
-  const [userAccount, setUserAccount, getUserAccount] = useLocalStorageStore('userAccounts',[])
+  const [userAccount, setUserAccount, getUserAccount] = useLocalStorageStore('userAccounts',[]);
+
+  const inputDrop = useRef();
 
   useEffect(() => {
     handleSearch();
@@ -76,6 +78,7 @@ const AdminAccounts = ({ getUserCode = "" }) => {
         <div className='user-account-details'>Email :<p className='details'>{searchResult.result.userEmail}</p></div>
         <div className='user-account-details'>Username :<p className='details'>{searchResult.result.userName}</p></div>
         <CustomDropDown 
+          ref={inputDrop}
           name="adminCurrAccDrop"
           title="Current Accounts :"
           dataStore={userAccount}

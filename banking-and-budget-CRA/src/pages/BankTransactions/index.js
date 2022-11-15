@@ -12,7 +12,7 @@ const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction
 
   const inputAmount = useRef();
   const inputDescription = useRef();
-  const userAccountDrop = useRef();
+  const inputDrop = useRef();
   
   const [userName, setUserName] = useState({});
   const [userBalance, setUserBalance] = useState(0);
@@ -55,6 +55,7 @@ const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction
   const clearTransaction = () => {
     inputAmount.current.clearValue();
     inputDescription.current.clearValue();
+    inputDrop.current.clearValue();
   }
   return (  
     <div className='flex-column'>
@@ -65,12 +66,14 @@ const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction
         Bank Account Balance : {userBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
       </div>    
       <CustomDropDown 
+          ref={inputDrop}
           name="adminCurrAccDrop"
           title="Current Accounts :"
           dataStore={userAccount}
           filterField="accountUser"
           selectedClient={getUserCode}
           getAccountBalance={getAccountBalance}
+          
         />
       <Input ref={inputAmount} name="transactionAmount" placeholderText='Amount' number  />
       <Input ref={inputDescription} name="transactionDesc" placeholderText='Description'  /> 

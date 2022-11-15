@@ -181,7 +181,7 @@ export const UserInterface = ({
           <WithdrawTransaction getUserCode={getUserCode} displayPanel={displayPanel}/>
         </PanelSections>
         <PanelSections>
-          <FundTransfer getUserCode={getUserCode} />
+          <FundTransfer getUserCode={getUserCode} displayPanel={displayPanel}/>
         </PanelSections>
         <PanelSections>
           <ExpenseApp />
