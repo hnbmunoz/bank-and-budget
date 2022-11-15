@@ -11,11 +11,15 @@ export const AdminFundTransfer = ({getUserCode}) => {
   const [userTransactions, setUserTransaction, getUserTransactions] =
   useLocalStorageStore("userTransaction", []);
   const [userBalance, setUserBalance] = useState(0);
+  const [enteredStarting, setEnteredStarting] = useState("");
+  const [enteredDestination, setEnteredDestination] = useState("");
+
+
   const transferAmount = useRef();
   const transferDescription = useRef();
   const startingAccnt = useRef();
   const destinationAccnt = useRef();
-  const [enteredDestination, setEnteredDestination] = useState("");
+ 
 
   const getBalance = () => {     
     const userData = userTransactions.filter(
@@ -31,23 +35,29 @@ export const AdminFundTransfer = ({getUserCode}) => {
       alert("Please Fill Up Required Fields Properly");
     } else if( amount > userBalance){
       alert('You have insufficient balance!')
-      // setEnteredAmount("");
-      // setEnteredDesc("");
-      // setEnteredDestination("");
+     
     } else {
-      const fundTransferData = {
+      const fundTransferFrom = {
         userCode: getUserCode,
-        title: "Transfer",
+        title: "Withdraw",
         amount: amount * -1,
-        destination: enteredDestination,
-        description: "enteredDesc",
+        accountNumber: enteredStarting,
+        description: `Transferred to ${enteredDestination}`,
         id: Math.random().toString(),
         date:new Date(),
       };
-      // setEnteredAmount("");
-      // setEnteredDesc("");
-      // setEnteredDestination("");
-      setUserTransaction([fundTransferData, ...userTransactions]);
+
+      const fundTransferTo = {
+        userCode: getUserCode,
+        title: "Deposit",
+        amount: amount ,
+        accountNumber: enteredDestination,
+        description: `Transferred from ${enteredStarting}`,
+        id: Math.random().toString(),
+        date:new Date(),
+      };
+     
+      setUserTransaction([...userTransactions, fundTransferFrom, fundTransferTo]);
     }
 
   }
@@ -70,24 +80,24 @@ export const AdminFundTransfer = ({getUserCode}) => {
   }
   return (
     <Modal>
-       <div className='flex-column'>
-      <div className="modal-header">
-        Admin Fund Transfer Form 
+      <div className='flex-column'>
+        <div className="modal-header">
+          Admin Fund Transfer Form 
+        </div>
+        <div className="modal-details"> 
+          Bank Account Balance : {userBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+        </div>    
+        <Input ref={startingAccnt} name="transactionStart" placeholderText='Current Account Number'   />
+        <Input ref={destinationAccnt} name="transactionEnd" placeholderText='Destination Account Number'  /> 
+          
+        <Input ref={transferAmount} name="transactionAmount" placeholderText='Amount' number  />
+        {/* <Input ref={transferDescription} name="transactionDesc" placeholderText='Description'  />  */}
+      
+        <div className="flex-row" style={{alignItems: "center", justifyContent: "space-evenly"}}>
+          <RoundedButton displayText='Cancel' type="button" buttonClick={clearTransaction}/>      
+          <RoundedButton displayText={`Transfer`} type="submit" buttonClick={getTransactionData} />                       
+        </div>
       </div>
-      <div className="modal-details"> 
-        Bank Account Balance : {userBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-      </div>    
-      <Input ref={startingAccnt} name="transactionStart" placeholderText='Current Account Number'   />
-      <Input ref={destinationAccnt} name="transactionEnd" placeholderText='Destination Account Number'  /> 
-         
-      <Input ref={transferAmount} name="transactionAmount" placeholderText='Amount' number  />
-      <Input ref={transferDescription} name="transactionDesc" placeholderText='Description'  /> 
-     
-      <div className="flex-row" style={{alignItems: "center", justifyContent: "space-evenly"}}>
-        <RoundedButton displayText='Cancel' type="button" buttonClick={clearTransaction}/>      
-        <RoundedButton displayText={`Transfer`} type="submit" buttonClick={getTransactionData} />                       
-      </div>
-    </div>
     </Modal>
   )
 }
