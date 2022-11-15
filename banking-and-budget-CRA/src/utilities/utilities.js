@@ -7,7 +7,6 @@ export const GetTransactionBalance = (userData = [], getUserCode) => {
 }
 
 export const GetAccountBalance = (userData = []) => {  
-  debugger
   return userData.reduce((total, transaction) => {
      return total + Number(transaction.amount);
    }, 0);

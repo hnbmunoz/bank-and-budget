@@ -6,23 +6,24 @@ import { GetTransactionBalance, GetAccountBalance} from "../../utilities/utiliti
 import { Input } from "../../components/input";
 import { CustomDropDown } from "../../components/input/DropDown";
 
-const FundTransfer = ({ getUserCode }) => {
+const FundTransfer = ({ getUserCode, displayPanel = 0 }) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDesc, setEnteredDesc] = useState("");
-  const [userTransactions, setUserTransaction, getUserTransactions] =
-    useLocalStorageStore("userTransaction", []);
+  const [userTransactions, setUserTransaction, getUserTransactions] = useLocalStorageStore("userTransaction", []);
 
-  // useEffect(() => {
-  //   getUserTransactions();
-  //   return () => {};
-  // }, [enteredAmount]);
+  useEffect(() => {
+    getUserTransactions();
+    return () => {};
+  }, [displayPanel]);
   const [userBalance, setUserBalance] = useState(0);
   const [enteredStarting, setEnteredStarting] = useState("");
   const [enteredDestination, setEnteredDestination] = useState("");
-
-  const transferAmount = useRef();
   const [currentAccounts, setCurrentAccounts] = useState([]);
   const [selectedAcct, setSelectedAcct] = useState("");
+
+  const transferAmount = useRef();
+  const inputDropStart = useRef();
+  const inputDropEnd = useRef();
 
   const [userAccount, setUserAccount, getUserAccount] = useLocalStorageStore('userAccounts',[])
 
@@ -59,20 +60,28 @@ const FundTransfer = ({ getUserCode }) => {
       setEnteredDesc("");
       setEnteredDestination("");
     } else {
-      const fundTransferData = {
+      const transferDataFrom = {
         userCode: getUserCode,
         title: "Transfer",
         amount: amount * -1,
-        destination: enteredDestination,
-        from: enteredStarting,
+        accountNumber: enteredStarting,
         description: `Transferred to ${enteredDestination}`,
+        id: Math.random().toString(),
+        date:new Date(),
+      };
+      const transferDataTo = {
+        userCode: getUserCode,
+        title: "Transfer",
+        amount: amount ,
+        accountNumber: enteredDestination,
+        description: `Transferred from ${enteredStarting}`,
         id: Math.random().toString(),
         date:new Date(),
       };
       setEnteredAmount("");
       setEnteredDesc("");
       setEnteredDestination("");
-      setUserTransaction([fundTransferData, ...userTransactions]);
+      setUserTransaction([...userTransactions,transferDataFrom,transferDataTo]);
     }
 
   }
@@ -90,6 +99,8 @@ const FundTransfer = ({ getUserCode }) => {
 
   const clearTransaction = () => {
     transferAmount.current.clearValue();
+    inputDropStart.current.clearValue();
+    inputDropEnd.current.clearValue();
   }
 
   const getStartAcctNumber = (acct = "") => {
@@ -105,7 +116,7 @@ const FundTransfer = ({ getUserCode }) => {
     setSelectedAcct(acctNum)
   }
 
-  const getEndAcctNumber = (acct) => {
+  const getEndAcctNumber = (acct ="") => {
     setEnteredDestination(acct)
   }
 
@@ -119,6 +130,7 @@ const FundTransfer = ({ getUserCode }) => {
           Bank Account Balance : {userBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
         </div>    
         <CustomDropDown 
+            ref={inputDropStart}
             name="startAcctNumber"
             title="Current Accounts :"
             dataStore={userAccount}
@@ -128,7 +140,8 @@ const FundTransfer = ({ getUserCode }) => {
           />
 
         <Input ref={transferAmount} name="transactionAmount" placeholderText='Amount' number  />
-        <CustomDropDown 
+        <CustomDropDown
+            ref={inputDropEnd} 
             name="endAcctNumber"
             title="Destination Accounts :"
             dataStore={userAccount}
