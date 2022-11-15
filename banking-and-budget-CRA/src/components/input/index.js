@@ -180,7 +180,7 @@ const Input = forwardRef(
   }
 );
 
-const SearchInput = ({dataStore = [], displayField, filterField, name, selectedClient}) => {
+const SearchInput = ({dataStore = [], displayField, filterField, name, selectedClient, refreshStorage}) => {
   const [userInput, setUserInput] = useState("");
   const [showSearchResult, setShowSearchResult] = useState (false);
 
@@ -200,6 +200,11 @@ const SearchInput = ({dataStore = [], displayField, filterField, name, selectedC
   const onChangeInput = (e) => {    
     setUserInput(e.target.value);
   };
+
+  document.addEventListener("click", (e) => {
+    if (e.currentTarget.className === 'input-container' || e.currentTarget.className === 'input-container__textbox') return
+    setShowSearchResult(false)
+  })
   return (
     <div className="search-input-container">
       <div  className="input-container">
@@ -210,6 +215,7 @@ const SearchInput = ({dataStore = [], displayField, filterField, name, selectedC
           placeholder=" "
           value={userInput}
           onChange={onChangeInput}
+          onClick={refreshStorage}
           autoComplete="off"
           autoCorrect="off"
         ></input>
