@@ -15,7 +15,7 @@ const AdminAccounts = ({ getUserCode = "" }) => {
   const [ userBalance, setUserBalance ] = useState(0);
   const [newAcctModal, setNewAcctModal] = useState(false);
   const [currentAccounts, setCurrentAccounts] = useState([]);
-  const [selectedAcct, setSelectedAcct] = useState();
+  const [selectedAcct, setSelectedAcct] = useState("");
 
   const [userStore, setUserStore, getUserStore ] = useLocalStorageStore("registeredUsers",[]);
   const [userTransactions, setUserTransaction, getUserTransactions] = useLocalStorageStore("userTransaction", []);

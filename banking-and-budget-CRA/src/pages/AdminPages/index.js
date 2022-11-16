@@ -38,7 +38,7 @@ const AdminPage = ({
         <AdminFundTransfer getUserCode={getUserCode} displayPanel={displayPanel} />
       </PanelSections>
       <PanelSections>    
-      <DisableAccount />
+      <DisableAccount getUserCode={getUserCode} displayPanel={displayPanel}/>
       </PanelSections>
       <PanelSections>    
         <Modal>
