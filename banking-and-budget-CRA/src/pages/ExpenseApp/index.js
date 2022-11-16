@@ -1,43 +1,43 @@
-import React from 'react'
+import React from 'react';
 import Modal from "../../components/modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense.";
-const DUMMY_EXPENSES = [
-  {
-    id: "e1",
-    title: "Toilet Paper",
-    amount: 94.12,
-    date: new Date(2020, 7, 14),
-  },
-  { id: "e2", title: "New TV", amount: 799.49, date: new Date(2021, 2, 12) },
-  {
-    id: "e3",
-    title: "Car Insurance",
-    amount: 294.67,
-    date: new Date(2021, 2, 28),
-  },
-  {
-    id: "e4",
-    title: "New Desk (Wooden)",
-    amount: 450,
-    date: new Date(2021, 5, 12),
-  },
-];
 
 
-const ExpenseApp = () => {
-  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+const ExpenseApp = ({getUserCode, displayPanel}) => {
+  const [userExpense, setUserExpense, getUserExpense] = useLocalStorageStore("userExpense",[]);
+  const [expenses, setExpenses] = useState([]);
 
-  const addExpenseHandler = (expense) => {
-    setExpenses((prevExpenses) => {
-      return [expense, ...prevExpenses];
-    });
+  
+
+  const getExpenses = () => {
+    const userData = userExpense.filter(
+      (user) => user.userCode === `${getUserCode}`)
+
+   setExpenses(userData);
   };
+
+  useEffect(() => {
+    userExpense.length > 0 && getExpenses();
+    return () => {};
+  },[userExpense]);
+
+  useEffect(() => {
+    getUserExpense();
+    return () => {};
+  }, [displayPanel]);
+
+
+
+
+
+
   return (
       <Modal>
-      <NewExpense onAddExpense={addExpenseHandler} />
-      <Expenses items={expenses} />
+        <NewExpense getUserCode={getUserCode}/>
+        <Expenses items={expenses} />
       </Modal>
   )
 }

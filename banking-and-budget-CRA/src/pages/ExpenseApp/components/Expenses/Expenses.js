@@ -1,30 +1,30 @@
 import { useState } from "react";
-
+import Card from "../../../../components/card";
 import ExpensesFilter from "../NewExpense/ExpenseFilter";
-import Card from "../UI/Card";
 import ExpenseList from "./ExpenseList";
-import "./Expenses.css";
+import useLocalStorageStore from "../../../../utilities/hooks/useLocalStorage";
+
 
 const Expenses = ({ items }) => {
-  const [filteredYear, setFilteredYear] = useState("2020");
-
+  const [filteredYear, setFilteredYear] = useState("2022");
   const changeYearHandler = (enteredYear) => {
     setFilteredYear(enteredYear);
   };
-  const newExpense = items.filter(
-    (expenses) => expenses.date.getFullYear().toString() === filteredYear
-  );
 
+  const newExpense = items.filter(
+    (expenses) => new Date(expenses.date).getFullYear().toString() === filteredYear
+  );
   return (
-    <div>
-      <Card className="expenses">        
+    <>
+     <Card className="expenses">
         <ExpensesFilter
           selected={filteredYear}
           onChangeYear={changeYearHandler}
         />
-        <ExpenseList items={newExpense} />
+        <ExpenseList  items={newExpense}/>
+        
       </Card>
-    </div>
+    </>
   );
 };
 

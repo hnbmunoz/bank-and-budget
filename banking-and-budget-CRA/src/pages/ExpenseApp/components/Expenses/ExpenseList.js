@@ -1,4 +1,3 @@
-import "./ExpenseList.css";
 import ExpenseItem from "./ExpenseItem";
 
 const ExpenseList = ({ items }) => {
