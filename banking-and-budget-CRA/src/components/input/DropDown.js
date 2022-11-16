@@ -38,6 +38,7 @@ const CustomDropDown = forwardRef(
     useImperativeHandle(ref, () => ({
       clearValue() {
         setUserInput("");
+        setShowDrop(false)
       },
     }));
 
@@ -58,6 +59,7 @@ const CustomDropDown = forwardRef(
       setShowDrop(false);
       getAccountBalance(e.target.dataset.acctnum);
     };
+
     return (
       <div className="search-input-container">
         <div
@@ -155,6 +157,8 @@ const BankExclusiveDropDown = forwardRef(
       setShowDrop(false);
       // getAccountBalance(e.currentTarget.dataset.acctnum);
     };
+
+  
     return (
       <div name={`dropDown${name}`} className="search-input-container">
         <div
@@ -170,8 +174,8 @@ const BankExclusiveDropDown = forwardRef(
           <input
             name={name}
             data-searchname={name}
-            className="input-container__textbox"
-            placeholder=" "
+            className="input-container__textbox customDrop"
+            placeholder=" "            
             value={userInput}
             onChange={onChangeInput}
             autoComplete="off"

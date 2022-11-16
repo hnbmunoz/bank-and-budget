@@ -204,6 +204,9 @@ const SearchInput = ({dataStore = [], displayField, filterField, name, selectedC
   document.addEventListener("click", (e) => {
     if (e.currentTarget.className === 'input-container' || e.currentTarget.className === 'input-container__textbox') return
     setShowSearchResult(false)
+    try {
+      document.removeEventListener("click")
+    } catch {}    
   })
   return (
     <div className="search-input-container">

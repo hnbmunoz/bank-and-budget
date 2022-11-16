@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef} from 'react'
 import Modal, {DefaultPopUp} from '../../components/modal'
 import { RoundedButton } from "../../components/button";
-import { GetTransactionBalance} from "../../utilities/utilities"
+import { GetTransactionBalance, findUserbyAccount} from "../../utilities/utilities"
 import { Input } from "../../components/input";
 import { CustomDropDown } from "../../components/input/DropDown";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
@@ -10,6 +10,8 @@ import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 export const AdminFundTransfer = ({getUserCode, displayPanel = 0}) => {
   const [userTransactions, setUserTransaction, getUserTransactions] =
   useLocalStorageStore("userTransaction", []);
+  const [userAccount, setUserAccount, getUserAccount] = useLocalStorageStore('userAccounts',[])
+
   const [userBalance, setUserBalance] = useState(0);
   const [enteredStarting, setEnteredStarting] = useState("");
   const [enteredDestination, setEnteredDestination] = useState("");
@@ -19,6 +21,11 @@ export const AdminFundTransfer = ({getUserCode, displayPanel = 0}) => {
   const transferDescription = useRef();
   const startingAccnt = useRef();
   const destinationAccnt = useRef();
+
+  useEffect(() => {
+    getUserAccount();
+    getUserTransactions();
+  },[getUserCode, displayPanel])
  
 
   const getBalance = () => {     
@@ -29,30 +36,33 @@ export const AdminFundTransfer = ({getUserCode, displayPanel = 0}) => {
     setUserBalance(totalBalance);
   };
 
-  const handleTransaction = (amount, description) => {
+  const handleTransaction = (amount, startAccount, endAccount) => {
 
-    if (!amount && !enteredDestination && !description) {
+    if (!amount && !startAccount && !endAccount) {
       alert("Please Fill Up Required Fields Properly");
-    } else if( amount > userBalance){
-      alert('You have insufficient balance!')
+    } 
+    // else if( amount > userBalance){
+    //   alert('You have insufficient balance!')
      
-    } else {
+    // }
+     else {
+      debugger
       const fundTransferFrom = {
-        userCode: getUserCode,
+        userCode: findUserbyAccount(userAccount,startAccount),
         title: "Withdraw",
         amount: amount * -1,
-        accountNumber: enteredStarting,
-        description: `Transferred to ${enteredDestination}`,
+        accountNumber: startAccount,
+        description: `Transferred to ${endAccount}`,
         id: Math.random().toString(),
         date:new Date(),
       };
 
       const fundTransferTo = {
-        userCode: getUserCode,
+        userCode: findUserbyAccount(userAccount,endAccount),
         title: "Deposit",
         amount: amount ,
-        accountNumber: enteredDestination,
-        description: `Transferred from ${enteredStarting}`,
+        accountNumber: endAccount,
+        description: `Transferred from ${startAccount}`,
         id: Math.random().toString(),
         date:new Date(),
       };
@@ -65,8 +75,9 @@ export const AdminFundTransfer = ({getUserCode, displayPanel = 0}) => {
   const getTransactionData =  (e) => {        
     const targetEl = e.currentTarget.parentElement.parentElement.parentElement.children;    
     const transactionAmount = targetEl.divtransactionAmount.children.transactionAmount.value;
-    const transactionDesc = targetEl.divtransactionDesc.children.transactionDesc.value;
-    handleTransaction(transactionAmount, transactionDesc);
+    const startingAccount = targetEl.divtransactionStart.children.transactionStart.value;
+    const destinationAccount = targetEl.divtransactionEnd.children.transactionEnd.value;
+    handleTransaction(transactionAmount, startingAccount, destinationAccount);
     getUserTransactions();
     getBalance();
     clearTransaction();
@@ -74,7 +85,7 @@ export const AdminFundTransfer = ({getUserCode, displayPanel = 0}) => {
 
   const clearTransaction = () => {
     transferAmount.current.clearValue();
-    transferDescription.current.clearValue();
+    // transferDescription.current.clearValue();
     startingAccnt.current.clearValue();
     destinationAccnt.current.clearValue();
   }
