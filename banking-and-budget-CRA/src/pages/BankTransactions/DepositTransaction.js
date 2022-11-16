@@ -42,7 +42,7 @@ const DepositTransaction = ({ getUserCode, displayPanel }) => {
       const depositData = {
         userCode: getUserCode,
         title: "Deposit",
-        amount: amount,
+        amount: Number(amount),
         accountNumber: acctNum,
         description: description,
         id: Math.random().toString(),

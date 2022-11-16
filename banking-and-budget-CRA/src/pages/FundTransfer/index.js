@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Modal from "../../components/modal";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 import { RoundedButton } from "../../components/button";
-import { GetTransactionBalance, GetAccountBalance} from "../../utilities/utilities"
+import { GetTransactionBalance, GetAccountBalance, findUserbyAccount} from "../../utilities/utilities"
 import { Input } from "../../components/input";
 import { CustomDropDown, BankExclusiveDropDown } from "../../components/input/DropDown";
 
@@ -63,16 +63,16 @@ const FundTransfer = ({ getUserCode, displayPanel = 0 }) => {
       const transferDataFrom = {
         userCode: getUserCode,
         title: "Transfer",
-        amount: amount * -1,
+        amount: Number(amount) * -1,
         accountNumber: enteredStarting,
         description: `Transferred to ${destinationAcct}`,
         id: Math.random().toString(),
         date:new Date(),
       };
       const transferDataTo = {
-        userCode: getUserCode,
+        userCode: findUserbyAccount(userAccount, destinationAcct),
         title: "Transfer",
-        amount: amount ,
+        amount: Number(amount) ,
         accountNumber: destinationAcct,
         description: `Transferred from ${destinationAcct}`,
         id: Math.random().toString(),

@@ -35,9 +35,11 @@ const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction
     const userData = userTransactions.filter(
       (user) => user.userCode === `${getUserCode}` && user.accountNumber === `${acctNum}`
     );
+
+    // debugger
     const totalBalance = GetAccountBalance(userData)
 
-    acctNum.trim() === "" ?setUserBalance(0) :setUserBalance(totalBalance);
+    acctNum.trim() === "" ? setUserBalance(0) :setUserBalance(totalBalance);
     setSelectedAcct(acctNum)
   };
 

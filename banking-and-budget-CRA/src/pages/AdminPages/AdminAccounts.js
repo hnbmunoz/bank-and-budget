@@ -1,11 +1,12 @@
 import React,{ useEffect, useState, useRef } from 'react';
 import useLocalStorageStore from '../../utilities/hooks/useLocalStorage';
-import { GetTransactionBalance } from "../../utilities/utilities";
+import { GetAccountBalance, GetTransactionBalance } from "../../utilities/utilities";
 import { GlowingButton, RoundedButton } from '../../components/button';
 import { DefaultPopUp } from '../../components/modal';
 import { CustomDropDown, StaticDropDown } from '../../components/input/DropDown';
 import Modal from '../../components/modal';
 import { v4 as uuidv4 } from "uuid";
+import { IoMdClipboard } from "react-icons/io";
 
 
 
@@ -23,8 +24,11 @@ const AdminAccounts = ({ getUserCode = "" }) => {
   const inputDrop = useRef();
 
   useEffect(() => {
+    inputDrop.current.clearValue();
+    setSelectedAcct("")
     handleSearch();
     getAccounts();
+    getUserTransactions();
   }, [getUserCode]);
 
   const getAccounts = () => {
@@ -41,11 +45,11 @@ const AdminAccounts = ({ getUserCode = "" }) => {
       (user) => user.userCode === getUserCode
     );
 
-    const totalBalance = GetTransactionBalance(userData, getUserCode, currentAccounts)
+    const totalBalance = GetTransactionBalance(userData, getUserCode)
     setUserBalance(prevBalance => prevBalance += totalBalance);
   };
 
-  const handleSearch = () => {
+  const handleSearch = () => {    
     setUserBalance(0);
     const filteredUser = userStore.find( obj => (
       obj.userCode === getUserCode
@@ -67,12 +71,25 @@ const AdminAccounts = ({ getUserCode = "" }) => {
     setNewAcctModal(!newAcctModal)
   }
 
-  const getAccountBalance = () => {
+  const getAccountBalance = (acctNumber) => {       
+    setSelectedAcct(acctNumber);
 
+    const userData = userTransactions.filter(
+      (user) => user.userCode === getUserCode && user.accountNumber === acctNumber
+    );
+
+    const totalBalance = GetAccountBalance(userData)
+    setUserBalance(totalBalance);
   }
   
   const refreshStorage = () => {
-    getUserAccount();
+    getUserTransactions();
+    getUserAccount();   
+  }
+
+  const copyClipboard = () => {
+    navigator.clipboard.writeText(selectedAcct)
+    alert('copied to clipboard')
   }
   return (
     <div> 
@@ -82,7 +99,10 @@ const AdminAccounts = ({ getUserCode = "" }) => {
         <div className='user-account-details'>Full Name :<p className='details'>{searchResult.result.userFullName}</p></div>
         <div className='user-account-details'>Email :<p className='details'>{searchResult.result.userEmail}</p></div>
         <div className='user-account-details'>Username :<p className='details'>{searchResult.result.userName}</p></div>
-        <div className='user-account-details'>Account Number :<p className='details'>{selectedAcct}</p></div>
+        <div className='user-account-details'>
+          Account Number :<p className='details'>{selectedAcct}</p>
+          <IoMdClipboard fontSize="1rem" onClick={copyClipboard}/>
+        </div>
         <CustomDropDown 
           ref={inputDrop}
           name="adminCurrAccDrop"
