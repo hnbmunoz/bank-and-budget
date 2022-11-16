@@ -9,7 +9,7 @@ import WithdrawTransaction from '../BankTransactions/WithdrawTransaction';
 import Messages from '../Messages';
 import { AdminFundTransfer } from './AdminFundTransfer';
 import Transactions from "../Transactions";
-
+import DisableAccount from './DisableAccount';
 
 
 const AdminPage = ({
@@ -38,7 +38,7 @@ const AdminPage = ({
         <AdminFundTransfer getUserCode={getUserCode} displayPanel={displayPanel} />
       </PanelSections>
       <PanelSections>    
-       <Messages />
+      <DisableAccount getUserCode={getUserCode} displayPanel={displayPanel}/>
       </PanelSections>
       <PanelSections>    
         <Modal>

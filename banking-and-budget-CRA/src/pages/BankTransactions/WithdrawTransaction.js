@@ -39,7 +39,7 @@ const WithdrawTransaction = ({ getUserCode, displayPanel }) => {
       const withdrawData = {
         userCode: getUserCode,
         title: "Withdraw",
-        amount: amount * -1,
+        amount: Number(amount) * -1,
         accountNumber: acctNum,
         description: description,
         id: Math.random().toString(),

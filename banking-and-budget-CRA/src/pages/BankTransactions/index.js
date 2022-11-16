@@ -35,9 +35,11 @@ const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction
     const userData = userTransactions.filter(
       (user) => user.userCode === `${getUserCode}` && user.accountNumber === `${acctNum}`
     );
+
+    // debugger
     const totalBalance = GetAccountBalance(userData)
 
-    acctNum.trim() === "" ?setUserBalance(0) :setUserBalance(totalBalance);
+    acctNum.trim() === "" ? setUserBalance(0) :setUserBalance(totalBalance);
     setSelectedAcct(acctNum)
   };
 
@@ -57,6 +59,10 @@ const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction
     inputDescription.current.clearValue();
     inputDrop.current.clearValue();
   }
+  
+  const refreshStorage = () => {
+    getUserAccount();
+  }
   return (  
     <div className='flex-column'>
       <div className="bankTrans-header">
@@ -73,7 +79,7 @@ const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction
           filterField="accountUser"
           selectedClient={getUserCode}
           getAccountBalance={getAccountBalance}
-          
+          refreshStorage={refreshStorage}
         />
       <Input ref={inputAmount} name="transactionAmount" placeholderText='Amount' number  />
       <Input ref={inputDescription} name="transactionDesc" placeholderText='Description'  /> 

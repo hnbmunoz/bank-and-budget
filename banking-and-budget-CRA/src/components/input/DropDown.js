@@ -28,6 +28,7 @@ const CustomDropDown = forwardRef(
       title,
       selectedClient = "",
       getAccountBalance,
+      refreshStorage
     },
     ref
   ) => {
@@ -37,6 +38,7 @@ const CustomDropDown = forwardRef(
     useImperativeHandle(ref, () => ({
       clearValue() {
         setUserInput("");
+        setShowDrop(false)
       },
     }));
 
@@ -57,6 +59,7 @@ const CustomDropDown = forwardRef(
       setShowDrop(false);
       getAccountBalance(e.target.dataset.acctnum);
     };
+
     return (
       <div className="search-input-container">
         <div
@@ -75,7 +78,7 @@ const CustomDropDown = forwardRef(
             className="input-container__textbox"
             placeholder=" "
             value={userInput}
-            // onChange={onChangeInput}
+            onChange={onChangeInput}
             autoComplete="off"
             autoCorrect="off"
           ></input>
@@ -112,7 +115,106 @@ const CustomDropDown = forwardRef(
     );
   }
 );
-// );
+
+/// This is similar to CustomDropDown but generates diffrent value when selected value is clicked
+const BankExclusiveDropDown = forwardRef(
+  (
+    {
+      dataStore = [],
+      staticStore = [],
+      filterField,
+      name="",
+      title,
+      selectedClient = "",
+      getAccountBalance,
+      refreshStorage
+    },
+    ref
+  ) => {
+    const [userInput, setUserInput] = useState("");
+    const [showDrop, setShowDrop] = useState(false);
+
+    useImperativeHandle(ref, () => ({
+      clearValue() {
+        setUserInput("");
+      },
+    }));
+
+    const onChangeInput = (e) => {
+      setUserInput(e.target.value);
+    };
+
+    const hideDrop = () => {
+      setShowDrop(false);
+    };
+
+    const displayDrop = () => {
+      setShowDrop(true);
+    };
+
+    const selectedAccount = (e) => {
+      setUserInput(e.currentTarget.dataset.acctnum);
+      setShowDrop(false);
+      // getAccountBalance(e.currentTarget.dataset.acctnum);
+    };
+
+  
+    return (
+      <div name={`dropDown${name}`} className="search-input-container">
+        <div
+          style={{
+            fontFamily: "Montserrat",
+            color: "#ccc",
+            fontSize: "1rem",
+          }}
+        >
+          {title}
+        </div>
+        <div name={`div${name}`} className="input-container">
+          <input
+            name={name}
+            data-searchname={name}
+            className="input-container__textbox customDrop"
+            placeholder=" "            
+            value={userInput}
+            onChange={onChangeInput}
+            autoComplete="off"
+            autoCorrect="off"
+          ></input>
+          <div className="placeholder-icons-container">
+            {showDrop ? (
+              <button className="placeholder-button" onClick={hideDrop}>
+                <IoIosArrowUp />
+              </button>
+            ) : (
+              <button className="placeholder-button" onClick={displayDrop}>
+                <IoIosArrowDown />
+              </button>
+            )}
+          </div>
+        </div>
+        {showDrop && (
+          <div className="searched-item-container">
+            {dataStore
+              .filter((allRecords) => allRecords.accountUser === selectedClient)
+              .map((obj, idx) => (
+                <div className="searched-item" key={idx}>
+                  <div
+                    style={{ padding: "0 1rem" }}
+                    onClick={selectedAccount}
+                    data-acctnum={obj.accountNumber}
+                  >
+                    {obj.accountType}
+                  </div>
+                </div>
+              ))}
+            </div>
+        )}
+      </div>
+    );
+  }
+);
+
 
 
 export const StaticDropDown = ({
@@ -184,5 +286,6 @@ export const StaticDropDown = ({
 };
 
 export {
-  CustomDropDown
+  CustomDropDown,
+  BankExclusiveDropDown
 }

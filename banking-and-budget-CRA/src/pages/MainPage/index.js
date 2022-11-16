@@ -166,7 +166,7 @@ export const UserInterface = ({
   return (
     <div className="flex-column"> 
      {showLoading && <LoadingPage />}
-      <Header displayFullName={displayFullName}></Header> 
+      <Header displayFullName={displayFullName}> </Header> 
       <PanelSectionHolder panelIdx={displayPanel}>
         <PanelSections>
           <Dashboard getUserCode={getUserCode} displayPanel={displayPanel}/>
@@ -225,6 +225,10 @@ export const AdminInterface = ({
     setSelectedUser(userCode)
   }
 
+  const refreshStorage = () => {
+    getUserStore();
+  }
+
   return (
     <div className="flex-column"> 
      {showLoading && <LoadingPage />}
@@ -235,6 +239,7 @@ export const AdminInterface = ({
           filterField="username"
           name="searchUser"
           selectedClient={handleSelectedClient}
+          refreshStorage={refreshStorage}
         /> 
       </Header> 
       
