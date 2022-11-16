@@ -1,21 +1,16 @@
 import React,{ useState, useEffect } from "react";
 import ExpenseForm from "./ExpenseForm";
 import { GlowingButton } from "../../../../components/button"
-import "./NewExpense.css";
 
-const NewExpense = (props) => {
+const NewExpense = ({ getUserCode}) => {
   const [isEditing, setIsEditing] = useState(false);
-  const saveExpenseData = (enteredExpenseData) => {
-    const expenseData = {
-      ...enteredExpenseData,
-      id: Math.random().toString(),
-    };
-    props.onAddExpense(expenseData);
+  const saveExpenseData = () => {
     setIsEditing(false);
   };
 
   const startEditingHandler = () => {
     setIsEditing(true);
+
   };
 
   const stopEditingHandler = () => {
@@ -39,7 +34,8 @@ const NewExpense = (props) => {
       </div>     
       {isEditing && (
         <ExpenseForm
-          onSaveExpenseData={saveExpenseData}
+          getUserCode={getUserCode}
+          onSubmit={saveExpenseData}
           onCancel={stopEditingHandler}
         />
       )}

@@ -184,7 +184,7 @@ export const UserInterface = ({
           <FundTransfer getUserCode={getUserCode} displayPanel={displayPanel}/>
         </PanelSections>
         <PanelSections>
-          <ExpenseApp />
+          <ExpenseApp getUserCode={getUserCode} displayPanel={displayPanel}/>
         </PanelSections>
         <PanelSections>
           <SwitchAccount />

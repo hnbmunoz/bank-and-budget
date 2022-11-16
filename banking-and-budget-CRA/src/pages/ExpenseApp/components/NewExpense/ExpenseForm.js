@@ -1,93 +1,49 @@
-import "./ExpenseForm.css";
 import { useState } from "react";
 import { RoundedButton } from "../../../../components/button"
+import useLocalStorageStore from "../../../../utilities/hooks/useLocalStorage";
 
 
-const ExpenseForm = (props) => {
+const ExpenseForm = ({onSubmit, getUserCode, onCancel}) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
-
-  // const [userInput, setUserInput] = useState({
-  //   enteredTitle: "",
-  //   enteredAmount: "",
-  //   enteredDate: "",
-  // });
+  const [userExpense, setUserExpense, getUserExpense] = useLocalStorageStore("userExpense",[]);
 
   const titleChangeHandler = (event) => {
     setEnteredTitle(event.target.value);
-    // setUserInput({
-    //   ...userInput,
-    //   enteredTitle: event.target.value,
-    // });
-    // setUserInput((prevState) => {
-    //   return { ...prevState, enteredTitle: event.target.value };
-    // });
   };
 
   const amountChangeHandler = (event) => {
     setEnteredAmount(event.target.value);
-    // setUserInput({
-    //   ...userInput,
-    //   enteredAmount: event.target.value,
-    // });
   };
 
   const dateChangeHandler = (event) => {
     setEnteredDate(event.target.value);
-    // setUserInput({
-    //   ...userInput,
-    //   enteredDate: event.target.value,
-    // });
   };
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-    console.log(enteredDate);
-    if (enteredTitle && enteredAmount && enteredDate) {
-      const expenseData = {
-        title: enteredTitle,
-        amount: enteredAmount,
-        date: new Date(enteredDate),
-      };
-
- 
-
-      props.onSaveExpenseData(expenseData);
-      setEnteredTitle("");
-      setEnteredAmount("");
-      setEnteredDate("");
-    }
-  };
 
 
   const submitNewExpense = () => {
-    console.log(enteredDate);
     if (enteredTitle && enteredAmount && enteredDate) {
       const expenseData = {
+        userCode: getUserCode,
         title: enteredTitle,
         amount: enteredAmount,
         date: new Date(enteredDate),
-      };
-
- 
-
-      props.onSaveExpenseData(expenseData);
+        id: Math.random().toString(),
+      }
+      setUserExpense([expenseData, ...userExpense])
+      ;
+      onSubmit();
       setEnteredTitle("");
       setEnteredAmount("");
       setEnteredDate("");
     }
   }
-  const date1 = new Date().toISOString().split('T')[0];
-  localStorage.setItem('date', date1)
-
-  const date = localStorage.getItem('date');
-  const newDate = new Date(date);
-  console.log(newDate.getFullYear());
 
   return (
     <div>
-      <div className="form" onSubmit={submitHandler}>
+      <div className="form">
         <div className="new-expense__controls">
           <div className="new-expense__control">
             <div className="modal-details">Title</div>
@@ -126,7 +82,7 @@ const ExpenseForm = (props) => {
           {/* <button type="submit">Add Expense</button> */}
         {/* </div> */}
         <div className="flex-row" style={{alignItems:"center", justifyContent:"space-evenly"}}>
-          <RoundedButton buttonClick={props.onCancel} displayText="Cancel"/>
+          <RoundedButton buttonClick={onCancel} displayText="Cancel"/>
           <RoundedButton buttonClick={submitNewExpense} displayText="Add Expense"/>
         </div>
       </div>
