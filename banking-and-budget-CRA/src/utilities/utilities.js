@@ -35,6 +35,12 @@ export const GetCashInflow = (userData = []) => {
    return withdraw + transfer;
  }
 
+ export const GetAccountExpenses = (userData = []) => {  
+  return userData.reduce((total, expenses) => {
+     return total + Number(expenses.amount);
+   }, 0);
+ }
+
 export const findUserbyAccount = (storedData = [], accountNumber = "") => {
   debugger
   let data =  storedData.find(userAcct => userAcct.accountNumber == accountNumber).accountUser

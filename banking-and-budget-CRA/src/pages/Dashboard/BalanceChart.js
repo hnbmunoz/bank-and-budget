@@ -14,7 +14,7 @@ const BalanceChart = ({getUserCode, displayPanel}) => {
   useLocalStorageStore("userTransaction", []);
 
   const [userCashInflow, setUserCashInflow] = useState([]);
-  const [userCashaOutflow, setUserCashaOutflow] = useState([]);
+  const [userCashOutflow, setUserCashOutflow] = useState([]);
   const [transactionDate,setTransactionDate] = useState([]);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const BalanceChart = ({getUserCode, displayPanel}) => {
   
       setTransactionDate(date)
       setUserCashInflow(cashInflow)
-      setUserCashaOutflow(cashOutflow)
+      setUserCashOutflow(cashOutflow)
   };
 
   const series = [
@@ -52,7 +52,7 @@ const BalanceChart = ({getUserCode, displayPanel}) => {
     }, 
     {
       name: 'Cash Outflow',
-      data: userCashaOutflow,
+      data: userCashOutflow,
     },
   ];
 

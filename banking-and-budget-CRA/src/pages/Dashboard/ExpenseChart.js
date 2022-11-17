@@ -1,10 +1,41 @@
 import React from 'react'
 import Chart from 'react-apexcharts';
+import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
+import { useState, useEffect } from "react";
 
-const ExpenseChart = () => {
+const ExpenseChart = ({getExpense, getUserCode, displayPanel}) => {
+  const [userExpense, setUserExpense, getUserExpense] = useLocalStorageStore("userExpense",[]);
+  const [expenses, setExpenses] = useState([]);
 
-  const series = [44, 55, 41, 17, 15];
+  
+  useEffect(() => {
+    getUserExpense();
+    return () => {};
+  }, [displayPanel]);
+
+  useEffect(() => {
+    userExpense.length > 0 && getExpenses();
+    return () => {};
+  }, [userExpense]);
+
+  const getExpenses = () => {
+    const userData = userExpense.filter(
+      (user) => user.userCode === `${getUserCode}`)
+
+   setExpenses(userData);
+   getExpense(userData)
+  };
+
+const expensesTitle = expenses.map((data) => {return data.title.charAt(0).toUpperCase() + data.title.slice(1)})
+const expensesAmount = expenses.map((data) => Number(data.amount))
+// const randomColor = [Math.floor(Math.random() * 16777216).toString(16)];
+
+
+  const series = expensesAmount;
   const options =  {
+              fill: {
+                type: 'gradient',
+              },
               chart: {
                 type: 'donut',
               },
@@ -18,7 +49,8 @@ const ExpenseChart = () => {
                     position: 'bottom'
                   }
                 }
-              }]
+              }],
+              labels: expensesTitle,
             };
   return (
     <>
