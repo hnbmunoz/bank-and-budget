@@ -185,12 +185,17 @@ const SearchInput = ({dataStore = [], displayField, filterField, name, selectedC
   const [showSearchResult, setShowSearchResult] = useState (false);
 
   useEffect(() => {
+    // refreshStorage();
     (userInput.trim() === "" || userInput.trim() === "undefined") ? setShowSearchResult(false):setShowSearchResult(true)
   
     return () => {
       
     }
   }, [userInput])
+
+  useEffect(() => {
+
+  },[])
   
   const getUser = (e) => {
     selectedClient(e.currentTarget.dataset.usercode)
@@ -199,8 +204,9 @@ const SearchInput = ({dataStore = [], displayField, filterField, name, selectedC
 
   const onChangeInput = (e) => {
     setUserInput(e.target.value);
+    refreshStorage();
     // try{
-      // refreshStorage();
+      // {refreshStorage};
     // } catch {}    
   };
 

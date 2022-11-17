@@ -96,3 +96,15 @@
   padding-bottom: 0.5rem;
 }
 
+.modal-row {
+  justify-content: space-between;
+}
+
+.modal-highlight {
+  color: #ececec;
+  background-color: #ee2737;
+  border-radius: 0.75rem;
+  min-width: 5rem;
+  text-align: center;
+  padding: 0.2rem 1rem;
+}

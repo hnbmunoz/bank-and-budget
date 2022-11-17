@@ -239,6 +239,10 @@ export const AdminInterface = ({
     setSelectedUser(userCode)
   }
 
+  const refreshStorage = () => {
+    getUserStore();
+  }
+
   return (
     <div className="flex-column"> 
      {showLoading && <LoadingPage />}
@@ -249,6 +253,7 @@ export const AdminInterface = ({
           filterField="username"
           name="searchUser"
           selectedClient={handleSelectedClient}
+          refreshStorage={refreshStorage}          
         /> 
       </Header> 
       
