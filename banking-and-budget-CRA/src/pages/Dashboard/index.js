@@ -5,6 +5,7 @@ import ExpenseChart from './ExpenseChart';
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 import { GetCashInflow, GetCashOutflow, GetTransactionBalance, GetAccountExpenses } from "../../utilities/utilities";
 import { useState, useEffect } from "react";
+import UserAccountDetails from './UserAccountDetails';
 
 const Dashboard = ({getUserCode, displayPanel}) => {
 
@@ -59,9 +60,7 @@ const Dashboard = ({getUserCode, displayPanel}) => {
   return (
     <AdminModal>
       <div className="dashboard">
-        <div className='header'>
-         <h2>Dashboard</h2>
-        </div>     
+         <h3 className='modal-header'>Dashboard</h3>
         <div className="chart flex-row">
           <div className="chart-balance">
             <BalanceChart getUserCode={getUserCode} displayPanel={displayPanel}/>
@@ -71,9 +70,7 @@ const Dashboard = ({getUserCode, displayPanel}) => {
           </div>
         </div>
         <div className="user-info flex-row">
-          <div className="user-card flex-row">
-            "USER CARD"
-          </div>
+            <UserAccountDetails getUserCode={getUserCode}/>
           <div className="user-info-balance flex-column">
             <div className="user-balance balance flex-row">
               <div>Available Balance</div>

@@ -1,12 +1,5 @@
 .dashboard {
   height: 70vh;
-  .header {
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    letter-spacing: .2rem;
-    border-bottom: 0.06rem solid #ccc;
-  };
 
   .chart {
     gap: .2rem;
@@ -26,13 +19,23 @@
     height: 45%;
     justify-content: space-between;
 
-    .user-card, .user-info-balance {
+    .user-account-detail, .user-info-balance {
+      font-size: 1.2rem;
       padding: 1rem;
       flex-basis: 50%;
       border: 1px solid #333;
       border-radius: 1rem;
       box-shadow: 0px 1px 5px 0px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 3px 1px -2px rgb(0 0 0 / 12%);
     };
+
+    .user-account-details {
+      font-size: 1.5rem;
+      letter-spacing: .2rem;
+
+      .details {
+        padding-left: .2rem;
+      }
+    }
 
     .user-balance {
       display: flex;
