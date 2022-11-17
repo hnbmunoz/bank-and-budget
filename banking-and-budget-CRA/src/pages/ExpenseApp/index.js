@@ -9,8 +9,22 @@ import NewExpense from "./components/NewExpense/NewExpense.";
 const ExpenseApp = ({getUserCode, displayPanel}) => {
   const [userExpense, setUserExpense, getUserExpense] = useLocalStorageStore("userExpense",[]);
   const [expenses, setExpenses] = useState([]);
+  const [updateList, setUpdateList] = useState(false);
 
-  
+  useEffect(() => {
+    getUserExpense();
+    setUpdateList(false)
+    return () => {};
+  }, [updateList]);
+
+  useEffect(() => {
+    userExpense.length > 0 && getExpenses();
+    return () => {};
+  },[updateList]);
+
+  const triggerUpdate = (update) => {
+    setUpdateList(update)
+  }
 
   const getExpenses = () => {
     const userData = userExpense.filter(
@@ -19,24 +33,9 @@ const ExpenseApp = ({getUserCode, displayPanel}) => {
    setExpenses(userData);
   };
 
-  useEffect(() => {
-    userExpense.length > 0 && getExpenses();
-    return () => {};
-  },[userExpense]);
-
-  useEffect(() => {
-    getUserExpense();
-    return () => {};
-  }, [displayPanel]);
-
-
-
-
-
-
   return (
       <Modal>
-        <NewExpense getUserCode={getUserCode}/>
+        <NewExpense getUserCode={getUserCode} updateList={triggerUpdate}/>
         <Expenses items={expenses} />
       </Modal>
   )
