@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef} from 'react'
 import Modal, {DefaultPopUp} from '../../components/modal'
 import { RoundedButton } from "../../components/button";
-import { GetTransactionBalance, findUserbyAccount} from "../../utilities/utilities"
+import { GetTransactionBalance, GetAccountBalance, findUserbyAccount} from "../../utilities/utilities"
 import { Input } from "../../components/input";
-import { CustomDropDown } from "../../components/input/DropDown";
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
 
 
@@ -41,12 +40,10 @@ export const AdminFundTransfer = ({getUserCode, displayPanel = 0}) => {
     if (!amount && !startAccount && !endAccount) {
       alert("Please Fill Up Required Fields Properly");
     } 
-    // else if( amount > userBalance){
-    //   alert('You have insufficient balance!')
-     
-    // }
-     else {
-      debugger
+    else if( amount > userBalance){
+      alert('You have insufficient balance!')     
+    }
+     else {      
       const fundTransferFrom = {
         userCode: findUserbyAccount(userAccount,startAccount),
         title: "Withdraw",
@@ -72,6 +69,16 @@ export const AdminFundTransfer = ({getUserCode, displayPanel = 0}) => {
 
   }
 
+  const getRestrictionBalance = (acct = "") => {    
+    const acctNum = acct
+    const userData = userTransactions.filter(
+      (user) => user.userCode === `${getUserCode}` && user.accountNumber === `${acctNum}`
+    );
+    const totalBalance = GetAccountBalance(userData)
+
+    acctNum.trim() === "" ? setUserBalance(0) :setUserBalance(totalBalance);
+  }
+
   const getTransactionData =  (e) => {        
     const targetEl = e.currentTarget.parentElement.parentElement.parentElement.children;    
     const transactionAmount = targetEl.divtransactionAmount.children.transactionAmount.value;
@@ -85,7 +92,6 @@ export const AdminFundTransfer = ({getUserCode, displayPanel = 0}) => {
 
   const clearTransaction = () => {
     transferAmount.current.clearValue();
-    // transferDescription.current.clearValue();
     startingAccnt.current.clearValue();
     destinationAccnt.current.clearValue();
   }
@@ -95,15 +101,12 @@ export const AdminFundTransfer = ({getUserCode, displayPanel = 0}) => {
         <div className="modal-header">
           Admin Fund Transfer Form 
         </div>
-        <div className="modal-details"> 
+        {/* <div className="modal-details"> 
           Bank Account Balance : {userBalance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-        </div>    
+        </div>     */}
         <Input ref={startingAccnt} name="transactionStart" placeholderText='Current Account Number'   />
-        <Input ref={destinationAccnt} name="transactionEnd" placeholderText='Destination Account Number'  /> 
-          
-        <Input ref={transferAmount} name="transactionAmount" placeholderText='Amount' number  />
-        {/* <Input ref={transferDescription} name="transactionDesc" placeholderText='Description'  />  */}
-      
+        <Input ref={destinationAccnt} name="transactionEnd" placeholderText='Destination Account Number'  />           
+        <Input ref={transferAmount} name="transactionAmount" placeholderText='Amount' number  max={9999999999999999999999999}/>      
         <div className="flex-row" style={{alignItems: "center", justifyContent: "space-evenly"}}>
           <RoundedButton displayText='Cancel' type="button" buttonClick={clearTransaction}/>      
           <RoundedButton displayText={`Transfer`} type="submit" buttonClick={getTransactionData} />                       

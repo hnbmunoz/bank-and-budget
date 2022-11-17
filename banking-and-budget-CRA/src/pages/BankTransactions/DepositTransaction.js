@@ -53,9 +53,20 @@ const DepositTransaction = ({ getUserCode, displayPanel }) => {
     }
   }
 
+  const refreshStorage = () => {
+    getUserTransactions();
+    getUserStore();   
+  }
+
   return (
     <Modal>          
-      <BankTransactions getUserCode={getUserCode} transactionType="Deposit" handleTransaction={handleDeposit} displayPanel={displayPanel}/>   
+      <BankTransactions
+        getUserCode={getUserCode}
+        transactionType="Deposit"
+        handleTransaction={handleDeposit}
+        displayPanel={displayPanel}
+        refreshStorage={refreshStorage}
+      />   
     </Modal>
   );
 };

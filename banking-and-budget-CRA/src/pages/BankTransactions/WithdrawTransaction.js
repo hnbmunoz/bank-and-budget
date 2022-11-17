@@ -14,7 +14,7 @@ const WithdrawTransaction = ({ getUserCode, displayPanel }) => {
     getUserTransactions();
     setUserBalance(0)
     return () => {};
-  }, [displayPanel]);
+  }, [getUserCode, displayPanel]);
 
   useEffect(() => {
     userStore.length > 0 && getBalance();
@@ -49,9 +49,20 @@ const WithdrawTransaction = ({ getUserCode, displayPanel }) => {
     }
   };
 
+  const refreshStorage = () => {
+    getUserTransactions();
+    getUserStore();   
+  }
+
   return (
     <Modal>          
-      <BankTransactions getUserCode={getUserCode} transactionType="Withdraw" handleTransaction={handleWithdraw} displayPanel={displayPanel}/>   
+      <BankTransactions 
+        getUserCode={getUserCode}
+        transactionType="Withdraw"
+        handleTransaction={handleWithdraw}
+        displayPanel={displayPanel}
+        refreshStorage={refreshStorage}
+      />   
     </Modal>
   );
 };

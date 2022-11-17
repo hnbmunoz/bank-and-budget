@@ -23,7 +23,7 @@ const AdminPage = ({
     <div className='flex-column'>
     <PanelSectionHolder panelIdx={displayPanel}>
       <PanelSections>    
-        <AdminAccounts getUserCode={getUserCode}/>
+        <AdminAccounts getUserCode={getUserCode} displayPanel={displayPanel} />
       </PanelSections>
       <PanelSections>    
         <Transactions getUserCode={getUserCode} displayPanel={displayPanel} />

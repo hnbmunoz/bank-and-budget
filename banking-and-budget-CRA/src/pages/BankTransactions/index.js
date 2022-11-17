@@ -5,7 +5,7 @@ import { CustomDropDown } from '../../components/input/DropDown';
 import useLocalStorageStore from '../../utilities/hooks/useLocalStorage';
 import { GetTransactionBalance, GetAccountBalance } from '../../utilities/utilities';
 
-const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction, displayPanel = 0 }) => {  
+const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction, displayPanel = 0, refreshStorage }) => {  
   const [userStore, setUserStore, getUserStore] = useLocalStorageStore("registeredUsers",[]);
   const [userTransactions, setUserTransaction, getUserTransactions] = useLocalStorageStore("userTransaction", []);
   const [userAccount, setUserAccount, getUserAccount] = useLocalStorageStore('userAccounts',[]);
@@ -36,7 +36,6 @@ const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction
       (user) => user.userCode === `${getUserCode}` && user.accountNumber === `${acctNum}`
     );
 
-    // debugger
     const totalBalance = GetAccountBalance(userData)
 
     acctNum.trim() === "" ? setUserBalance(0) :setUserBalance(totalBalance);
@@ -59,10 +58,7 @@ const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction
     inputDescription.current.clearValue();
     inputDrop.current.clearValue();
   }
-  
-  const refreshStorage = () => {
-    getUserAccount();
-  }
+    
   return (  
     <div className='flex-column'>
       <div className="bankTrans-header">

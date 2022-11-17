@@ -10,7 +10,7 @@ import { IoMdClipboard } from "react-icons/io";
 
 
 
-const AdminAccounts = ({ getUserCode = "" }) => {
+const AdminAccounts = ({ getUserCode = "", displayPanel = 0 }) => {
   const [ searchResult, setSearchResult ] = useState({ result: ""});
   const [ userBalance, setUserBalance ] = useState(0);
   const [newAcctModal, setNewAcctModal] = useState(false);
@@ -31,7 +31,7 @@ const AdminAccounts = ({ getUserCode = "" }) => {
     handleSearch();
     getAccounts();
     
-  }, [getUserCode]);
+  }, [getUserCode, displayPanel]);
 
   useEffect(() => {
     handleSearch();  
