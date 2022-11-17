@@ -23,13 +23,15 @@ import DepositTransaction from "../BankTransactions/DepositTransaction";
 import WithdrawTransaction from "../BankTransactions/WithdrawTransaction";
 import Dashboard from '../Dashboard';
 import ExpenseApp from "../ExpenseApp";
+import { DisableModal } from "../../components/modal";
 
 export const MainPage = () => {
   const [verifiedAccount, setVerifiedAccount] = useState({
     verify: false,
     profileName: "",
     userCode: "",
-    userType: ""
+    userType: "",
+    status: "disabled"
   });
   const [displayIndex, setDisplayIndex] = useState(0);
   const [openNav, setOpenNav] = useState(true);
@@ -44,7 +46,8 @@ export const MainPage = () => {
       verify: true,
       profileName: `${data.userFullName}`,
       userCode: `${data.userCode}`,
-      userType: `${data.userType}`
+      userType: `${data.userType}`,
+      status: `${data.status}`
     });
   };
 
@@ -131,6 +134,7 @@ export const MainPage = () => {
       {verifiedAccount.verify ? (
         verifiedAccount.userType === "user" ?
         <UserInterface
+          status={verifiedAccount.status}
           displayPanel={displayIndex}
           displayFullName={verifiedAccount.profileName}
           getUserCode={verifiedAccount.userCode}
@@ -152,7 +156,7 @@ export const UserInterface = ({
   displayFullName = "",
   getUserCode = "",
   displayIndex = "",
-  
+  status = "disabled"
 }) => {
   const [showLoading, setShowLoading] = useState(true);
 
@@ -166,30 +170,40 @@ export const UserInterface = ({
   return (
     <div className="flex-column"> 
      {showLoading && <LoadingPage />}
-      <Header displayFullName={displayFullName}> </Header> 
+     {
+      status === "disabled" ?
       <PanelSectionHolder panelIdx={displayPanel}>
-        <PanelSections>
-          <Dashboard getUserCode={getUserCode} displayPanel={displayPanel}/>
-        </PanelSections>
-        <PanelSections>
-          <Transactions getUserCode={getUserCode} displayPanel={displayPanel} />
-        </PanelSections>
-        <PanelSections>          
-          <DepositTransaction getUserCode={getUserCode} displayPanel={displayPanel}/>
-        </PanelSections>
-        <PanelSections>          
-          <WithdrawTransaction getUserCode={getUserCode} displayPanel={displayPanel}/>
-        </PanelSections>
-        <PanelSections>
-          <FundTransfer getUserCode={getUserCode} displayPanel={displayPanel}/>
-        </PanelSections>
-        <PanelSections>
-          <ExpenseApp getUserCode={getUserCode} displayPanel={displayPanel}/>
-        </PanelSections>
-        <PanelSections>
-          <SwitchAccount />
-        </PanelSections>
-      </PanelSectionHolder>
+          <PanelSections>
+            <DisableModal message="Your Account Has Been Disabled, Please Contact Your Administrator"/>
+          </PanelSections>
+      </PanelSectionHolder> :
+      <>
+        <Header displayFullName={displayFullName}></Header> 
+        <PanelSectionHolder panelIdx={displayPanel}>
+          <PanelSections>
+            <Dashboard getUserCode={getUserCode} displayPanel={displayPanel}/>
+          </PanelSections>
+          <PanelSections>
+            <Transactions getUserCode={getUserCode} displayPanel={displayPanel} />
+          </PanelSections>
+          <PanelSections>          
+            <DepositTransaction getUserCode={getUserCode} displayPanel={displayPanel}/>
+          </PanelSections>
+          <PanelSections>          
+            <WithdrawTransaction getUserCode={getUserCode} displayPanel={displayPanel}/>
+          </PanelSections>
+          <PanelSections>
+            <FundTransfer getUserCode={getUserCode} />
+          </PanelSections>
+          <PanelSections>
+            <ExpenseApp />
+          </PanelSections>
+          <PanelSections>
+            <SwitchAccount getUserCode={getUserCode}/>
+          </PanelSections>
+        </PanelSectionHolder>
+      </>
+     }
     </div>
   );
 };
@@ -225,10 +239,6 @@ export const AdminInterface = ({
     setSelectedUser(userCode)
   }
 
-  const refreshStorage = () => {
-    getUserStore();
-  }
-
   return (
     <div className="flex-column"> 
      {showLoading && <LoadingPage />}
@@ -239,7 +249,6 @@ export const AdminInterface = ({
           filterField="username"
           name="searchUser"
           selectedClient={handleSelectedClient}
-          refreshStorage={refreshStorage}
         /> 
       </Header> 
       
