@@ -47,10 +47,12 @@ const CustomDropDown = forwardRef(
     };
 
     const hideDrop = () => {
+      refreshStorage();
       setShowDrop(false);
     };
 
     const displayDrop = () => {
+      refreshStorage();
       setShowDrop(true);
     };
 

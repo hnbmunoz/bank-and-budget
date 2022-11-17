@@ -24,12 +24,20 @@ const AdminAccounts = ({ getUserCode = "" }) => {
   const inputDrop = useRef();
 
   useEffect(() => {
+    getUserTransactions();
+    getUserStore();
     inputDrop.current.clearValue();
     setSelectedAcct("")
     handleSearch();
     getAccounts();
-    getUserTransactions();
+    
   }, [getUserCode]);
+
+  useEffect(() => {
+    handleSearch();  
+    return () => { }
+  }, [userStore])
+  
 
   const getAccounts = () => {
     const userData = userTransactions.filter(
@@ -51,6 +59,7 @@ const AdminAccounts = ({ getUserCode = "" }) => {
 
   const handleSearch = () => {    
     setUserBalance(0);
+    
     const filteredUser = userStore.find( obj => (
       obj.userCode === getUserCode
     ))
