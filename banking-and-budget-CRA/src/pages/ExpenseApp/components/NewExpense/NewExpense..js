@@ -2,10 +2,11 @@ import React,{ useState, useEffect } from "react";
 import ExpenseForm from "./ExpenseForm";
 import { GlowingButton } from "../../../../components/button"
 
-const NewExpense = ({ getUserCode}) => {
+const NewExpense = ({updateList, getUserCode}) => {
   const [isEditing, setIsEditing] = useState(false);
   const saveExpenseData = () => {
     setIsEditing(false);
+    updateList(isEditing)   
   };
 
   const startEditingHandler = () => {
