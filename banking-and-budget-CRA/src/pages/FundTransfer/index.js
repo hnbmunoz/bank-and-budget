@@ -40,15 +40,7 @@ const FundTransfer = ({ getUserCode, displayPanel = 0 }) => {
     );
     const currAccounts = userAccount.filter((acct) => acct.accountUser === getUserCode)
     setCurrentAccounts(currAccounts);
-  }
-
-  // const getBalance = () => {     
-  //   const userData = userTransactions.filter(
-  //     (user) => user.userCode === `${getUserCode}`
-  //   );
-  //   const totalBalance = GetTransactionBalance(userData, getUserCode)
-  //   setUserBalance(totalBalance);
-  // };
+  } 
 
   const handleTransaction = (amount, destinationAcct) => {
 
@@ -116,10 +108,6 @@ const FundTransfer = ({ getUserCode, displayPanel = 0 }) => {
     acctNum.trim() === "" ? setUserBalance(0) :setUserBalance(totalBalance);
     setSelectedAcct(acctNum)
   }
-
-  // const getEndAcctNumber = (acct ="") => {
-  //   setEnteredDestination(acct)
-  // }
 
   const refreshStorage = () => {
     getUserAccount();
