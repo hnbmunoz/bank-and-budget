@@ -1,8 +1,9 @@
 import ExpenseItem from "./ExpenseItem";
+import React from 'react';
 
 const ExpenseList = ({ items }) => {
   if (items.length === 0) {
-    return <h2 className="expenses-list__fallback">Found no expenses!</h2>;
+    return <div className="expenses-list__fallback modal-details">Found no expenses!</div>;
   }
   return (
     <ul className="expenses-list">
