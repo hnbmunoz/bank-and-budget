@@ -29,10 +29,13 @@ const UserAccountDetails = ({getUserCode}) => {
 
   return (
     <div  className="user-account-detail">
-      <div className='user-account-header'>Account Details</div>
-        <div className='user-account-details'>Full Name : <p className="details">{userFullName}</p></div>
+      <div className='modal-header'>Account Details</div>
+        {/* <div className='user-account-details'>Full Name : <p className="details">{userFullName}</p></div>
         <div className='user-account-details'>Email : <p className="details">{userEmail}</p></div>
-        <div className='user-account-details'>Username : <p className="details">{userName}</p></div>
+        <div className='user-account-details'>Username : <p className="details">{userName}</p></div> */}
+        <div className='modal-details'>Full Name : {userFullName}</div>
+        <div className='modal-details'>Email : {userEmail}</div>
+        <div className='modal-details'>Username : {userName}</div>
     </div>
   )
 }
