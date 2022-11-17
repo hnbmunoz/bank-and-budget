@@ -197,7 +197,8 @@ const SearchInput = ({dataStore = [], displayField, filterField, name, selectedC
     setShowSearchResult(false)
   };
 
-  const onChangeInput = (e) => {    
+  const onChangeInput = (e) => {
+    refreshStorage();    
     setUserInput(e.target.value);
   };
 
