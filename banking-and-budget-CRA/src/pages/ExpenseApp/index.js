@@ -15,12 +15,12 @@ const ExpenseApp = ({getUserCode, displayPanel}) => {
     getUserExpense();
     setUpdateList(false)
     return () => {};
-  }, [updateList]);
+  }, [displayPanel, updateList]);
 
   useEffect(() => {
     userExpense.length > 0 && getExpenses();
     return () => {};
-  },[updateList]);
+  },[displayPanel, updateList]);
 
   const triggerUpdate = (update) => {
     setUpdateList(update)

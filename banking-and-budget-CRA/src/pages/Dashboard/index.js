@@ -3,7 +3,7 @@ import Modal, { AdminModal } from '../../components/modal';
 import BalanceChart from './BalanceChart';
 import ExpenseChart from './ExpenseChart';
 import useLocalStorageStore from "../../utilities/hooks/useLocalStorage";
-import { GetCashInflow, GetCashOutflow, GetTransactionBalance } from "../../utilities/utilities";
+import { GetCashInflow, GetCashOutflow, GetTransactionBalance, GetAccountExpenses } from "../../utilities/utilities";
 import { useState, useEffect } from "react";
 
 const Dashboard = ({getUserCode, displayPanel}) => {
@@ -17,12 +17,14 @@ const Dashboard = ({getUserCode, displayPanel}) => {
   const [userBalance, setUserBalance] = useState(0);
   const [userCashInflow, setUserCashInflow] = useState(0);
   const [userCashOutflow, setUserCashOutflow] = useState(0);
+  const [userExpense, setUserExpense] = useState(0);
 
   useEffect(() => {
     getUserTransactions();
     setUserBalance(0)
     setUserCashInflow(0)
     setUserCashOutflow(0)
+    setUserExpense(0)
     return () => {};
   }, [displayPanel]);
 
@@ -47,6 +49,11 @@ const Dashboard = ({getUserCode, displayPanel}) => {
     setUserCashOutflow(prevBalance => prevBalance + totalCashOutflow)
     
   };
+
+  const getExpenses = (userData) => {
+   const totalExpenses = GetAccountExpenses(userData);
+   setUserExpense(prevBalance => prevBalance + totalExpenses)
+  }
   
    
   return (
@@ -60,11 +67,11 @@ const Dashboard = ({getUserCode, displayPanel}) => {
             <BalanceChart getUserCode={getUserCode} displayPanel={displayPanel}/>
           </div>
           <div className="chart-expense">
-          <ExpenseChart />
+          <ExpenseChart getUserCode={getUserCode} displayPanel={displayPanel} getExpense={getExpenses}/>
           </div>
         </div>
         <div className="user-info flex-row">
-          <div className="user-card">
+          <div className="user-card flex-row">
             "USER CARD"
           </div>
           <div className="user-info-balance flex-column">
@@ -79,6 +86,10 @@ const Dashboard = ({getUserCode, displayPanel}) => {
             <div className="user-balance outflow flex-row">
              <div>Total Cash Outflow</div>
               <div className='amount'>{userCashOutflow.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
+            </div>
+            <div className="user-balance expense flex-row">
+              <div>Total Expenses</div>
+              <div className='amount'> {userExpense.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
             </div>
           </div>
         </div>
