@@ -196,7 +196,7 @@ export const UserInterface = ({
             <FundTransfer getUserCode={getUserCode} />
           </PanelSections>
           <PanelSections>
-            <ExpenseApp />
+            <ExpenseApp getUserCode={getUserCode} displayPanel={displayPanel}/>
           </PanelSections>
           <PanelSections>
             <SwitchAccount getUserCode={getUserCode}/>
