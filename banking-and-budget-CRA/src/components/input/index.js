@@ -198,8 +198,10 @@ const SearchInput = ({dataStore = [], displayField, filterField, name, selectedC
   };
 
   const onChangeInput = (e) => {
-    refreshStorage();    
     setUserInput(e.target.value);
+    // try{
+      // refreshStorage();
+    // } catch {}    
   };
 
   document.addEventListener("click", (e) => {
