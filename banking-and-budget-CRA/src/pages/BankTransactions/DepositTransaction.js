@@ -37,9 +37,11 @@ const DepositTransaction = ({ getUserCode, displayPanel }) => {
   const handleDeposit = (amount, description, acctNum) => {
     if (!amount && !description && !acctNum) {
       alert("Please Fill Up Required Fields Properly");
-    } else {
-      setUserBalance(userBalance + amount)  
-          
+    } else if (acctNum.trim() === "") {
+      alert("Missing Account Number");
+    }    
+    else {
+      setUserBalance(userBalance + amount)            
       const depositData = {
         userCode: getUserCode,
         title: "Deposit",

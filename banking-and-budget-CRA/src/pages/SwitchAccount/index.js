@@ -75,7 +75,6 @@ const SwitchAccount = ({getUserCode, displayPanel}) => {
     const sparksseTransactions = userTransactions.filter(
         (user) => user.userCode === getUserCode && user.accountNumber == acct
       );
-debugger
     const sparksseBalance = GetAccountBalance(sparksseTransactions)
       
     return {acctBalance: sparksseBalance}

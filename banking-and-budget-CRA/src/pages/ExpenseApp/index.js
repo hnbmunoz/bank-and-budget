@@ -33,10 +33,25 @@ const ExpenseApp = ({getUserCode, displayPanel}) => {
    setExpenses(userData);
   };
 
+  const refreshStorage = () => {
+    getUserExpense();
+  }
+
+  const removeExpense = (expenseCode) => {
+    refreshStorage();
+    
+    let filteredExpense = userExpense.filter(obj => obj.expenseid !== expenseCode)
+
+    setUserExpense(filteredExpense)
+    getExpenses();
+  }
+
+
   return (
       <Modal>
         <NewExpense getUserCode={getUserCode} updateList={triggerUpdate}/>
-        <Expenses items={expenses} />
+        <Expenses items={expenses} deleteExpense={removeExpense}/>
+        <div className='modal-details'>Note : Double click item to remove it from expense list</div>
       </Modal>
   )
 }
