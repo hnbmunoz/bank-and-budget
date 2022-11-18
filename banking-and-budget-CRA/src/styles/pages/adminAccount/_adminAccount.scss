@@ -10,9 +10,14 @@
         padding-bottom: 1rem;
         margin-bottom: 1rem;
     }
-    
+
+    .user-account-details-con {
+        padding-bottom: 1rem; 
+    }
+
     .user-account-details {
         display: flex;
+        align-items: center;
         font-family: 'Montserrat', sans-serif;
         color: #ccc;
         font-size: 1rem;
@@ -23,6 +28,28 @@
     .details {
         color: #fff;
     }
+
+    .status-conrainer{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .btn-container button {
+        border-radius: 3rem;
+        background-color: #ffffff;
+        color: #000000;
+        padding: 0 0.5rem;
+        font-size: 1rem;
+        width: 6rem;
+        height: 2.5rem;
+        margin-bottom: 0.5rem;
+        border: none;
+        filter: drop-shadow(2px 4px 6px black);
+        font-family: "Montserrat", sans-serif;
+    }
+
 
     .user-account-balance {
         display: flex;
