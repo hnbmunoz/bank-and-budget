@@ -161,7 +161,8 @@ export const CreateUserAcctNumber = ({closeModal, userCode}) => {
       accountUser: userCode,
       accountNumber: cardNumber,
       accountExpiry: '12/29',
-      accountType: e.currentTarget.parentElement.parentElement.parentElement.children[1].children[1].children[0].value
+      accountType: e.currentTarget.parentElement.parentElement.parentElement.children[1].children[1].children[0].value,
+      accountCVC: cvcNumber
     };
 
     const newAccount = [...userAccount, accountObj];
