@@ -5,12 +5,12 @@ import { IoMdClipboard } from 'react-icons/io';
 import DefaultToggle from '../../components/toggle';
 
 const DisableAccount = ({ getUserCode = "" }) => {
-    // const [ allUsers, setAllUsers ] = useState([{
-    //     userFullName: "John Doe",
-    //     accountUser: "4000000000000000",
-    //     status: "Active"
-    // }]);
-    const [ allUsers, setAllUsers ] = useState([]);
+    const [ allUsers, setAllUsers ] = useState([{
+        userFullName: "John Doe",
+        accountUser: "4000000000000000",
+        status: "Active"
+    }]);
+    // const [ allUsers, setAllUsers ] = useState([]);
     const [ isDisabled, setIsDisabled ] = useState(false)
     const [ userInput, setUserInput ] = useState("")
     const [ filterParams, setFilterParams ] = useState({
@@ -29,8 +29,7 @@ const DisableAccount = ({ getUserCode = "" }) => {
     // }, [userStore])
 
     useEffect(() => {
-        // alert(getUserCode)
-        handleSearch();
+        handleSearch()
     }, [getUserCode])
 
     const handleSearch = () => {    
@@ -84,7 +83,7 @@ const DisableAccount = ({ getUserCode = "" }) => {
         if (filteredUser !== undefined) {
             return filteredUser.accountNumber;
         } else {
-            return "NA";
+            return "N/A";
         }
     }
 
@@ -95,29 +94,31 @@ const DisableAccount = ({ getUserCode = "" }) => {
 
     return (
         <Modal>
-                <table style={{ width: "100%", textAlign: "left"}}>
-                    <tr>
-                        <th>Name</th>
-                        <th>Account Number</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                    {
-                    allUsers.map((item, index) => {
-                        return(
-                            <tr>
-                                <td>{item.userFullName}</td>
-                                <td>{getAccountNumber(item.userCode)} <IoMdClipboard fontSize="1rem" onClick={copyClipboard}/></td>
-                                <td>
-                                    <button onClick={() => toggleStatus(item, index)}>
-                                        { item.status === "disabled" || item.status === undefined ? "Activate" : "Disable"}
-                                    </button>
-                                </td>
-                            </tr>
-                            )
-                        })
-                    }
-                </table>
+            <div className="user-account-header">Account Details</div>
+            {
+            allUsers.map((item, index) => {
+                return(
+                    <div className="user-account-details-con">
+                        <div className="user-account-details">
+                        Full Name :<p className="details"> {item.userFullName}</p>
+                        </div>
+                        <div className="user-account-details">
+                        Account Number :<p className="details">{getAccountNumber(item.userCode)} <IoMdClipboard fontSize="1rem" onClick={copyClipboard}/></p>
+                        </div>
+                        <div className="status-conrainer">
+                            <div className="user-account-details">
+                                Status :<p className="details"> {item.status}</p>
+                            </div>
+                            <div className="btn-container">
+                                <button onClick={() => toggleStatus(item, index)}>
+                                    { item.status === "active" ? "Disable" : "Activate"}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    )
+                })
+            }
         </Modal>
     )
 };
