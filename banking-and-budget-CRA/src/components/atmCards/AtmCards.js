@@ -7,9 +7,9 @@ const AtmCards = () => {
   )
 }
 
-export const GalaxyAtm = ({userBalance, userName, userData, logo, backgroundImage, cardType}) => {
+export const GalaxyAtm = ({userBalance = 0, userName, userData = null, logo, backgroundImage, cardType, cardNumber = "", cardExpiry="12/29" }) => {
 
-  
+  // debugger
   
     return (
         <div className="container cards">
@@ -30,7 +30,7 @@ export const GalaxyAtm = ({userBalance, userName, userData, logo, backgroundImag
               <fieldset className="card-number card-number__fields">
                 <legend className="card-number__title">CARD NUMBER</legend>
                 <div className="flex-row" style={{justifyContent: 'space-between', width: '100%'}}>
-                  <div className="card-number__part">{userData.accountNumber}</div>
+                  <div className="card-number__part">{cardNumber}</div>
                   <div className="user-balance">{userBalance}</div>
                 </div>                    
               </fieldset>         
@@ -41,7 +41,7 @@ export const GalaxyAtm = ({userBalance, userName, userData, logo, backgroundImag
                 </label>          
                 <fieldset className="valid-thru">
                   <legend className="valid-trhu__title">VALID THRU</legend>
-                  <div>{userData.accountExpiry}</div>
+                  <div>{cardExpiry}</div>
                 </fieldset>
               </div>
             </div>
@@ -57,7 +57,7 @@ export const GalaxyAtm = ({userBalance, userName, userData, logo, backgroundImag
   }
 
 
-export const RedAtm = ({userBalance, userName, userData,logo, backgroundImage, cardType}) => {
+export const RedAtm = ({userBalance = 0, userName, userData,logo, backgroundImage, cardType, cardNumber = "", cardExpiry="12/29" }) => {
     return (
         <div className="container cards">
           <div className="payment sparkasse">
@@ -77,7 +77,9 @@ export const RedAtm = ({userBalance, userName, userData,logo, backgroundImage, c
               <fieldset className="card-number card-number__fields">
                 <legend className="card-number__title">CARD NUMBER</legend>
                 <div className="flex-row" style={{justifyContent: 'space-between', width: '100%'}}>
-                  <div className="card-number__part">{userData.accountNumber}</div>
+                  {/* <div className="card-number__part">{userData.accountNumber}</div> */}
+                  <div className="card-number__part">{cardNumber}</div>
+
                   <div className="user-balance">{userBalance}</div>
                 </div>             
               </fieldset>
@@ -88,7 +90,9 @@ export const RedAtm = ({userBalance, userName, userData,logo, backgroundImage, c
                 </label>          
                 <fieldset className="valid-thru">
                   <legend className="valid-trhu__title">VALID THRU</legend>
-                  <div>{userData.accountExpiry}</div>
+                  {/* <div>{userData.accountExpiry}</div> */}
+                  <div>{cardExpiry}</div>
+
                 </fieldset>
               </div>
             </div>
@@ -103,7 +107,7 @@ export const RedAtm = ({userBalance, userName, userData,logo, backgroundImage, c
     )
   }
 
-export const PinkAtm = ({userBalance, userName, userData, logo, backgroundImage, cardType }) => {
+export const PinkAtm = ({userBalance, userName, userData, logo, backgroundImage, cardType, cardNumber = "", cardExpiry="12/29"  }) => {
     return (
       <div className="container cards">
         <div className="payment klarna">
@@ -121,7 +125,9 @@ export const PinkAtm = ({userBalance, userName, userData, logo, backgroundImage,
             <fieldset className="card-number card-number__fields">
                 <legend className="card-number__title">CARD NUMBER</legend>
                 <div className="flex-row" style={{justifyContent: 'space-between', width: '100%'}}>
-                  <div className="card-number__part">{userData.accountNumber}</div>
+                  {/* <div className="card-number__part">{userData.accountNumber}</div> */}
+                  <div className="card-number__part">{cardNumber}</div>
+
                   <div className="user-balance">{userBalance}</div>
                 </div>             
               </fieldset>
@@ -132,7 +138,9 @@ export const PinkAtm = ({userBalance, userName, userData, logo, backgroundImage,
                 </label>          
                 <fieldset className="valid-thru">
                   <legend className="valid-trhu__title">VALID THRU</legend>
-                  <div>{userData.accountExpiry}</div>
+                  {/* <div>{userData.accountExpiry}</div> */}
+                  <div>{cardExpiry}</div>
+
                 </fieldset>
               </div>
           </div>

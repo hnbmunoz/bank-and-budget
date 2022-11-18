@@ -46,12 +46,14 @@ const FundTransfer = ({ getUserCode, displayPanel = 0 }) => {
 
     if (!amount && !destinationAcct) {
       alert("Please Fill Up Required Fields Properly");
-    } else if( amount > userBalance){
-      alert('You have insufficient balance!')
-      setEnteredAmount("");
-      setEnteredDesc("");
-      // setEnteredDestination("");
-    } else {
+    } 
+    // else if( amount > userBalance){
+    //   alert('You have insufficient balance!')
+    //   setEnteredAmount("");
+    //   setEnteredDesc("");
+    //   // setEnteredDestination("");
+    // }
+     else {
       const transferDataFrom = {
         userCode: getUserCode,
         title: "Transfer",
