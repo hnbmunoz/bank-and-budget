@@ -12,13 +12,13 @@ export const GetAccountBalance = (userData = []) => {
    }, 0);
  }
 
-export const GetCashInflow = (userData = []) => {
-  return userData
-   .filter((data) => data.title === 'Deposit')
-   .reduce((total, transaction) => {
-     return total + Number(transaction.amount);
-   }, 0);
- }
+// export const GetCashInflow = (userData = []) => {
+//   return userData
+//    .filter((data) => data.title === 'Deposit')
+//    .reduce((total, transaction) => {
+//      return total + Number(transaction.amount);
+//    }, 0);
+//  }
 
  export const GetCashOutflow = (userData = []) => { 
   const withdraw = userData
@@ -35,7 +35,7 @@ export const GetCashInflow = (userData = []) => {
    return withdraw + transfer;
  }
 
- export const GetInCashflow = (userData = []) => {
+ export const GetCashInflow = (userData = []) => {
   const deposit = userData
    .filter((data) => data.title === 'Deposit')
    .reduce((total, transaction) => {

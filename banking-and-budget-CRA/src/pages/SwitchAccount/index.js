@@ -31,9 +31,9 @@ const SwitchAccount = ({getUserCode, displayPanel}) => {
   const [userAccount, setUserAccount, getUserAccount] = useLocalStorageStore('userAccounts',[])
   const [userTransactions, setUserTransaction, getUserTransactions] = useLocalStorageStore("userTransaction", []);
   const [userName, setUserName] = useState('');
-  const [galaxyDetail, setGalaxyDetail] = useState('');
-  const [klarnaDetail, setKlarnaDetail] = useState('');
-  const [sparksseDetail, setSparksseDetail] = useState('');
+  const [galaxyDetail, setGalaxyDetail] = useState({});
+  const [klarnaDetail, setKlarnaDetail] = useState({});
+  const [sparksseDetail, setSparksseDetail] = useState({});
   const [galaxyBalance, setGalaxyBalance] = useState(0)
   const [klarnaBalance, setKlarnaBalance] = useState(0)
   const [sparksseBalance, setSparksseBalance] = useState(0)
@@ -43,11 +43,14 @@ const SwitchAccount = ({getUserCode, displayPanel}) => {
     getUserTransactions();
     getUserAccount();
     getUserStore();
-    getAccountBalance()
+    getAccountBalance();
+    userStore.length > 0 && getCardDetails();
+    // getDetails();
     return () => {};
   }, [displayPanel]);
 
-  const getAccountBalance = (acctNumber) => {       
+  const getAccountBalance = (acctNumber = "") => {    
+    if (acctNumber === "") return
     const galaxyATM = userTransactions.filter(
       (user) => user.userCode === getUserCode && user.accountNumber === acctNumber.galaxy
     );
@@ -66,12 +69,27 @@ const SwitchAccount = ({getUserCode, displayPanel}) => {
     setSparksseBalance(sparksseTotalBalance);
   }
 
-  useEffect(() => {
-    userAccount.length > 0 && getDetails();
-    return () => {};
-  },[displayPanel, userAccount]);
+  const getCardDetails = () => {
+    const userData = userStore.filter(
+      (user) => user.userCode === `${getUserCode}`)
+
+    const galaxyATM = userAccount.find((data) => data.accountType === 'Galaxy' && data.accountUser === `${getUserCode}`);
+    const klarnaATM = userAccount.find((data) => data.accountType === 'Klarna' && data.accountUser === `${getUserCode}`);
+    const sparkssekATM = userAccount.find((data) => data.accountType === 'Sparksse' && data.accountUser === `${getUserCode}`);  
+    setGalaxyDetail(galaxyATM)
+    setKlarnaDetail(klarnaATM)
+    setSparksseDetail(sparkssekATM)
+
+  }
+
+  // useEffect(() => {
+  //   // userAccount.length > 0 &&
+  //    getDetails();
+  //   return () => {};
+  // },[displayPanel,getUserCode]);
 
   const getDetails = () => {
+    
     const userData = userAccount.filter(
       (user) => user.accountUser === `${getUserCode}`)
 
@@ -83,7 +101,7 @@ const SwitchAccount = ({getUserCode, displayPanel}) => {
   const klarnaATM = userData.find((data) => data.accountType === 'Klarna');
   const sparkssekATM = userData.find((data) => data.accountType === 'Sparksse');
 
-    getAccountBalance({galaxy: galaxyATM.accountNumber,klarna: klarnaATM.accountNumber, sparksse: sparkssekATM.accountNumber,})
+    // getAccountBalance({galaxy: galaxyATM.accountNumber,klarna: klarnaATM.accountNumber, sparksse: sparkssekATM.accountNumber,})
 
     setGalaxyDetail(galaxyATM)
     setKlarnaDetail(klarnaATM)
@@ -102,9 +120,9 @@ const SwitchAccount = ({getUserCode, displayPanel}) => {
             backgroundImage={Galaxy}
             logo={<LogoN26 />}
             cardType={<VisaWhiteLogo />}
-            userData={galaxyDetail}
             userName={userName}
             userBalance={galaxyBalance}
+            // cardNumber={(galaxyDetail.accountNumber !== "" || galaxyDetail.accountNumber !== "undefined" ) ? galaxyDetail.accountNumber: ""}
           />
       </div> 
       <div data-carousel="klarna" className="carousel-div">
@@ -112,19 +130,21 @@ const SwitchAccount = ({getUserCode, displayPanel}) => {
         backgroundImage={<KlarnaBackgroundImg />}
         logo={<LogoKlarna />}
         cardType={<VisaBlackLogo />}
-        userData={klarnaDetail}
+        // userData={klarnaDetail}
         userName={userName}
         userBalance={klarnaBalance}
+        // cardNumber={(klarnaDetail.accountNumber !== "" || klarnaDetail.accountNumber !== "undefined" ) ? klarnaDetail.accountNumber: ""}
       />
       </div>
       <div data-carousel="sparksse" className="carousel-div">
-      <RedAtm
+        <RedAtm
         backgroundImage={""}
         logo={<LogoSparksse />}
         cardType={<MasterCardLogo />}
-        userData={sparksseDetail}
+        // userData={sparksseDetail}
         userName={userName}
         userBalance={sparksseBalance}
+        // cardNumber={(sparksseDetail.accountNumber !== "" || sparksseDetail.accountNumber !== "undefined" ) ? sparksseDetail.accountNumber: ""}
       />
       </div>
     </Shifting>
