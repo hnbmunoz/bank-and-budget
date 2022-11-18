@@ -7,10 +7,7 @@ const AtmCards = () => {
   )
 }
 
-export const GalaxyAtm = ({userBalance = 0, userName, userData = null, logo, backgroundImage, cardType, cardNumber = "", cardExpiry="12/29" }) => {
-
-  // debugger
-  
+export const GalaxyAtm = ({userBalance = 0, userName, userData = {}, logo, backgroundImage, cardType, cardNumber = "", cardExpiry="12/29" }) => {
     return (
         <div className="container cards">
           <div className="payment space">
@@ -30,25 +27,26 @@ export const GalaxyAtm = ({userBalance = 0, userName, userData = null, logo, bac
               <fieldset className="card-number card-number__fields">
                 <legend className="card-number__title">CARD NUMBER</legend>
                 <div className="flex-row" style={{justifyContent: 'space-between', width: '100%'}}>
-                  <div className="card-number__part">{cardNumber}</div>
-                  <div className="user-balance">{userBalance}</div>
+                  <div className="card-number__part">{userData.accountNumber}</div>
+                  <div className="user-balance">{userData.acctBalance}</div>
                 </div>                    
               </fieldset>         
               <div className="holder-valid-container">
                 <label className="card-holder">
                   <span className="card-holder__title">CARD HOLDER</span>
-                  <div>{userName}</div>
+                  <div>{userData.userFullName}</div>
                 </label>          
                 <fieldset className="valid-thru">
                   <legend className="valid-trhu__title">VALID THRU</legend>
-                  <div>{cardExpiry}</div>
+                  <div>{userData.accountExpiry}</div>
                 </fieldset>
               </div>
             </div>
               <div className="back-card">
                 <label className="cvc">
                   <span className="cvc__title">CVC</span>
-                  <input className="cvc_input" type="password" name="cvc" maxLength={3} />
+                  {/* <input className="cvc_input" type="password" name="cvc" maxLength={3} /> */}
+                  <div className="cvc_input">{userData.accountCVC}</div>
                 </label>
               </div>
           </div>
@@ -57,7 +55,7 @@ export const GalaxyAtm = ({userBalance = 0, userName, userData = null, logo, bac
   }
 
 
-export const RedAtm = ({userBalance = 0, userName, userData,logo, backgroundImage, cardType, cardNumber = "", cardExpiry="12/29" }) => {
+export const RedAtm = ({userBalance = 0, userName, userData = {},logo, backgroundImage, cardType, cardNumber = "", cardExpiry="12/29" }) => {
     return (
         <div className="container cards">
           <div className="payment sparkasse">
@@ -77,29 +75,25 @@ export const RedAtm = ({userBalance = 0, userName, userData,logo, backgroundImag
               <fieldset className="card-number card-number__fields">
                 <legend className="card-number__title">CARD NUMBER</legend>
                 <div className="flex-row" style={{justifyContent: 'space-between', width: '100%'}}>
-                  {/* <div className="card-number__part">{userData.accountNumber}</div> */}
-                  <div className="card-number__part">{cardNumber}</div>
-
-                  <div className="user-balance">{userBalance}</div>
+                  <div className="card-number__part">{userData.accountNumber}</div>
+                  <div className="user-balance">{userData.acctBalance}</div>
                 </div>             
               </fieldset>
               <div className="holder-valid-container">
                 <label className="card-holder">
                   <span className="card-holder__title">CARD HOLDER</span>
-                  <div>{userName}</div>
+                  <div>{userData.userFullName}</div>
                 </label>          
                 <fieldset className="valid-thru">
                   <legend className="valid-trhu__title">VALID THRU</legend>
-                  {/* <div>{userData.accountExpiry}</div> */}
-                  <div>{cardExpiry}</div>
-
+                  <div>{userData.accountExpiry}</div>
                 </fieldset>
               </div>
             </div>
               <div className="back-card">
                 <label className="cvc">
                   <span className="cvc__title">CVC</span>
-                  <input className="cvc_input" type="password" name="cvc" maxLength={3} />
+                  <div className="cvc_input">{userData.accountCVC}</div>
                 </label>
               </div>
           </div>
@@ -107,7 +101,7 @@ export const RedAtm = ({userBalance = 0, userName, userData,logo, backgroundImag
     )
   }
 
-export const PinkAtm = ({userBalance, userName, userData, logo, backgroundImage, cardType, cardNumber = "", cardExpiry="12/29"  }) => {
+export const PinkAtm = ({userBalance, userName, userData = {}, logo, backgroundImage, cardType, cardNumber = "", cardExpiry="12/29"  }) => {
     return (
       <div className="container cards">
         <div className="payment klarna">
@@ -125,34 +119,25 @@ export const PinkAtm = ({userBalance, userName, userData, logo, backgroundImage,
             <fieldset className="card-number card-number__fields">
                 <legend className="card-number__title">CARD NUMBER</legend>
                 <div className="flex-row" style={{justifyContent: 'space-between', width: '100%'}}>
-                  {/* <div className="card-number__part">{userData.accountNumber}</div> */}
-                  <div className="card-number__part">{cardNumber}</div>
-
-                  <div className="user-balance">{userBalance}</div>
+                  <div className="card-number__part">{userData.accountNumber}</div>
+                  <div className="user-balance">{userData.acctBalance}</div>
                 </div>             
               </fieldset>
               <div className="holder-valid-container">
                 <label className="card-holder">
                   <span className="card-holder__title">CARD HOLDER</span>
-                  <div>{userName}</div>
+                  <div>{userData.userFullName}</div>
                 </label>          
                 <fieldset className="valid-thru">
                   <legend className="valid-trhu__title">VALID THRU</legend>
-                  {/* <div>{userData.accountExpiry}</div> */}
-                  <div>{cardExpiry}</div>
-
+                  <div>{userData.accountExpiry}</div>
                 </fieldset>
               </div>
           </div>
           <div className="back-card">
             <label className="cvc">
-              <span className="cvc__title">CVC</span>
-              <input
-                className="cvc_input"
-                type="password"
-                name="cvc"
-                maxLength={3}
-              />
+              <span className="cvc__title">CVC</span>              
+              <div className='cvc_input'>{userData.accountCVC}</div>
             </label>
           </div>
         </div>

@@ -31,83 +31,92 @@ const SwitchAccount = ({getUserCode, displayPanel}) => {
   const [userAccount, setUserAccount, getUserAccount] = useLocalStorageStore('userAccounts',[])
   const [userTransactions, setUserTransaction, getUserTransactions] = useLocalStorageStore("userTransaction", []);
   const [userName, setUserName] = useState('');
-  const [galaxyDetail, setGalaxyDetail] = useState({});
-  const [klarnaDetail, setKlarnaDetail] = useState({});
-  const [sparksseDetail, setSparksseDetail] = useState({});
-  const [galaxyBalance, setGalaxyBalance] = useState(0)
-  const [klarnaBalance, setKlarnaBalance] = useState(0)
-  const [sparksseBalance, setSparksseBalance] = useState(0)
+  const [galaxyDetail, setGalaxyDetail] = useState({accountNumber:'', userFullname:'' ,acctBalance:0, accountExpiry:'', accountCVC:''});
+  const [klarnaDetail, setKlarnaDetail] = useState({accountNumber:'', userFullname:'' ,acctBalance:0, accountExpiry:''});
+  const [sparksseDetail, setSparksseDetail] = useState({accountNumber:'', userFullname:'' ,acctBalance:0, accountExpiry:''});
+  // const [galaxyBalance, setGalaxyBalance] = useState(0)
+  // const [klarnaBalance, setKlarnaBalance] = useState(0)
+  // const [sparksseBalance, setSparksseBalance] = useState(0)
 
 
   useEffect(() => {
     getUserTransactions();
     getUserAccount();
     getUserStore();
-    getAccountBalance();
     userStore.length > 0 && getCardDetails();
     // getDetails();
     return () => {};
   }, [displayPanel]);
 
-  const getAccountBalance = (acctNumber = "") => {    
-    if (acctNumber === "") return
-    const galaxyATM = userTransactions.filter(
-      (user) => user.userCode === getUserCode && user.accountNumber === acctNumber.galaxy
-    );
-    const klarnaATM = userTransactions.filter(
-      (user) => user.userCode === getUserCode && user.accountNumber === acctNumber.klarna
-    );
-    const sparkssekATM = userTransactions.filter(
-      (user) => user.userCode === getUserCode && user.accountNumber === acctNumber.sparksse
-    );
-    const galaxyTotalBalance = GetAccountBalance(galaxyATM);
-    const klarnaTotalBalance = GetAccountBalance(klarnaATM);
-    const sparksseTotalBalance = GetAccountBalance(sparkssekATM);
+  
 
-    setGalaxyBalance(galaxyTotalBalance);
-    setKlarnaBalance(klarnaTotalBalance);
-    setSparksseBalance(sparksseTotalBalance);
+  const galaxyBalance = (acct = "") => {
+    const galaxyTransactions = userTransactions.filter(
+        (user) => user.userCode === getUserCode && user.accountNumber == acct
+      );
+
+      const galaxyBalance = GetAccountBalance(galaxyTransactions)
+      
+    return {acctBalance: galaxyBalance}
+  }
+
+  const klarnaBalance = (acct = "") => {
+    
+    const klarnaTransactions = userTransactions.filter(
+        (user) => user.userCode === getUserCode && user.accountNumber == acct
+      );
+
+    const klarnaBalance = GetAccountBalance(klarnaTransactions)
+      
+    return {acctBalance: klarnaBalance}
+  }
+
+  const sparksseBalance = (acct = "") => {
+    const sparksseTransactions = userTransactions.filter(
+        (user) => user.userCode === getUserCode && user.accountNumber == acct
+      );
+debugger
+    const sparksseBalance = GetAccountBalance(sparksseTransactions)
+      
+    return {acctBalance: sparksseBalance}
   }
 
   const getCardDetails = () => {
-    const userData = userStore.filter(
+    
+    const userInfo = userStore.find(
       (user) => user.userCode === `${getUserCode}`)
 
     const galaxyATM = userAccount.find((data) => data.accountType === 'Galaxy' && data.accountUser === `${getUserCode}`);
     const klarnaATM = userAccount.find((data) => data.accountType === 'Klarna' && data.accountUser === `${getUserCode}`);
     const sparkssekATM = userAccount.find((data) => data.accountType === 'Sparksse' && data.accountUser === `${getUserCode}`);  
-    setGalaxyDetail(galaxyATM)
-    setKlarnaDetail(klarnaATM)
-    setSparksseDetail(sparkssekATM)
 
+    galaxyATM && setGalaxyDetail({...galaxyDetail, ...galaxyATM, ...userInfo, ...galaxyBalance(galaxyATM.accountNumber)})
+    klarnaATM && setKlarnaDetail({...klarnaDetail, ...klarnaATM, ...userInfo, ...klarnaBalance(klarnaATM.accountNumber)})
+    sparkssekATM && setSparksseDetail({...sparksseDetail, ...sparkssekATM, ...userInfo , ...sparksseBalance(sparkssekATM.accountNumber)})
   }
 
-  // useEffect(() => {
-  //   // userAccount.length > 0 &&
-  //    getDetails();
-  //   return () => {};
-  // },[displayPanel,getUserCode]);
-
-  const getDetails = () => {
-    
-    const userData = userAccount.filter(
-      (user) => user.accountUser === `${getUserCode}`)
-
-  const userName = userStore.filter(
-      (user) => user.userCode === `${getUserCode}`).map((user) =>
-      {setUserName(user.userFullName)})
-
-  const galaxyATM = userData.find((data) => data.accountType === 'Galaxy');
-  const klarnaATM = userData.find((data) => data.accountType === 'Klarna');
-  const sparkssekATM = userData.find((data) => data.accountType === 'Sparksse');
-
-    // getAccountBalance({galaxy: galaxyATM.accountNumber,klarna: klarnaATM.accountNumber, sparksse: sparkssekATM.accountNumber,})
-
-    setGalaxyDetail(galaxyATM)
-    setKlarnaDetail(klarnaATM)
-    setSparksseDetail(sparkssekATM)
   
-  };
+
+  // const getDetails = () => {
+    
+  //   const userData = userAccount.filter(
+  //     (user) => user.accountUser === `${getUserCode}`)
+
+  // const userName = userStore.filter(
+  //     (user) => user.userCode === `${getUserCode}`).map((user) =>
+  //     {setUserName(user.userFullName)})
+
+  // const galaxyATM = userData.find((data) => data.accountType === 'Galaxy');
+  // const klarnaATM = userData.find((data) => data.accountType === 'Klarna');
+  // const sparkssekATM = userData.find((data) => data.accountType === 'Sparksse');
+
+  //   // getAccountBalance({galaxy: galaxyATM.accountNumber,klarna: klarnaATM.accountNumber, sparksse: sparkssekATM.accountNumber,})
+
+  //   // galaxyATM && setGalaxyDetail({...galaxyDetail, ...galaxyATM})
+  //   setKlarnaDetail(klarnaATM)
+  //   setSparksseDetail(sparkssekATM)
+  
+  // };
 
 
 
@@ -120,8 +129,9 @@ const SwitchAccount = ({getUserCode, displayPanel}) => {
             backgroundImage={Galaxy}
             logo={<LogoN26 />}
             cardType={<VisaWhiteLogo />}
+            userData={galaxyDetail}
             userName={userName}
-            userBalance={galaxyBalance}
+            // userBalance={galaxyBalance}
             // cardNumber={(galaxyDetail.accountNumber !== "" || galaxyDetail.accountNumber !== "undefined" ) ? galaxyDetail.accountNumber: ""}
           />
       </div> 
@@ -130,7 +140,7 @@ const SwitchAccount = ({getUserCode, displayPanel}) => {
         backgroundImage={<KlarnaBackgroundImg />}
         logo={<LogoKlarna />}
         cardType={<VisaBlackLogo />}
-        // userData={klarnaDetail}
+        userData={klarnaDetail}
         userName={userName}
         userBalance={klarnaBalance}
         // cardNumber={(klarnaDetail.accountNumber !== "" || klarnaDetail.accountNumber !== "undefined" ) ? klarnaDetail.accountNumber: ""}
@@ -141,9 +151,9 @@ const SwitchAccount = ({getUserCode, displayPanel}) => {
         backgroundImage={""}
         logo={<LogoSparksse />}
         cardType={<MasterCardLogo />}
-        // userData={sparksseDetail}
+        userData={sparksseDetail}
         userName={userName}
-        userBalance={sparksseBalance}
+        // userBalance={sparksseBalance}
         // cardNumber={(sparksseDetail.accountNumber !== "" || sparksseDetail.accountNumber !== "undefined" ) ? sparksseDetail.accountNumber: ""}
       />
       </div>
