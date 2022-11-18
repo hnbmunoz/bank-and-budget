@@ -52,6 +52,7 @@ export const AdminFundTransfer = ({getUserCode, displayPanel = 0}) => {
         description: `Transferred to ${endAccount}`,
         id: Math.random().toString(),
         date:new Date(),
+        flow: "Out"
       };
 
       const fundTransferTo = {
@@ -62,6 +63,7 @@ export const AdminFundTransfer = ({getUserCode, displayPanel = 0}) => {
         description: `Transferred from ${startAccount}`,
         id: Math.random().toString(),
         date:new Date(),
+        flow: "In"
       };
      
       setUserTransaction([...userTransactions, fundTransferFrom, fundTransferTo]);

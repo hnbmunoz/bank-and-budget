@@ -13,6 +13,7 @@ const DepositTransaction = ({ getUserCode, displayPanel }) => {
   
   useEffect(() => {
     getUserTransactions();
+    getUserStore();
     setUserBalance(0)
     return () => {};
   }, [displayPanel]);
@@ -47,6 +48,7 @@ const DepositTransaction = ({ getUserCode, displayPanel }) => {
         description: description,
         id: Math.random().toString(),
         date: new Date(),
+        flow: "In"
       };
     
       setUserTransaction([depositData, ...userTransactions ]);

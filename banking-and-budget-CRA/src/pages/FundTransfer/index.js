@@ -60,6 +60,7 @@ const FundTransfer = ({ getUserCode, displayPanel = 0 }) => {
         description: `Transferred to ${destinationAcct}`,
         id: Math.random().toString(),
         date:new Date(),
+        flow: "Out"
       };
       const transferDataTo = {
         userCode: findUserbyAccount(userAccount, destinationAcct),
@@ -69,6 +70,7 @@ const FundTransfer = ({ getUserCode, displayPanel = 0 }) => {
         description: `Transferred from ${destinationAcct}`,
         id: Math.random().toString(),
         date:new Date(),
+        flow: "In"
       };
       setEnteredAmount("");
       setEnteredDesc("");
