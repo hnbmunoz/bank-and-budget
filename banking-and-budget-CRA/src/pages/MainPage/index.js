@@ -199,7 +199,7 @@ export const UserInterface = ({
             <ExpenseApp getUserCode={getUserCode} displayPanel={displayPanel}/>
           </PanelSections>
           <PanelSections>
-            <SwitchAccount getUserCode={getUserCode}/>
+            <SwitchAccount getUserCode={getUserCode} displayPanel={displayPanel}/>
           </PanelSections>
         </PanelSectionHolder>
       </>

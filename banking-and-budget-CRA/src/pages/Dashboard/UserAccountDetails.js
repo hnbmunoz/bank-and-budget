@@ -21,7 +21,7 @@ const UserAccountDetails = ({getUserCode}) => {
       setUserFullName(user.userFullName)
       setUserEmail(user.userEmail)
     })
-  }
+  };
   
 
 
