@@ -20,6 +20,7 @@ const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction
 
   useEffect(() => {
     getUserTransactions();
+    getUserAccount();
     setUserBalance(0)
     return () => {};
   }, [displayPanel]);

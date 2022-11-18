@@ -5,6 +5,7 @@ import { GiPiggyBank, GiReceiveMoney, GiTakeMyMoney } from "react-icons/gi";
 import { AiOutlineUserSwitch } from "react-icons/ai";
 import { RiLogoutBoxFill, RiBankFill } from "react-icons/ri";
 import { CgChevronDoubleLeft, CgChevronDoubleRight } from "react-icons/cg";
+import { BsFillPersonXFill } from "react-icons/bs";
 
 export const AccountIcon = ({isActive = false}) => {
   return (
@@ -66,6 +67,14 @@ export const LogOutIcons = ({isActive = false}) => {
   return (
     <div className="nav-icons">
       <RiLogoutBoxFill color="#ccc"/>
+    </div>
+  )
+}
+
+export const AnotherAccountIcon = ({isActive = false}) => {
+  return (
+    <div className="nav-icons">
+      <BsFillPersonXFill color="#ccc"/>
     </div>
   )
 }

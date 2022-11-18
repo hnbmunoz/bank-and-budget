@@ -12,6 +12,7 @@ const WithdrawTransaction = ({ getUserCode, displayPanel }) => {
   
   useEffect(() => {
     getUserTransactions();
+    getUserStore();
     setUserBalance(0)
     return () => {};
   }, [getUserCode, displayPanel]);
@@ -44,6 +45,7 @@ const WithdrawTransaction = ({ getUserCode, displayPanel }) => {
         description: description,
         id: Math.random().toString(),
         date: new Date,
+        flow: "Out"
       };  
       setUserTransaction([withdrawData,...userTransactions]);
     }
