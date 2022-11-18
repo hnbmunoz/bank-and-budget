@@ -1,11 +1,11 @@
-import { useState } from "react";
+import React,{ useState } from "react";
 import Card from "../../../../components/card";
 import ExpensesFilter from "../NewExpense/ExpenseFilter";
 import ExpenseList from "./ExpenseList";
 import useLocalStorageStore from "../../../../utilities/hooks/useLocalStorage";
 
 
-const Expenses = ({ items }) => {
+const Expenses = ({ items, deleteExpense }) => {
   const [filteredYear, setFilteredYear] = useState("2022");
   const changeYearHandler = (enteredYear) => {
     setFilteredYear(enteredYear);
@@ -14,6 +14,7 @@ const Expenses = ({ items }) => {
   const newExpense = items.filter(
     (expenses) => new Date(expenses.date).getFullYear().toString() === filteredYear
   );
+
   return (
     <>
      <Card className="expenses">
@@ -21,8 +22,7 @@ const Expenses = ({ items }) => {
           selected={filteredYear}
           onChangeYear={changeYearHandler}
         />
-        <ExpenseList  items={newExpense}/>
-        
+        <ExpenseList  items={newExpense} deleteExpense={deleteExpense}/>        
       </Card>
     </>
   );

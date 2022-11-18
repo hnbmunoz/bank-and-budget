@@ -78,7 +78,7 @@ const BankTransactions = ({ getUserCode, transactionType = "", handleTransaction
           getAccountBalance={getAccountBalance}
           refreshStorage={refreshStorage}
         />
-      <Input ref={inputAmount} name="transactionAmount" placeholderText='Amount' number  />
+      <Input ref={inputAmount} name="transactionAmount" placeholderText='Amount' number max={999999999999999999999} />
       <Input ref={inputDescription} name="transactionDesc" placeholderText='Description'  /> 
       <div className="flex-row" style={{alignItems: "center", justifyContent: "space-evenly"}}>
         <RoundedButton displayText='Cancel' type="button" buttonClick={clearTransaction}/>      

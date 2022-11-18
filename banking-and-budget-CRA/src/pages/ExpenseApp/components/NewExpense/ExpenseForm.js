@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { RoundedButton } from "../../../../components/button"
 import useLocalStorageStore from "../../../../utilities/hooks/useLocalStorage";
+import {v4 as uuidv4} from "uuid";
 
 
 const ExpenseForm = ({onSubmit, getUserCode, onCancel}) => {
@@ -30,7 +31,7 @@ const ExpenseForm = ({onSubmit, getUserCode, onCancel}) => {
         title: enteredTitle,
         amount: enteredAmount,
         date: new Date(enteredDate),
-        id: Math.random().toString(),
+        expenseid: uuidv4(),
       }
       setUserExpense([expenseData, ...userExpense])
       ;
@@ -73,14 +74,7 @@ const ExpenseForm = ({onSubmit, getUserCode, onCancel}) => {
               onChange={dateChangeHandler}
             />
           </div>
-        </div>
-        {/* <div className="new-expense__actions"> */}
-          {/* <button type="button" onClick={props.onCancel}>
-            Cancel
-          </button> */}
-        
-          {/* <button type="submit">Add Expense</button> */}
-        {/* </div> */}
+        </div>       
         <div className="flex-row" style={{alignItems:"center", justifyContent:"space-evenly"}}>
           <RoundedButton buttonClick={onCancel} displayText="Cancel"/>
           <RoundedButton buttonClick={submitNewExpense} displayText="Add Expense"/>

@@ -19,7 +19,7 @@ const Transactions = ({getUserCode, displayPanel}) => {
     getUserTransactions();
    
     return () => {};
-  }, [displayPanel]);
+  }, [getUserCode, displayPanel]);
 
 
   useEffect(() => {

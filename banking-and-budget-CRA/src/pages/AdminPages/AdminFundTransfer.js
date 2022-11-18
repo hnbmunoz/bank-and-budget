@@ -36,11 +36,12 @@ export const AdminFundTransfer = ({getUserCode, displayPanel = 0}) => {
   };
 
   const handleTransaction = (amount, startAccount, endAccount) => {
+    let fundLimit = getRestrictionBalance(startAccount);
 
     if (!amount && !startAccount && !endAccount) {
       alert("Please Fill Up Required Fields Properly");
     } 
-    else if( amount > userBalance){
+    else if( amount > fundLimit){
       alert('You have insufficient balance!')     
     }
      else {      
@@ -73,12 +74,16 @@ export const AdminFundTransfer = ({getUserCode, displayPanel = 0}) => {
 
   const getRestrictionBalance = (acct = "") => {    
     const acctNum = acct
+
+    const userCode = userAccount.find(obj => obj.accountNumber == acctNum)
     const userData = userTransactions.filter(
-      (user) => user.userCode === `${getUserCode}` && user.accountNumber === `${acctNum}`
+      (user) => user.userCode === `${userCode.accountUser}` && user.accountNumber === `${acctNum}`
     );
     const totalBalance = GetAccountBalance(userData)
 
-    acctNum.trim() === "" ? setUserBalance(0) :setUserBalance(totalBalance);
+    // acctNum.trim() === "" ? setUserBalance(0) :setUserBalance(totalBalance);
+    if (acctNum.trim() === "") return 0;
+    return totalBalance
   }
 
   const getTransactionData =  (e) => {        
@@ -86,9 +91,10 @@ export const AdminFundTransfer = ({getUserCode, displayPanel = 0}) => {
     const transactionAmount = targetEl.divtransactionAmount.children.transactionAmount.value;
     const startingAccount = targetEl.divtransactionStart.children.transactionStart.value;
     const destinationAccount = targetEl.divtransactionEnd.children.transactionEnd.value;
+    
     handleTransaction(transactionAmount, startingAccount, destinationAccount);
     getUserTransactions();
-    getBalance();
+    
     clearTransaction();
   }
 
