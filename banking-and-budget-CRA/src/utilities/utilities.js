@@ -22,17 +22,31 @@ export const GetCashInflow = (userData = []) => {
 
  export const GetCashOutflow = (userData = []) => { 
   const withdraw = userData
-   .filter((data) => data.title === 'Withdraw')
+   .filter((data) => data.title === 'Withdraw' && data.flow === 'Out')
    .reduce((total, transaction) => {
      return (total + Number(transaction.amount) * -1);
    }, 0);
   const transfer = userData
-   .filter((data) => data.title === 'Transfer')
+   .filter((data) => data.title === 'Transfer' && data.flow === 'Out') 
    .reduce((total, transaction) => {
      return (total + Number(transaction.amount) * -1);
    }, 0);
-
+   
    return withdraw + transfer;
+ }
+
+ export const GetInCashflow = (userData = []) => {
+  const deposit = userData
+   .filter((data) => data.title === 'Deposit')
+   .reduce((total, transaction) => {
+     return (total + Number(transaction.amount));
+   }, 0);
+  const transfer = userData
+   .filter((data) => data.title === 'Transfer' && data.flow === 'In')
+   .reduce((total, transaction) => {
+     return (total + Number(transaction.amount));
+   }, 0);
+   return deposit + transfer;
  }
 
  export const GetAccountExpenses = (userData = []) => {  
@@ -42,7 +56,6 @@ export const GetCashInflow = (userData = []) => {
  }
 
 export const findUserbyAccount = (storedData = [], accountNumber = "") => {
-  debugger
   let data =  storedData.find(userAcct => userAcct.accountNumber == accountNumber).accountUser
 
   return data

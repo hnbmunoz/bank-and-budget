@@ -5,24 +5,16 @@ import { IoMdClipboard } from 'react-icons/io';
 import DefaultToggle from '../../components/toggle';
 
 const DisableAccount = ({ getUserCode = "" }) => {
-    const [ allUsers, setAllUsers ] = useState([{
-        userFullName: "John Doe",
-        accountUser: "4000000000000000",
-        status: "Active"
-    }]);
-    // const [ allUsers, setAllUsers ] = useState([]);
+    // const [ allUsers, setAllUsers ] = useState([{
+    //     userFullName: "John Doe",
+    //     accountUser: "4000000000000000",
+    //     status: "Active"
+    // }]);
+    const [ allUsers, setAllUsers ] = useState([]);
     const [ isDisabled, setIsDisabled ] = useState(false)
-    const [ userInput, setUserInput ] = useState("")
-    const [ filterParams, setFilterParams ] = useState({
-        userFullName: "",
-        accountUser: "",
-        status: ""
-    });
-
     const [userStore, setUserStore, getUserStore ] = useLocalStorageStore("registeredUsers",[]);
     const [userAccount, setUserAccount, getUserAccount ] = useLocalStorageStore("userAccounts",[]);
     const [selectedAcct, setSelectedAcct] = useState("");
-    const [ searchResult, setSearchResult ] = useState({ result: ""});
 
     // useEffect(() => {
     //     setAllUsers(userStore)
@@ -47,21 +39,6 @@ const DisableAccount = ({ getUserCode = "" }) => {
         //     };
         setAllUsers(userStore.filter(allRecords => allRecords.userCode.includes(getUserCode)))
     }   
-
-    const handleFilter = (filterParams) => {
-        if (filterParams === undefined) return undefined
-
-        const [key, value] = Object.entries(filterParams)[0]
-        const filteredUser = userStore.find( obj => (
-            obj[key] === value
-        ))
-        if (filteredUser) {
-            setAllUsers([filteredUser])
-            
-        } else if (filteredUser === undefined) {
-            setAllUsers([])
-        };
-    };
 
     const toggleStatus = (userAccount, index) => {
         let updatedUsers = userStore;
