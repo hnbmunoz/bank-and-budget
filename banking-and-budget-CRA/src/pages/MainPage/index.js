@@ -24,6 +24,7 @@ import WithdrawTransaction from "../BankTransactions/WithdrawTransaction";
 import Dashboard from '../Dashboard';
 import ExpenseApp from "../ExpenseApp";
 import { DisableModal } from "../../components/modal";
+import { checkBlockedUsers } from "../../utilities/utilities";
 
 export const MainPage = () => {
   const [verifiedAccount, setVerifiedAccount] = useState({
@@ -82,7 +83,7 @@ export const MainPage = () => {
           navOpen={openNav}
         />
         <NavigationItems
-          itemName="Transactions"
+          itemName="Audit Trail"
           panelIdx={1}
           itemClick={handleSwitchPanel}
           navIcon={<NavIcons.TransactionIcon />}
@@ -159,6 +160,9 @@ export const UserInterface = ({
   status = "disabled"
 }) => {
   const [showLoading, setShowLoading] = useState(true);
+  const [isActive, setIsActive] = useState(true);
+  const [blockedUsers, setBlockedUsers, getBlockedUsers] = useLocalStorageStore("blockedUsers",[]);
+
 
   useEffect(() => {
     setTimeout(() => {setShowLoading(false)},3000);
@@ -167,11 +171,26 @@ export const UserInterface = ({
       
     }
   }, [])
+
+  useEffect(() => {
+    getBlockedUsers();
+   
+  },[getUserCode, displayIndex])
+
+
+  useEffect(() => {
+    isUserBlocked();
+  },[blockedUsers])
+
+  const isUserBlocked = () => {
+    getBlockedUsers();     
+    setIsActive(!checkBlockedUsers(blockedUsers, getUserCode))
+   };
   return (
     <div className="flex-column"> 
      {showLoading && <LoadingPage />}
      {
-      status === "disabled" ?
+      isActive ?
       <PanelSectionHolder panelIdx={displayPanel}>
           <PanelSections>
             <DisableModal message="Your Account Has Been Disabled, Please Contact Your Administrator"/>

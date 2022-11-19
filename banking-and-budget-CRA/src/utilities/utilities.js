@@ -60,3 +60,7 @@ export const findUserbyAccount = (storedData = [], accountNumber = "") => {
 
   return data
 }
+
+export const checkBlockedUsers = (storedData= [], userCode) => {  
+  return !storedData.some(acct => acct.userCode == userCode)
+}
